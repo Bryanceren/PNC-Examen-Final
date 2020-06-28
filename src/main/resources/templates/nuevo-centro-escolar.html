@@ -128,6 +128,7 @@
           <form class="form-inline">
             <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
               <i class="fa fa-bars"></i>
+
             </button>
           </form>
 
@@ -184,10 +185,42 @@
 
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Nuevo estudiante</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Nuevo Centro Escolar</h6>
             </div>
             <div class="card-body">
-              Formulario
+              
+              <form method="post" th:action="@{/saveCentroEscolar}" th:object="${CentroEscolar}">
+                <input type="hidden" name="idcen" class="form-control" th:field="*{idcen}" />
+                <table cellpadding="10">
+                  <tr>
+                    <td><input type="button" class="btn btn-secondary" value="Regresar" onclick="location.href='./centros-escolares'" /></td>
+                  </tr>
+                  <tr>
+                    <td><label>Nombre: </label></td>
+                    <td><input type="text" id="nombrecen" class="form-control" th:field="*{nombrecen}" ></td>
+                  </tr>
+                  <tr>
+                    <td><label>Descripcion:</label></td>
+                    <td><input type="text" id="descripcioncen" class="form-control" th:field="*{descripcioncen}" ></td>
+                  </tr>
+                
+                  <tr>
+                    <td><label>Estado:</label></td>
+                    <td><input type="checkbox" id="estadocen"  class="custom-control-input" th:field="*{estadocen}" value="false"> Activo</td>
+                  </tr>
+
+                  <tr>
+                    <td><label>categoria</label></td>
+                    <td><select th:field="*{municipiocen.id_mun}">
+                      <option th:each="municipio, row: ${municipios}" th:value="${municipiocen.id_mun}" th:text="${municipiocen.nombre_mun}"></option>
+                    </select></td>
+                  
+                  </tr>
+                  <tr>
+                    <td><input type="submit" class="btn btn-primary btn-block" value="Guardar cambios" /></td>
+                  </tr>
+                </table>
+                </form>
             </div>
           </div>
 

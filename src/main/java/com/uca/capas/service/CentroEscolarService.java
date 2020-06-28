@@ -1,0 +1,42 @@
+package com.uca.capas.service;
+
+import java.util.List;
+
+import com.uca.capas.domain.CentroEscolar;
+import com.uca.capas.domain.Municipio;
+
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
+public interface CentroEscolarService {
+	
+	public List<CentroEscolar> findAll() throws DataAccessException;
+
+	public List<CentroEscolar> findAll(Sort sort);
+
+	public Page<CentroEscolar> findAll(Pageable page) throws DataAccessException;
+
+
+	public Long countAll();
+	
+	public CentroEscolar findOne(Integer codigo) throws DataAccessException;
+
+	public List<CentroEscolar> getCentroEscolarQueryMethod(Integer tipo, String valor1, String valor2) throws Exception;
+	
+	public void save(CentroEscolar c) throws DataAccessException;
+
+	public List<CentroEscolar> findAllCentroEscolar();
+	
+	public List<Municipio> findAllMunicipios();
+
+	public Integer actualizarCentroEscolar(Integer CentroEscolar, Boolean estado);
+
+	public int insertCentroEscolarAutoId(CentroEscolar c);
+	
+	public void updateCentroEscolar(CentroEscolar c);
+	
+	public int ejecutarProcJdbc(Integer CentroEscolar, Boolean estado);
+
+}

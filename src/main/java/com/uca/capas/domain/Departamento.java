@@ -34,9 +34,6 @@ public class Departamento {
 	@Column(name = "estado")
 	private estado_tabla estado_depto;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "departamento", fetch = FetchType.LAZY)
-	private List<Municipio> municipios_depto;
 
 	public Integer getId_depto() {
 		return id_depto;
