@@ -212,7 +212,7 @@
                   <tr>
                     <td><label>categoria</label></td>
                     <td><select th:field="*{municipiocen.id_mun}">
-                      <option th:each="municipio, row: ${municipios}" th:value="${municipiocen.id_mun}" th:text="${municipiocen.nombre_mun}"></option>
+                      <option th:each="municipiocen, row: ${municipios}" th:value="${municipiocen.id_mun}" th:text="${municipiocen.nombre_mun}"></option>
                     </select></td>
                   
                   </tr>

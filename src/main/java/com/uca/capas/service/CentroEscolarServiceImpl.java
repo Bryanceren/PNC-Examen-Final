@@ -129,7 +129,7 @@ public class CentroEscolarServiceImpl implements CentroEscolarService {
 	@Transactional
 	public Integer actualizarCentroEscolar(Integer CentroEscolar, Boolean estado) {
 		int res = 0;
-		StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("store.sp_actualizar_CentroEscolar");
+		StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("public.sp_actualizar_CentroEscolar");
 
 		storedProcedure.registerStoredProcedureParameter("P_CentroEscolar", Integer.class, ParameterMode.IN);
 		storedProcedure.registerStoredProcedureParameter("P_ESTADO", Boolean.class, ParameterMode.IN);

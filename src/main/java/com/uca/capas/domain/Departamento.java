@@ -1,26 +1,19 @@
 package com.uca.capas.domain;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-@Table(schema = "store", name = "departamento")
+@Table(schema = "public", name = "departamento")
 public class Departamento {
-	enum estado_tabla {
-		ACTIVO,
-		INACTIVO,
-	  }
+	
 
 	@Id
 	@Column(name = "id")
@@ -32,7 +25,7 @@ public class Departamento {
 	private String nombre_depto;
 
 	@Column(name = "estado")
-	private estado_tabla estado_depto;
+	private Boolean estado_depto;
 	
 
 	public Integer getId_depto() {
@@ -51,11 +44,11 @@ public class Departamento {
 		this.nombre_depto = nombre_depto;
 	}
 
-	public estado_tabla getEstado_depto() {
+	public Boolean getEstado_depto() {
 		return estado_depto;
 	}
 
-	public void setEstado_depto(estado_tabla estado_depto) {
+	public void setEstado_depto(Boolean estado_depto) {
 		this.estado_depto = estado_depto;
 	}
 

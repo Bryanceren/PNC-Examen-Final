@@ -8,6 +8,6 @@ $(document).ready( function () {
              { "mData": "nombrecen" },
                  { "mData": "descripcioncen" },
                  { "mData": "estadocen" },
-                 { "mData": "municipiocen.nombre_mun" }           ]
+                 { "mData": "municipiocen.nombremun" }           ]
     })
 });

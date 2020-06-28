@@ -12,64 +12,64 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
-@Table(schema = "store", name = "municipio")
+@Table(schema = "public", name = "municipio")
 public class Municipio {
-	enum estado_tabla {
-		ACTIVO,
-		INACTIVO,
-	  }
-
+	
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id_mun;
+	private Integer idmun;
 
 	@NotNull(message = "El campo nombre de municipio no puede quedar vacio")
 	@Column(name = "nombre")
-	private String nombre_mun;
+	private String nombremun;
 
 	@Column(name = "estado")
-	private estado_tabla estado_mun;
+	private Boolean estadomun;
 	
+	@JsonIgnore 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "departamento_fk")
-	private Departamento departamento_mun;
+	private Departamento deptomun;
 
-	public Integer getId_mun() {
-		return id_mun;
-	}
-
-	public void setId_mun(Integer id_mun) {
-		this.id_mun = id_mun;
-	}
-
-	public String getNombre_mun() {
-		return nombre_mun;
-	}
-
-	public void setNombre_mun(String nombre_mun) {
-		this.nombre_mun = nombre_mun;
-	}
-
-	public estado_tabla getEstado_mun() {
-		return estado_mun;
-	}
-
-	public void setEstado_mun(estado_tabla estado_mun) {
-		this.estado_mun = estado_mun;
-	}
-
-	public Departamento getDepartamento_mun() {
-		return departamento_mun;
-	}
-
-	public void setDepartamento_mun(Departamento departamento_mun) {
-		this.departamento_mun = departamento_mun;
-	}
-
+	
 	public Municipio() {
+	}
+
+	public Integer getIdmun() {
+		return idmun;
+	}
+
+	public void setIdmun(Integer idmun) {
+		this.idmun = idmun;
+	}
+
+	public String getNombremun() {
+		return nombremun;
+	}
+
+	public void setNombremun(String nombremun) {
+		this.nombremun = nombremun;
+	}
+
+	public Boolean getEstadomun() {
+		return estadomun;
+	}
+
+	public void setEstadomun(Boolean estadomun) {
+		this.estadomun = estadomun;
+	}
+
+	public Departamento getDeptomun() {
+		return deptomun;
+	}
+
+	public void setDeptomun(Departamento deptomun) {
+		this.deptomun = deptomun;
 	}
 
 	

@@ -51,22 +51,22 @@ public class CentroEscolarDAOImpl implements CentroEscolarDAO {
 	@Override
 	public int insertCentroEscolarAutoId(CentroEscolar c){
 		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
-		.withSchemaName("store")
+		.withSchemaName("public")
 		.withTableName("centro_escolar")
 		.usingGeneratedKeyColumns("c_CentroEscolar");
 
 		Map<String,Object> parametros = new HashMap<String,Object>();
-		parametros.put("nombre_centro", c.getNombrecen());
-		parametros.put("descripcion_centro", c.getDescripcioncen());
-		parametros.put("estado_centro", c.getEstadocen());
-		parametros.put("municipio_centro", c.getMunicipiocen());
+		parametros.put("nombre", c.getNombrecen());
+		parametros.put("descripcion", c.getDescripcioncen());
+		parametros.put("estado", c.getEstadocen());
+		parametros.put("municipio", c.getMunicipiocen());
 
 
 		Number id_generated = jdbcInsert.executeAndReturnKey(parametros);
 
 		return id_generated.intValue();
 	}
-	private static final String sql = "UPDATE store.CentroEscolar SET s_nombres = ?, s_apellidos = ?, f_nacimiento = ?, b_activo = ? WHERE c_CentroEscolar = ?";
+	private static final String sql = "UPDATE public.centro_escolar SET nombre = ?, descripcion = ?, estado = ?,municipio=? WHERE id = ?";
 	
 	@Override
 	public void updateCentroEscolar(CentroEscolar c) {
@@ -77,7 +77,7 @@ public class CentroEscolarDAOImpl implements CentroEscolarDAO {
 	@Override
 	public int ejecutarProcedimientoJdbc(Integer CentroEscolar, Boolean estado) {
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
-				.withSchemaName("store")
+				.withSchemaName("public")
 				.withProcedureName("sp_actualizar_CentroEscolar")
 				.withoutProcedureColumnMetaDataAccess();
 		

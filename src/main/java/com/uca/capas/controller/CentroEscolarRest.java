@@ -20,7 +20,7 @@ public class CentroEscolarRest {
 	
 	@RequestMapping(path="/centros", method=RequestMethod.GET)
 	public List<CentroEscolar> findAll(){
-		return centroEscolarService.findAllCentroEscolar();
+		return centroEscolarService.findAll();
 	}
     @RequestMapping(value = "/centros/{id_centro}", method = RequestMethod.GET)
 	public CentroEscolar find(@PathVariable("id") Integer id){

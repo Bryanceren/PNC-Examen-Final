@@ -12,16 +12,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity
-@Table(schema = "store", name = "centro_escolar")
+@Table(schema = "public", name = "centro_escolar")
 public class CentroEscolar {
-	enum estado_tabla {
-		ACTIVO,
-		INACTIVO,
-	  }
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -35,9 +33,10 @@ public class CentroEscolar {
 	@Column(name = "descripcion")
 	private String descripcioncen;
 
-	@Column(name = "municipio")
-	private estado_tabla estadocen;
+	@Column(name = "estado")
+	private Boolean estadocen;
 	
+	@JsonIgnore 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "municipio_fk")
 	private Municipio municipiocen;	
@@ -70,11 +69,11 @@ public class CentroEscolar {
 		this.descripcioncen = descripcioncen;
 	}
 
-	public estado_tabla getEstadocen() {
+	public Boolean getEstadocen() {
 		return estadocen;
 	}
 
-	public void setEstadocen(estado_tabla estadocen) {
+	public void setEstadocen(Boolean estadocen) {
 		this.estadocen = estadocen;
 	}
 
