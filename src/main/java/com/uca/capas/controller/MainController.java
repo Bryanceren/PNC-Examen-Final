@@ -7,8 +7,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MainController {
-	
-	
+
+	@RequestMapping("/")
+	public ModelAndView index() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("index");
+		return mav;
+	}
+
 	@RequestMapping("/login")
 	public ModelAndView login() {
 		ModelAndView mav = new ModelAndView();
@@ -22,9 +28,5 @@ public class MainController {
 		mav.setViewName("register");
 		return mav;
 	}
-	
-	
-	
-	
-	
+
 }
