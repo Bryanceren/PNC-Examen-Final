@@ -7,9 +7,16 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AdminController {
     @RequestMapping("/centros-escolares")
-    public ModelAndView index() {
+    public ModelAndView CETable() {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("centros-escolares");
+        return mav;
+    }
+
+    @RequestMapping("/nuevo-centro-escolar")
+    public ModelAndView CEForm() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("nuevo-centro-escolar");
         return mav;
     }
 
