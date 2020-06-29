@@ -1,13 +1,10 @@
 package com.uca.capas.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
+@SuppressWarnings("ALL")
 @Entity
 @Table(schema = "public", name = "materia")
 public class Materia {
@@ -16,6 +13,9 @@ public class Materia {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")    
     private Integer idMateria;
+
+    @ManyToMany(mappedBy = "materias")
+    Set<Estudiante> estudiantes;
 
     @NotNull(message = "El campo nombre de materia no puede quedar vacio")
     @Column(name = "nombre")
