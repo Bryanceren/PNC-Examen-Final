@@ -3,6 +3,7 @@ package com.uca.capas.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -14,13 +15,8 @@ public class Estudiante {
     @Column(name = "id")
     private Integer idEstudiante;
 
-    @ManyToMany
-    @JoinTable(
-            name = "estudiante_materia",
-            joinColumns = @JoinColumn(name = "estudiante_fk"),
-            inverseJoinColumns = @JoinColumn(name = "materia_fk")
-    )
-    Set<Materia> materias;
+    @OneToMany(mappedBy = "materia")
+    private Set<Materia> materia = new HashSet<Materia>();
 
     @NotNull(message = "El campo nombre de materia no puede quedar vacio")
     @Column(name = "nombre")
