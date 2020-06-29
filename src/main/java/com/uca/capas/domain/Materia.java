@@ -12,17 +12,17 @@ import java.util.Set;
 public class Materia {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer idMateria;
 
     @OneToMany(mappedBy = "estudiante")
-    private Set <EstudianteMateria> estudiantes = new HashSet<EstudianteMateria>();
+    private Set<EstudianteMateria> estudiantes = new HashSet<EstudianteMateria>();
 
     @NotNull(message = "El campo nombre de materia no puede quedar vacio")
     @Column(name = "nombre")
     private String nombre;
-    
+
     @NotNull(message = "El campo descripcion de materia no puede quedar vacio")
     @Column(name = "descripcion")
     private String descripcion;
@@ -31,7 +31,8 @@ public class Materia {
     @Column(name = "estado")
     private Boolean estado;
 
-    public Materia(){}
+    public Materia() {
+    }
 
     public Integer getIdMateria() {
         return idMateria;
@@ -64,5 +65,8 @@ public class Materia {
     public void setEstado(Boolean estado) {
         this.estado = estado;
     }
-    
+
+    public Set<EstudianteMateria> getEstudiantes() {
+        return estudiantes;
+    }
 }

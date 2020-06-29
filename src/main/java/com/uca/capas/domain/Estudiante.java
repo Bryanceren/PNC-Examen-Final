@@ -137,4 +137,6 @@ public class Estudiante {
     public void setTelefonoMadre(String telefonoMadre) {
         this.telefonoMadre = telefonoMadre;
     }
+
+    public Set<Materia> getMateria() { return materia; }
 }
