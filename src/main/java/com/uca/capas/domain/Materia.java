@@ -2,6 +2,8 @@ package com.uca.capas.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import java.util.HashSet;
 import java.util.Set;
 
 @SuppressWarnings("ALL")
@@ -14,8 +16,8 @@ public class Materia {
 	@Column(name = "id")    
     private Integer idMateria;
 
-    @ManyToMany(mappedBy = "materias")
-    Set<Estudiante> estudiantes;
+    @OneToMany(mappedBy = "estudiante")
+    private Set <EstudianteMateria> estudiantes = new HashSet<EstudianteMateria>();
 
     @NotNull(message = "El campo nombre de materia no puede quedar vacio")
     @Column(name = "nombre")
