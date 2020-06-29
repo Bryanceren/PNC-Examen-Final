@@ -16,7 +16,7 @@ public class Estudiante {
     private Integer idEstudiante;
 
     @OneToMany(mappedBy = "materia")
-    private Set<Materia> materia = new HashSet<Materia>();
+    private Set<EstudianteMateria> materia = new HashSet<EstudianteMateria>();
 
     @NotNull(message = "El campo nombre de materia no puede quedar vacio")
     @Column(name = "nombre")
@@ -138,5 +138,5 @@ public class Estudiante {
         this.telefonoMadre = telefonoMadre;
     }
 
-    public Set<Materia> getMateria() { return materia; }
+    public Set<EstudianteMateria> getMateria() { return materia; }
 }
