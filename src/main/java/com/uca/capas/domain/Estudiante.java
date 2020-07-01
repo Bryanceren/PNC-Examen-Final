@@ -3,8 +3,7 @@ package com.uca.capas.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(schema = "public", name = "estudiante")
@@ -15,8 +14,8 @@ public class Estudiante {
     @Column(name = "id")
     private Integer idEstudiante;
 
-    @OneToMany(mappedBy = "materia")
-    private Set<Materia> materia = new HashSet<Materia>();
+    @OneToMany(mappedBy = "estudiante")
+    private List<EstudianteMateria> estumate;
 
     @NotNull(message = "El campo nombre de materia no puede quedar vacio")
     @Column(name = "nombre")
@@ -138,5 +137,13 @@ public class Estudiante {
         this.telefonoMadre = telefonoMadre;
     }
 
-    public Set<Materia> getMateria() { return materia; }
+    public List<EstudianteMateria> getEstumate() {
+        return estumate;
+    }
+
+    public void setEstumate(List<EstudianteMateria> estumate) {
+        this.estumate = estumate;
+    }
+
+    
 }
