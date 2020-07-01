@@ -74,27 +74,6 @@ public class CentroEscolarDAOImpl implements CentroEscolarDAO {
 		jdbcTemplate.update(sql, parametros);
 	}
 
-	@Override
-	public int ejecutarProcedimientoJdbc(Integer CentroEscolar, Boolean estado) {
-		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
-				.withSchemaName("public")
-				.withProcedureName("sp_actualizar_CentroEscolar")
-				.withoutProcedureColumnMetaDataAccess();
-		
-		jdbcCall.addDeclaredParameter(new SqlParameter("P_CentroEscolar", Types.INTEGER));
-		jdbcCall.addDeclaredParameter(new SqlParameter("P_ESTADO", Types.BOOLEAN));
-		jdbcCall.addDeclaredParameter(new SqlOutParameter("P_SALIDA", Types.INTEGER));
-		
-		Map<String, Object> parametros = new HashMap<>();
-		parametros.put("P_CentroEscolar", CentroEscolar);
-		parametros.put("P_ESTADO", estado);
-		
-		Map<String, Object> out = jdbcCall.execute(parametros);
-		
-		return Integer.parseInt(out.get("P_SALIDA").toString());
-	}
-
-	
 	public CentroEscolar findOne(Integer codigo) throws DataAccessException {
 		CentroEscolar c = entityManager.find(CentroEscolar.class, codigo);
 		return c;

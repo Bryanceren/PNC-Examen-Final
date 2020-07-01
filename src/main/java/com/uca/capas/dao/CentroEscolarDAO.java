@@ -15,12 +15,9 @@ public interface CentroEscolarDAO {
 	public void save(CentroEscolar c) throws DataAccessException;
 
 	public List<CentroEscolar> getCentroEscolarEstado(Boolean estado);
-    
-	
+
 	public int insertCentroEscolarAutoId(CentroEscolar c);
 
 	public void updateCentroEscolar(CentroEscolar c);
 
-	public int ejecutarProcedimientoJdbc(Integer CentroEscolar, Boolean estado);
-	
 }

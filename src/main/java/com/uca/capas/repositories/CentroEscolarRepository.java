@@ -10,10 +10,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface CentroEscolarRepository extends JpaRepository<CentroEscolar, Integer> {
-    public List<CentroEscolar> findByNombrecen(String Nombre_centro);
-
-
+public interface CentroEscolarRepository extends JpaRepository<CentroEscolar, Integer>
+{
     @Query(value = "SELECT * from public.centro_escolar", nativeQuery = true)
     public List<CentroEscolar> findAllCentroEscolar();
 
@@ -21,10 +19,7 @@ public interface CentroEscolarRepository extends JpaRepository<CentroEscolar, In
     public List<Municipio> findAllMunicipios();
 
     @Query(value = "SELECT * from public.CentroEscolar where id = :CentroEscolar", nativeQuery = true)
-    public CentroEscolar findCentroEscolarByIdcen(@Param("CentroEscolar") Integer CentroEscolar);
+    public CentroEscolar findCentroEscolarById(@Param("CentroEscolar") Integer CentroEscolar);
 
     public List<CentroEscolar> findAll(Sort sort);
-
-
-    
 }

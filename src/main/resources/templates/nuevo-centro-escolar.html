@@ -99,7 +99,7 @@
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/}">
+        <a class="nav-link" th:href="@{/materias-cursadas}">
           <i class="fas fa-chalkboard-teacher"></i>
           <span>Materias cursadas</span></a>
       </li>
@@ -189,7 +189,7 @@
             </div>
             <div class="card-body">
               
-              <form method="post" th:action="@{/saveCentroEscolar}" th:object="${CentroEscolar}">
+              <form method="post" th:action="@{/guardar-centro-escolar}" th:object="${CentroEscolar}">
                 <input type="hidden" name="idcen" class="form-control" th:field="*{idcen}" />
                 <table cellpadding="10">
                   <tr>

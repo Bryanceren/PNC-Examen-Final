@@ -18,25 +18,19 @@ public interface CentroEscolarService {
 
 	public Page<CentroEscolar> findAll(Pageable page) throws DataAccessException;
 
-
 	public Long countAll();
-	
+
 	public CentroEscolar findOne(Integer codigo) throws DataAccessException;
 
-	public List<CentroEscolar> getCentroEscolarQueryMethod(Integer tipo, String valor1, String valor2) throws Exception;
-	
 	public void save(CentroEscolar c) throws DataAccessException;
 
-	public List<CentroEscolar> findAllCentroEscolar();
-	
+	public int insertCentroEscolarAutoId(CentroEscolar c);
+
+	public void updateCentroEscolar(CentroEscolar c);
+
 	public List<Municipio> findAllMunicipios();
 
-	public Integer actualizarCentroEscolar(Integer CentroEscolar, Boolean estado);
 
-	public int insertCentroEscolarAutoId(CentroEscolar c);
-	
-	public void updateCentroEscolar(CentroEscolar c);
-	
-	public int ejecutarProcJdbc(Integer CentroEscolar, Boolean estado);
+
 
 }

@@ -19,19 +19,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class AdminController {
+public class AdminController
+{
     @Autowired
     private CentroEscolarService centroEscolarService;
     
     @RequestMapping("/centros-escolares")
-    public ModelAndView CETable() {
+    public ModelAndView CETable()
+	{
         ModelAndView mav = new ModelAndView();
         mav.setViewName("centros-escolares");
         return mav;
     }
 
-	@RequestMapping("/insertCentro")
-	public ModelAndView nuevocliente() {
+	@RequestMapping("/nuevo-centro-escolar")
+	public ModelAndView CEForm()
+	{
 		ModelAndView mav = new ModelAndView();
 		List<Municipio> municipios = null;
 		try {
@@ -46,8 +49,9 @@ public class AdminController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/saveCentroEscolar", method = RequestMethod.POST)
-	public ModelAndView saveCentroEscolar(@Valid @ModelAttribute("CentroEscolar") CentroEscolar c, BindingResult r) {
+	@RequestMapping(value="/guardar-centro-escolar", method = RequestMethod.POST)
+	public ModelAndView saveCentroEscolar(@Valid @ModelAttribute("CentroEscolar") CentroEscolar c, BindingResult r)
+	{
 		ModelAndView mav = new ModelAndView();
 		List<Municipio> municipios = null;
 		try {
@@ -78,26 +82,4 @@ public class AdminController {
 		
 		return mav;
 	}
-
-
-	@RequestMapping("/procAlmacenadoJdbc")
-	public ModelAndView procAlmacenadoJdbc() {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("usuario", new CentroEscolar());
-		mav.setViewName("Laboratorio/procedimiento");
-		return mav;
-	}
-	
-	@RequestMapping("/ejecutarProcedimientoJdbc")
-	public ModelAndView ejecutarProcedimiento(@RequestParam Integer CentroEscolar, @RequestParam Boolean estado) {
-		ModelAndView mav = new ModelAndView();
-		Integer resultado;
-		resultado = centroEscolarService.ejecutarProcJdbc(CentroEscolar, estado);
-		mav.addObject("resultado", resultado);
-		mav.setViewName("Laboratorio/resultado");
-		return mav;
-	}
-	
-	
-
 }

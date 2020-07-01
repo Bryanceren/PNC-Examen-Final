@@ -46,61 +46,13 @@ public class CentroEscolarServiceImpl implements CentroEscolarService {
 		CentroEscolarDao.save(c);
 	}
 
-	@Override
-	public List<CentroEscolar> getCentroEscolarQueryMethod(Integer tipo, String valor1, String valor2) throws Exception {
-		List<CentroEscolar> resultado = null;
-
-		switch (tipo) {
-			case 1:
-				resultado = CentroEscolarRepository.findByNombrecen(valor1);
-				break;
-
-			case 2:
-				break;
-
-			case 3:
-				break;
-
-			case 4:
-				break;
-
-			case 5:
-                break;
-                
-			case 6:
-				break;
-
-			case 7:
-				break;
-
-		
-			case 8:
-				List<String> nombres = new ArrayList<String>();
-				nombres.add("Bryan");
-				nombres.add("Del");
-				nombres.add("Cordula");
-				break;
-
-			default:
-				resultado = new ArrayList<>();
-				break;
-
-		}
-		return resultado;
-	}
-
-	@Override
-	public List<CentroEscolar> findAllCentroEscolar() {
-		return CentroEscolarRepository.findAllCentroEscolar();
-	}
     public List<Municipio> findAllMunicipios() {
         return CentroEscolarRepository.findAllMunicipios();
     }
+
 	public Page<CentroEscolar> findAll(Pageable page) throws DataAccessException {
 		return CentroEscolarRepository.findAll(page);
 	}
-	
-  
 
 	public Long countAll() {
 		return CentroEscolarRepository.count();
@@ -119,36 +71,5 @@ public class CentroEscolarServiceImpl implements CentroEscolarService {
 	public void updateCentroEscolar(CentroEscolar c) {
 		CentroEscolarDao.updateCentroEscolar(c);
 	}
-	@Override
-	public int ejecutarProcJdbc(Integer CentroEscolar, Boolean estado) {
-		return CentroEscolarDao.ejecutarProcedimientoJdbc(CentroEscolar, estado);
-	}
 
-
-	
-	@Transactional
-	public Integer actualizarCentroEscolar(Integer CentroEscolar, Boolean estado) {
-		int res = 0;
-		StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("public.sp_actualizar_CentroEscolar");
-
-		storedProcedure.registerStoredProcedureParameter("P_CentroEscolar", Integer.class, ParameterMode.IN);
-		storedProcedure.registerStoredProcedureParameter("P_ESTADO", Boolean.class, ParameterMode.IN);
-		storedProcedure.registerStoredProcedureParameter("P_SALIDA", Integer.class, ParameterMode.OUT);
-
-		storedProcedure.setParameter("P_CentroEscolar", CentroEscolar);
-		storedProcedure.setParameter("P_ESTADO", estado);
-
-		storedProcedure.execute();
-
-		res = (int) storedProcedure.getOutputParameterValue("P_SALIDA");
-
-		return res;
-	}
-
-
-   
-
-  
-
-	
 }
