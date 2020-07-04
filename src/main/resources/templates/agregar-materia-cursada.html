@@ -214,40 +214,64 @@
             </div>
             <div class="nombreEstudiante">
               <h6>Nombre del alumno: </h6>
-              <span th:text="${estudiante.nombre}"></span>
-              <span th:text="${estudiante.apellido}"></span>
+              <span th:text="${estudiantes.nombre}"></span>
+              <span th:text="${estudiantes.apellido}"></span>
             </div>
-
-              <div class="card mb-3">
-                <div class="card-header">
-                  Materias cursadas por alumno
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-bordered" width="100%" cellspacing="0">
-                      <thead>
-                        <tr>
-                          <th>Nombre</th>
-                          <th>Anio</th>
-                          <th>Ciclo</th>
-                          <th>Nota</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr th:each="v : ${estudiante.estumate}">
-                          <td th:text="${v.materia.nombre}"></td>
-                          <td th:text="${v.anio}"></td>
-                          <td th:text="${v.ciclo}"></td>
-                          <td th:text="${v.nota}"></td>
-                        </tr>
-                      </tbody>
-                      </table>
-                 </div>
-                
-                </div>
+            <form
+            class="mt-5"
+            method="POST"
+            th:action="@{/guardarNota}"
+            ,
+            th:object="${estumat}"
+          >
+            <div class="form-group">
+              <input
+                type="hidden"
+                class="form-control"
+                th:field="*{id}"
+                id="id"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="hidden"
+                class="form-control"
+                th:name="estudiante.idEstudiante"
+                th:value="${estudiantes.idEstudiante}"
+              />
+            </div>
+            <div class="form-group">
+                <label for="materia" style="display: block;">Materias</label>
+                <select th:field="*{materia.idMateria}">
+                  <option
+                    th:each="ca : ${materias}"
+                    th:value="${ca.idMateria}"
+                    th:text="${ca.nombre}"
+                  />
+                </select>
               </div>
+              <div class="form-group">
+                <label for="anio">Anio</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  th:field="*{anio}"
+                  id="anio"
+                />
+              </div>
+              <div class="form-group">
+                <label for="ciclo">Ciclo</label>
+                <input type="text" class="form-control" th:field="*{ciclo}" id="ciclo" />
+              </div>
+              <div class="form-group">
+                <label for="nota">Nota</label>
+                <input type="text" class="form-control" th:field="*{nota}" id="nota" />
+              </div>
+            <button type="submit" class="btn btn-primary mt-2">
+              Guardar
+            </button>
+          </form> 
 
-          </div>
           <!-- /.container-fluid -->
           <a th:href="@{/materias-cursadas}" class="btn-btn-secondary">Regresar</a>
         </div>

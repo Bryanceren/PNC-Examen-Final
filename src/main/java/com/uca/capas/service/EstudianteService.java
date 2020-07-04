@@ -10,7 +10,6 @@ import org.springframework.dao.DataAccessException;
 public interface EstudianteService {
 
     public Estudiante findOne(Integer codigo) throws DataAccessException;
-
-    public List<EstudianteDTO> getEstudianteMateria(String nombre);
     
+    public List<EstudianteDTO> getEstudianteMateriaCodigo(Integer codigo);
 }

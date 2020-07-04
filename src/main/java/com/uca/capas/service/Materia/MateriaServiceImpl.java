@@ -1,5 +1,7 @@
 package com.uca.capas.service.Materia;
 
+import com.uca.capas.dao.MateriaDao;
+import com.uca.capas.domain.EstudianteMateria;
 import com.uca.capas.domain.Materia;
 import com.uca.capas.repositories.MateriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class MateriaServiceImpl implements MateriaService
 	@Autowired
 	MateriaRepository materiaRepository;
 
+	@Autowired
+    MateriaDao materiaDao;
+
 	@Override
 	public List<Materia> findAll(Sort sort) throws DataAccessException
 	{
@@ -34,5 +39,16 @@ public class MateriaServiceImpl implements MateriaService
 	public long count()
 	{
 		return materiaRepository.count();
+	}
+
+    @Override
+    public List<Materia> findAllMaterias() throws DataAccessException {
+        return materiaRepository.findAllMaterias();
+    }
+
+    @Override
+    @Transactional
+    public void save(EstudianteMateria estumat) throws DataAccessException {
+		materiaDao.save(estumat);
 	}
 }

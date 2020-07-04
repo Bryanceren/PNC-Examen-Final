@@ -26,15 +26,16 @@ public class EstudianteServiceImpl implements EstudianteService {
         return estudianteRepository.getOne(codigo);
     }
 
-    //test buscar por nombre de materia con criteria
     @Override
-    public List<EstudianteDTO> getEstudianteMateria(String nombre)
-    {
-        List<EstudianteDTO> estudiantes = estudianteDao.getEstudianteNombreMateria(nombre).stream().map(c -> {
-			EstudianteDTO dto = new EstudianteDTO();
-			dto.setCodigo(c.getIdEstudiante().toString());
-			dto.setNombres(c.getNombre());
-            dto.setApellidos(c.getApellido());
+    public List<EstudianteDTO> getEstudianteMateriaCodigo(Integer codigo) {
+        List<EstudianteDTO> estudiantes = estudianteDao.getEstudianteMateriaCodigo(codigo).stream().map(c -> {
+            EstudianteDTO dto = new EstudianteDTO();
+			dto.setNombres(c.getEstudiante().getNombre());
+            dto.setApellidos(c.getEstudiante().getApellido());
+            dto.setNota(c.getNota());
+            dto.setAnio(c.getAnio());
+            dto.setCiclo(c.getCiclo());
+            dto.setMateriaNom(c.getMateria().getNombre());
 			return dto;
 		}).collect(Collectors.toList());
 

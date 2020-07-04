@@ -1,14 +1,19 @@
 package com.uca.capas.dto;
 
-import java.util.List;
-
-import com.uca.capas.domain.Materia;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class EstudianteDTO {
     
-    private String nombres, apellidos, codigo;
+    private String nombres, apellidos, ciclo;
 
-    private List<Materia> materias;
+    @JsonIgnore
+    private String codigo;
+
+    private Integer anio;
+
+    private Float nota;
+
+    private String materiaNom;
 
     public String getNombres() {
         return nombres;
@@ -26,6 +31,38 @@ public class EstudianteDTO {
         this.apellidos = apellidos;
     }
 
+    public String getCiclo() {
+        return ciclo;
+    }
+
+    public void setCiclo(String ciclo) {
+        this.ciclo = ciclo;
+    }
+
+    public Integer getAnio() {
+        return anio;
+    }
+
+    public void setAnio(Integer anio) {
+        this.anio = anio;
+    }
+
+    public Float getNota() {
+        return nota;
+    }
+
+    public void setNota(Float nota) {
+        this.nota = nota;
+    }
+
+    public String getMateriaNom() {
+        return materiaNom;
+    }
+
+    public void setMateriaNom(String materiaNom) {
+        this.materiaNom = materiaNom;
+    }
+
     public String getCodigo() {
         return codigo;
     }
@@ -34,11 +71,11 @@ public class EstudianteDTO {
         this.codigo = codigo;
     }
 
-    public List<Materia> getMaterias() {
-        return materias;
-    }
-
-    public void setMaterias(List<Materia> materias) {
-        this.materias = materias;
+    public String getNotaDelegate() {
+        if (this.nota < 6) {
+            return "Reprobado";
+        } else {
+            return "Aprobado";
+        }
     }
 }
