@@ -29,8 +29,7 @@ public class Materia {
     @Column(name = "estado")
     private Boolean estado;
 
-    public Materia() {
-    }
+    public Materia() { }
 
     public Integer getIdMateria() {
         return idMateria;

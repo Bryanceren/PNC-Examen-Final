@@ -28,7 +28,8 @@ public class EstudianteServiceImpl implements EstudianteService {
 
     //test buscar por nombre de materia con criteria
     @Override
-    public List<EstudianteDTO> getEstudianteMateria(String nombre) {
+    public List<EstudianteDTO> getEstudianteMateria(String nombre)
+    {
         List<EstudianteDTO> estudiantes = estudianteDao.getEstudianteNombreMateria(nombre).stream().map(c -> {
 			EstudianteDTO dto = new EstudianteDTO();
 			dto.setCodigo(c.getIdEstudiante().toString());

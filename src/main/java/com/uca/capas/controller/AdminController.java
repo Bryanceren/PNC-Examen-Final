@@ -23,7 +23,9 @@ public class AdminController
 {
     @Autowired
     private CentroEscolarService centroEscolarService;
-    
+
+    //Centro Escolar
+
     @RequestMapping("/centros-escolares")
     public ModelAndView CETable()
 	{
@@ -80,6 +82,26 @@ public class AdminController
 			mav.setViewName("centros-escolares");
 		}
 		
+		return mav;
+	}
+
+
+	// Materias
+
+	@RequestMapping("/materias")
+	public ModelAndView MateriaTable()
+	{
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/Materias/materias");
+		return mav;
+	}
+
+	@RequestMapping("/nueva-materia")
+	public ModelAndView MateriaForm()
+	{
+		ModelAndView mav = new ModelAndView();
+
+		mav.setViewName("/Materias/nueva-materia");
 		return mav;
 	}
 }
