@@ -6,16 +6,16 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.uca.capas.domain.CentroEscolar;
+import com.uca.capas.domain.EstudianteMateria;
+import com.uca.capas.domain.Materia;
 import com.uca.capas.domain.Municipio;
 import com.uca.capas.service.CentroEscolarService;
 
+import com.uca.capas.service.Materia.MateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -24,7 +24,10 @@ public class AdminController
     @Autowired
     private CentroEscolarService centroEscolarService;
 
-    //Centro Escolar
+	@Autowired
+	private MateriaService materiaService;
+
+	//Centro Escolar
 
     @RequestMapping("/centros-escolares")
     public ModelAndView CETable()
@@ -89,9 +92,12 @@ public class AdminController
 	// Materias
 
 	@RequestMapping("/materias")
-	public ModelAndView MateriaTable()
+	public ModelAndView MateriaTable(@RequestParam(defaultValue = "false") Boolean exito)
 	{
 		ModelAndView mav = new ModelAndView();
+		if(exito){
+			mav.addObject("exito", exito);
+		}
 		mav.setViewName("/Materias/materias");
 		return mav;
 	}
@@ -100,9 +106,40 @@ public class AdminController
 	public ModelAndView MateriaForm()
 	{
 		ModelAndView mav = new ModelAndView();
-
+		mav.addObject("materia", new Materia());
 		mav.setViewName("/Materias/nueva-materia");
 		return mav;
+	}
+
+	@RequestMapping(value="/editar-materia", method = RequestMethod.GET)
+	public ModelAndView MateriaEditForm(@RequestParam Integer id)
+	{
+		ModelAndView mav = new ModelAndView();
+		Materia materia = materiaService.findOne(id);
+		mav.addObject("materia", materia);
+		mav.setViewName("/Materias/nueva-materia");
+		return mav;
+	}
+
+	@RequestMapping("/guardar-materia")
+	public ModelAndView saveMateria(@Valid @ModelAttribute Materia materia, BindingResult result)
+	{
+		ModelAndView mav = new ModelAndView();
+
+		System.out.println(result);
+
+		if(result.hasErrors())
+		{
+			mav.setViewName("/Materias/nueva-materia");
+			return mav;
+		}
+
+		materiaService.saveMateria(materia);
+		mav.addObject("exito", true);
+		mav.setViewName("redirect:/materias");
+
+		return mav;
+
 	}
 
 }

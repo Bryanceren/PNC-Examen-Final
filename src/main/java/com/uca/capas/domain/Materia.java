@@ -1,6 +1,7 @@
 package com.uca.capas.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -14,15 +15,15 @@ public class Materia {
     @Column(name = "id")
     private Integer idMateria;
 
-    @NotNull(message = "El campo nombre de materia no puede quedar vacio")
+    @NotEmpty(message = "Campo obligatorio")
     @Column(name = "nombre")
     private String nombre;
 
-    @NotNull(message = "El campo descripcion de materia no puede quedar vacio")
+    @NotEmpty(message = "Campo obligatorio")
     @Column(name = "descripcion")
     private String descripcion;
 
-    @NotNull(message = "El campo estado no puede quedar vacio")
+    @NotNull(message = "Campo obligatorio")
     @Column(name = "estado")
     private Boolean estado;
 

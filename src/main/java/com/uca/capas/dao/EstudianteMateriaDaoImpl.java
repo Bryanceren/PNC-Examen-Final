@@ -9,7 +9,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MateriaDaoImpl implements MateriaDao {
+public class EstudianteMateriaDaoImpl implements EstudianteMateriaDao {
 
     @PersistenceContext(unitName = "capas")
     private EntityManager entityManager;

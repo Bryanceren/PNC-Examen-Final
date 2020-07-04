@@ -1,6 +1,6 @@
 package com.uca.capas.service.Materia;
 
-import com.uca.capas.dao.MateriaDao;
+import com.uca.capas.dao.EstudianteMateriaDao;
 import com.uca.capas.domain.EstudianteMateria;
 import com.uca.capas.domain.Materia;
 import com.uca.capas.repositories.MateriaRepository;
@@ -21,7 +21,7 @@ public class MateriaServiceImpl implements MateriaService
 	MateriaRepository materiaRepository;
 
 	@Autowired
-    MateriaDao materiaDao;
+	EstudianteMateriaDao estudianteMateriaDao;
 
 	@Override
 	public List<Materia> findAll(Sort sort) throws DataAccessException
@@ -41,14 +41,32 @@ public class MateriaServiceImpl implements MateriaService
 		return materiaRepository.count();
 	}
 
-    @Override
-    public List<Materia> findAllMaterias() throws DataAccessException {
+	@Override
+	public void saveMateria(Materia materia) throws DataAccessException
+	{
+		try {
+			materiaRepository.save(materia);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+    public List<Materia> findAllMaterias() throws DataAccessException
+	{
         return materiaRepository.findAllMaterias();
     }
 
-    @Override
+	@Override
+	public Materia findOne(Integer id) throws DataAccessException
+	{
+		return materiaRepository.getOne(id);
+	}
+
+	@Override
     @Transactional
-    public void save(EstudianteMateria estumat) throws DataAccessException {
-		materiaDao.save(estumat);
+    public void saveEstudianteMateria(EstudianteMateria estumat) throws DataAccessException
+	{
+		estudianteMateriaDao.save(estumat);
 	}
 }

@@ -15,9 +15,15 @@ public interface MateriaService
 
 	public Page<Materia> findAll(Pageable page) throws DataAccessException;
 
+	public List<Materia> findAllMaterias();
+
+	public Materia findOne(Integer id) throws DataAccessException;
+
 	public long count();
 
-	public void save(EstudianteMateria estumat) throws DataAccessException;
+	public void saveMateria(Materia materia) throws DataAccessException;
 
-    public List<Materia> findAllMaterias();
+	public void saveEstudianteMateria(EstudianteMateria estumat) throws DataAccessException;
+
+
 }

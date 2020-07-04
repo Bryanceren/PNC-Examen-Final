@@ -92,12 +92,21 @@
               <h6 class="m-0 font-weight-bold text-primary">Registros</h6>
             </div>
             <div class="card-body">
+              <th:block th:if="${exito}">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  Materia guardada con exito
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              </th:block>
               <div class="table-responsive">
                 <table class="table table-bordered" id="materias-table" width="100%" cellspacing="0">
                   <thead>
                   <tr>
                     <th style="width: 50px" class="text-center">Acci&oacute;n</th>
-                    <th style="width: 350px">Nombre</th>
+                    <th style="width: 50px" class="text-center">C&oacute;digo</th>
+                    <th style="width: 300px">Nombre</th>
                     <th>Descripcion</th>
                     <th style="width: 60px" class="text-center">Estado</th>
                   </tr>
@@ -170,7 +179,11 @@
           "defaultContent": "<button class='btn btn-info btn-circle btn-sm' title='Editar'><i class='fa fa-pencil-alt'></i></button>"
           },
           {
-            "targets": 3,
+            "targets": 1,
+            "className": "text-center"
+          },
+          {
+            "targets": 4,
             "className": "text-center"
           }
         ]
@@ -178,8 +191,7 @@
 
       $('#materias-table tbody').on( 'click', 'button', function () {
         var data = table.row( $(this).parents('tr') ).data();
-        console.log(data[0]);
-        //location.href = './editarcliente?id=' + data[0];
+        location.href = './editar-materia?id=' + data[0];
       } );
     });
   </script>
