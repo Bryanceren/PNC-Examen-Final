@@ -230,7 +230,7 @@
                     <div class="card mb-4">
                       <div class="card-body">
                         <p class="mb-0">Ingrese el c&oacute;digo del Estudiante:</p><br/>
-                        <form method="post" th:action="@{/buscarEstudianteModal}" th:object="${estudiante}">
+                        <form method="post" th:action="@{/buscarEstudianteModal}">
                           <div class="form-group">
                             <input class="form-control py-4" id="codigo" type="text" placeholder="Codigo estudiante" style="width: 400px" name="codigo" />
                           </div>
@@ -275,9 +275,9 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr th:each="v : ${estudiante.estumate}">
+                      <tr th:each="v : ${estudiantes}">
                         <td><a th:href="@{/buscarEstudianteModal}" class="d-none d-sm-inline-block btn btn-primary shadow-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
-                        <td th:text="${v.materia.nombre}"></td>
+                        <td th:text="${v.materiaNom}"></td>
                         <td th:text="${v.anio}"></td>
                         <td th:text="${v.ciclo}"></td>
                         <td th:text="${v.nota}"></td>
