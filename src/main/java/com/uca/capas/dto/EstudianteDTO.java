@@ -70,4 +70,12 @@ public class EstudianteDTO {
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
+
+    public String getNotaDelegate() {
+        if (this.nota < 6) {
+            return "Reprobado";
+        } else {
+            return "Aprobado";
+        }
+    }
 }
