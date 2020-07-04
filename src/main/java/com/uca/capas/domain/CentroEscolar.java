@@ -1,6 +1,7 @@
 package com.uca.capas.domain;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,8 +38,8 @@ public class CentroEscolar {
 	private Boolean estadocen;
 	
 	@JsonIgnore 
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "municipio_fk")
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Municipio municipiocen;	
 
 	

@@ -1,9 +1,6 @@
 package com.uca.capas.dao;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Types;
-import java.util.Calendar;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,10 +18,7 @@ import com.uca.capas.domain.CentroEscolar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ParameterizedPreparedStatementSetter;
-import org.springframework.jdbc.core.SqlOutParameter;
-import org.springframework.jdbc.core.SqlParameter;
-import org.springframework.jdbc.core.simple.SimpleJdbcCall;
+
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
@@ -53,20 +47,20 @@ public class CentroEscolarDAOImpl implements CentroEscolarDAO {
 		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
 		.withSchemaName("public")
 		.withTableName("centro_escolar")
-		.usingGeneratedKeyColumns("c_CentroEscolar");
+		.usingGeneratedKeyColumns("id");
 
 		Map<String,Object> parametros = new HashMap<String,Object>();
 		parametros.put("nombre", c.getNombrecen());
 		parametros.put("descripcion", c.getDescripcioncen());
 		parametros.put("estado", c.getEstadocen());
-		parametros.put("municipio", c.getMunicipiocen());
+		parametros.put("municipio_fk", c.getMunicipiocen().getIdmun());
 
 
 		Number id_generated = jdbcInsert.executeAndReturnKey(parametros);
 
 		return id_generated.intValue();
 	}
-	private static final String sql = "UPDATE public.centro_escolar SET nombre = ?, descripcion = ?, estado = ?,municipio=? WHERE id = ?";
+	private static final String sql = "UPDATE public.centro_escolar SET nombre = ?, descripcion = ?, estado = ?,municipio_fk=? WHERE id = ?";
 	
 	@Override
 	public void updateCentroEscolar(CentroEscolar c) {
