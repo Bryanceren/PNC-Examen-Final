@@ -1,11 +1,9 @@
 package com.uca.capas.dao;
 
-import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 import com.uca.capas.domain.CentroEscolar;
-import com.uca.capas.domain.Municipio;
 
 public interface CentroEscolarDAO {
 	public List<CentroEscolar> findAll() throws DataAccessException;

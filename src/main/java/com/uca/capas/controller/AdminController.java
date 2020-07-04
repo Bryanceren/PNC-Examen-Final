@@ -36,9 +36,9 @@ public class AdminController
 	public ModelAndView CEForm()
 	{
 		ModelAndView mav = new ModelAndView();
-		List<Municipio> municipios = null;
+		List<CentroEscolar> municipios = null;
 		try {
-			municipios = centroEscolarService.findAllMunicipios();
+			municipios = centroEscolarService.findAll();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -53,14 +53,14 @@ public class AdminController
 	public ModelAndView saveCentroEscolar(@Valid @ModelAttribute("CentroEscolar") CentroEscolar c, BindingResult r)
 	{
 		ModelAndView mav = new ModelAndView();
-		List<Municipio> municipios = null;
+		List<CentroEscolar> municipios2 = null;
 		try {
-			municipios = centroEscolarService.findAllMunicipios();
+			municipios2 = centroEscolarService.findAll();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		mav.addObject("municipios",municipios);
+		mav.addObject("municipios",municipios2);
 		mav.addObject("CentroEscolar", new CentroEscolar());
 		if(r.hasErrors()) {
 			mav.addObject("resultado", 0);
