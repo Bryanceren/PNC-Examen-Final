@@ -27,93 +27,8 @@
 
   <!-- Page Wrapper -->
   <div id="wrapper">
-
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/}">
-        <div class="sidebar-brand-text mx-3">Student Admin</div>
-      </a>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/login}">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Login</span></a>
-      </li>
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/register}">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Registro</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Panel de administración
-      </div>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/centros-escolares}">
-          <i class="fas fa-school"></i>
-          <span>Centros Escolares</span></a>
-      </li>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item active">
-        <a class="nav-link" th:href="@{/materias}">
-          <i class="fas fa-book"></i>
-          <span>Materias</span></a>
-      </li>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/}">
-          <i class="fas fa-users"></i>
-          <span>Usuarios</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Negocio
-      </div>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/}">
-          <i class="fas fa-user-graduate"></i>
-          <span>Expediente alumno</span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/materias-cursadas}">
-          <i class="fas fa-chalkboard-teacher"></i>
-          <span>Materias cursadas</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
-
-    </ul>
-    <!-- End of Sidebar -->
+    <ul th:replace="Commons/sidebar :: sidebar" />
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -175,52 +90,52 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Centros Escolares</h1>
+            <h1 class="h3 mb-0 text-gray-800">Materias</h1>
             <div>
-              <a th:href="@{/centros-escolares}" class="d-none d-sm-inline-block btn btn-primary shadow-sm"><i class="far fa-save"></i> Guardar</a>
-              <a th:href="@{/centros-escolares}" class="d-none d-sm-inline-block btn btn-secondary shadow-sm"><i class="fas fa-undo-alt"></i> Regresar</a>
+              <a th:href="@{/materias}" class="d-none d-sm-inline-block btn btn-primary shadow-sm"><i class="far fa-save"></i> Guardar</a>
+              <a th:href="@{/materias}" class="d-none d-sm-inline-block btn btn-secondary shadow-sm"><i class="fas fa-undo-alt"></i> Regresar</a>
             </div>
           </div>
 
 
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Nuevo Centro Escolar</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Nueva materia</h6>
             </div>
             <div class="card-body">
               
-              <form method="post" th:action="@{/guardar-centro-escolar}" th:object="${CentroEscolar}">
-                <input type="hidden" name="idcen" class="form-control" th:field="*{idcen}" />
-                <table cellpadding="10">
-                  <tr>
-                    <td><input type="button" class="btn btn-secondary" value="Regresar" onclick="location.href='./centros-escolares'" /></td>
-                  </tr>
-                  <tr>
-                    <td><label>Nombre: </label></td>
-                    <td><input type="text" id="nombrecen" class="form-control" th:field="*{nombrecen}" ></td>
-                  </tr>
-                  <tr>
-                    <td><label>Descripcion:</label></td>
-                    <td><input type="text" id="descripcioncen" class="form-control" th:field="*{descripcioncen}" ></td>
-                  </tr>
-                
-                  <tr>
-                    <td><label>Estado:</label></td>
-                    <td><input type="checkbox" id="estadocen"  class="custom-control-input" th:field="*{estadocen}" value="false"> Activo</td>
-                  </tr>
+<!--              <form method="post" th:action="@{/guardar-centro-escolar}" th:object="${CentroEscolar}">-->
+<!--                <input type="hidden" name="idcen" class="form-control" th:field="*{idcen}" />-->
+<!--                <table cellpadding="10">-->
+<!--                  <tr>-->
+<!--                    <td><input type="button" class="btn btn-secondary" value="Regresar" onclick="location.href='./centros-escolares'" /></td>-->
+<!--                  </tr>-->
+<!--                  <tr>-->
+<!--                    <td><label>Nombre: </label></td>-->
+<!--                    <td><input type="text" id="nombrecen" class="form-control" th:field="*{nombrecen}" ></td>-->
+<!--                  </tr>-->
+<!--                  <tr>-->
+<!--                    <td><label>Descripcion:</label></td>-->
+<!--                    <td><input type="text" id="descripcioncen" class="form-control" th:field="*{descripcioncen}" ></td>-->
+<!--                  </tr>-->
+<!--                -->
+<!--                  <tr>-->
+<!--                    <td><label>Estado:</label></td>-->
+<!--                    <td><input type="checkbox" id="estadocen"  class="custom-control-input" th:field="*{estadocen}" value="false"> Activo</td>-->
+<!--                  </tr>-->
 
-                  <tr>
-                    <td><label>categoria</label></td>
-                    <td><select th:field="*{municipiocen.id_mun}">
-                      <option th:each="municipiocen, row: ${municipios}" th:value="${municipiocen.id_mun}" th:text="${municipiocen.nombre_mun}"></option>
-                    </select></td>
-                  
-                  </tr>
-                  <tr>
-                    <td><input type="submit" class="btn btn-primary btn-block" value="Guardar cambios" /></td>
-                  </tr>
-                </table>
-                </form>
+<!--                  <tr>-->
+<!--                    <td><label>categoria</label></td>-->
+<!--                    <td><select th:field="*{municipiocen.id_mun}">-->
+<!--                      <option th:each="municipiocen, row: ${municipios}" th:value="${municipiocen.id_mun}" th:text="${municipiocen.nombre_mun}"></option>-->
+<!--                    </select></td>-->
+<!--                  -->
+<!--                  </tr>-->
+<!--                  <tr>-->
+<!--                    <td><input type="submit" class="btn btn-primary btn-block" value="Guardar cambios" /></td>-->
+<!--                  </tr>-->
+<!--                </table>-->
+<!--                </form>-->
             </div>
           </div>
 
@@ -265,8 +180,13 @@
   <script src="vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-  <!-- Page level custom scripts -->
-  <script src="js/demo/datatables-demo.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function()
+    {
+      $('#li-materias').addClass("active");
+
+    });
+  </script>
 
 </body>
 
