@@ -64,9 +64,8 @@ public class CoordinadorController {
     }
 
     @RequestMapping("/guardarNota")
-    public ModelAndView guardarNota(@Valid @ModelAttribute EstudianteMateria estumat, @ModelAttribute Estudiante estudiantes) {
+    public ModelAndView guardarNota(@Valid @ModelAttribute EstudianteMateria estumat) {
         ModelAndView mav = new ModelAndView();  
-        estumat.setEstudiante(estudiantes);
         materiaService.save(estumat);
         mav.setViewName("materias-cursadas");
 
