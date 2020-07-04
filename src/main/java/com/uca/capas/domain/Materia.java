@@ -14,9 +14,6 @@ public class Materia {
     @Column(name = "id")
     private Integer idMateria;
 
-    @OneToMany(mappedBy = "materia")
-    private List<EstudianteMateria> estumate;
-
     @NotNull(message = "El campo nombre de materia no puede quedar vacio")
     @Column(name = "nombre")
     private String nombre;
@@ -63,13 +60,12 @@ public class Materia {
         this.estado = estado;
     }
 
-    public List<EstudianteMateria> getEstumate() {
-        return estumate;
-    }
-
-    public void setEstumate(List<EstudianteMateria> estumate) {
-        this.estumate = estumate;
-    }
-    
+//    public List<EstudianteMateria> getEstumate() {
+//        return estumate;
+//    }
+//
+//    public void setEstumate(List<EstudianteMateria> estumate) {
+//        this.estumate = estumate;
+//    }
 
 }

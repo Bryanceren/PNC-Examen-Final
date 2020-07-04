@@ -8,16 +8,10 @@
   <meta name="author" content="">
   <title>Materias</title>
 
-  <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-  <!-- Custom styles for this template -->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-  <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
 </head>
 
 <body id="page-top">
@@ -26,91 +20,7 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/}">
-        <div class="sidebar-brand-text mx-3">Student Admin</div>
-      </a>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/login}">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Login</span></a>
-      </li>
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/register}">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Registro</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Panel de administración
-      </div>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/centros-escolares}">
-          <i class="fas fa-school"></i>
-          <span>Centros Escolares</span></a>
-      </li>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item active">
-        <a class="nav-link" th:href="@{/materias}">
-          <i class="fas fa-book"></i>
-          <span>Materias</span></a>
-      </li>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/}">
-          <i class="fas fa-users"></i>
-          <span>Usuarios</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Negocio
-      </div>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/}">
-          <i class="fas fa-user-graduate"></i>
-          <span>Expediente alumno</span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/materias-cursadas}">
-          <i class="fas fa-chalkboard-teacher"></i>
-          <span>Materias cursadas</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
-
-    </ul>
-    <!-- End of Sidebar -->
+    <ul th:replace="Commons/sidebar :: sidebar" />
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -179,31 +89,19 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Grid</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Registros</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="centrosTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="materias-table" width="100%" cellspacing="0">
                   <thead>
-                    <tr>
-                      <th>id</th>
-                      <th>nombre</th>
-                      <th>descripcion</th>
-                      <th>estado</th>
-                      <th>municipio</th>
-                    </tr>
+                  <tr>
+                    <th style="width: 50px" class="text-center">Acci&oacute;n</th>
+                    <th style="width: 350px">Nombre</th>
+                    <th>Descripcion</th>
+                    <th style="width: 60px" class="text-center">Estado</th>
+                  </tr>
                   </thead>
-                  <tbody></tbody>
-                  <tfoot>
-                    <tr>
-                      <th>id</th>
-                      <th>nombre</th>
-                      <th>descripcion</th>
-                      <th>estado</th>
-                      <th>municipio</th>
-                    </tr>
-                  </tfoot>
-                  
                 </table>
               </div>
             </div>
@@ -236,26 +134,55 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-  <script src="js/datatable.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-  <!-- Page level plugins -->
   <script src="vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-  <!-- Page level custom scripts -->
-  <script src="js/demo/datatables-demo.js"></script>
+  <style>
+    td{
+      vertical-align: center!important;
+    }
+  </style>
 
+  <script type="text/javascript">
+    $(document).ready(function()
+    {
+      $('#li-materias').addClass("active");
+
+      let table = $('#materias-table').DataTable( {
+        "processing": true,
+        "serverSide": true,
+        "ajax": "./get-materias",
+        "language": {
+          "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+        },
+        "pageLength": 5,
+        "columnDefs": [
+          {
+          "targets": 0,
+          "className": "text-center",
+          "data": null,
+          "defaultContent": "<button class='btn btn-info btn-circle btn-sm' title='Editar'><i class='fa fa-pencil-alt'></i></button>"
+          },
+          {
+            "targets": 3,
+            "className": "text-center"
+          }
+        ]
+      });
+
+      $('#materias-table tbody').on( 'click', 'button', function () {
+        var data = table.row( $(this).parents('tr') ).data();
+        console.log(data[0]);
+        //location.href = './editarcliente?id=' + data[0];
+      } );
+    });
+  </script>
 </body>
 
 </html>
