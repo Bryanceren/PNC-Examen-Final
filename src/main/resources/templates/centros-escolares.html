@@ -186,27 +186,17 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="centrosTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="centros-table" width="100%" cellspacing="0">
                   <thead>
-                    <tr>
-                      <th>id</th>
-                      <th>nombre</th>
-                      <th>descripcion</th>
-                      <th>estado</th>
-                      <th>municipio</th>
-                    </tr>
+                  <tr>
+                    <th style="width: 50px" class="text-center">Accion</th>
+                    <th style="width: 50px" class="text-center">Id</th>
+                    <th style="width: 300px">Nombre</th>
+                    <th>Descripcion</th>
+                    <th style="width: 70px" class="text-center">Estado</th>
+                    <th>Municipio</th>
+                  </tr>
                   </thead>
-                  <tbody></tbody>
-                  <tfoot>
-                    <tr>
-                      <th>id</th>
-                      <th>nombre</th>
-                      <th>descripcion</th>
-                      <th>estado</th>
-                      <th>municipio</th>
-                    </tr>
-                  </tfoot>
-                  
                 </table>
               </div>
             </div>
@@ -249,7 +239,6 @@
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
 
-  <script src="js/datatable.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
   <!-- Page level plugins -->
@@ -258,6 +247,46 @@
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
+  
+  <style>
+    td{
+      vertical-align: center!important;
+    }
+  </style>
+
+  <script type="text/javascript">
+    $(document).ready(function()
+    {
+      $('#li-centros').addClass("active");
+
+      let table = $('#centros-table').DataTable( {
+        "processing": true,
+        "serverSide": true,
+        "ajax": "./get-centros",
+        "language": {
+          "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+        },
+        "pageLength": 5,
+        "columnDefs": [
+          {
+          "targets": 0,
+          "className": "text-center",
+          "data": null,
+          "defaultContent": "<button class='btn btn-info btn-circle btn-sm' title='Editar'><i class='fa fa-pencil-alt'></i></button>"
+          },
+          {
+            "targets": 1,
+            "className": "text-center"
+          }
+        ]
+      });
+
+      $('#centros-table tbody').on( 'click', 'button', function () {
+        var data = table.row( $(this).parents('tr') ).data();
+        location.href = './editar-centro?id=' + data[0];
+      } );
+    });
+  </script>
 
 </body>
 

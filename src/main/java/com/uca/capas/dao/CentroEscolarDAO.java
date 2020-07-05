@@ -4,9 +4,10 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 import com.uca.capas.domain.CentroEscolar;
+import com.uca.capas.domain.Municipio;
 
 public interface CentroEscolarDAO {
-	public List<CentroEscolar> findAll() throws DataAccessException;
+	public List<Municipio> findAllMunicipios() throws DataAccessException;
 
 	public CentroEscolar findOne(Integer codigo) throws DataAccessException;
 	
