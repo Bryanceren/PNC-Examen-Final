@@ -14,6 +14,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.uca.capas.domain.CentroEscolar;
+import com.uca.capas.domain.Municipio;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -33,12 +34,12 @@ public class CentroEscolarDAOImpl implements CentroEscolarDAO {
 	EntityManager entityManager;
 	
 	@Override
-	public List<CentroEscolar> findAll() throws DataAccessException {
+	public List<Municipio> findAllMunicipios() throws DataAccessException {
 		StringBuffer sb = new StringBuffer();
-		sb.append("select * from public.centro_escolar");
-		Query query = entityManager.createNativeQuery(sb.toString(), CentroEscolar.class);
+		sb.append("select * from public.municipio");
+		Query query = entityManager.createNativeQuery(sb.toString(), Municipio.class);
 
-		List<CentroEscolar> res = query.getResultList();
+		List<Municipio> res = query.getResultList();
 		return res;
 	}
 
@@ -64,7 +65,7 @@ public class CentroEscolarDAOImpl implements CentroEscolarDAO {
 	
 	@Override
 	public void updateCentroEscolar(CentroEscolar c) {
-		Object[] parametros = new Object[] {c.getNombrecen(), c.getDescripcioncen(), c.getEstadocen(), c.getMunicipiocen()};
+		Object[] parametros = new Object[] {c.getNombrecen(), c.getDescripcioncen(), c.getEstadocen(), c.getMunicipiocen().getIdmun(),c.getIdcen()};
 		jdbcTemplate.update(sql, parametros);
 	}
 

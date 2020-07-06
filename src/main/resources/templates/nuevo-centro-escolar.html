@@ -172,12 +172,13 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
+          <form method="post" th:action="@{/guardar-centro-escolar}" th:object="${CentroEscolar}">
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Centros Escolares</h1>
             <div>
-              <a th:href="@{/centros-escolares}" class="d-none d-sm-inline-block btn btn-primary shadow-sm"><i class="far fa-save"></i> Guardar</a>
+              <button type="submit" class="d-sm-inline-block btn btn-primary shadow-sm"><i class="far fa-save"></i> Guardar</button>
               <a th:href="@{/centros-escolares}" class="d-none d-sm-inline-block btn btn-secondary shadow-sm"><i class="fas fa-undo-alt"></i> Regresar</a>
             </div>
           </div>
@@ -189,7 +190,6 @@
             </div>
             <div class="card-body">
               
-              <form method="post" th:action="@{/guardar-centro-escolar}" th:object="${CentroEscolar}">
                 <input type="hidden" name="idcen" class="form-control" th:field="*{idcen}" />
                 <table cellpadding="10">
                   <tr>
@@ -206,23 +206,21 @@
                 
                   <tr>
                     <td><label>Estado:</label></td>
-                    <td><input type="checkbox" id="estadocen"  class="custom-control-input" th:field="*{estadocen}" value="false"> Activo</td>
+                    <td><input type="checkbox" id="estadocen" name="estadocen" th:field="*{estadocen}"th:checked= "*{estadocen}"></td>
                   </tr>
 
                   <tr>
                     <td><label>categoria</label></td>
                     <td><select th:field="*{municipiocen.idmun}">
-                      <option th:each="municipio, row: ${municipios}" th:value="${municipio.municipiocen.idmun}" th:text="${municipio.municipiocen.nombremun}"></option>
+                      <option th:each="municipio, row: ${municipios}" th:value="${municipio.idmun}" th:text="${municipio.nombremun}"></option>
                     </select></td>
                   
                   </tr>
-                  <tr>
-                    <td><input type="submit" class="btn btn-primary btn-block" value="Guardar cambios" /></td>
-                  </tr>
+                 
                 </table>
-                </form>
             </div>
           </div>
+        </form>
 
         </div>
         <!-- /.container-fluid -->

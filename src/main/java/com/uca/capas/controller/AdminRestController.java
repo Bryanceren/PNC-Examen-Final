@@ -24,16 +24,6 @@ public class AdminRestController {
 	@Autowired
 	private MateriaService materiaService;
 
-	//Centros Escolares
-	@RequestMapping(path = "/centros", method = RequestMethod.GET)
-	public List<CentroEscolar> findAll() {
-		return centroEscolarService.findAll();
-	}
-
-	@RequestMapping(value = "/centros/{id_centro}", method = RequestMethod.GET)
-	public CentroEscolar find(@PathVariable("id") Integer id) {
-		return centroEscolarService.findOne(id);
-	}
 
 
 	// Materias
@@ -54,6 +44,37 @@ public class AdminRestController {
 				u.getNombre(),
 				u.getDescripcion(),
 				u.getEstado() == true ? "Activo" : "Inactivo"
+			});
+		}
+
+		TableDTO dataTable = new TableDTO();
+		dataTable.setData(data);
+		dataTable.setDraw(draw);
+		dataTable.setRecordsFiltered((int) materiaService.count());
+		dataTable.setRecordsTotal((int) materiaService.count());
+
+		return dataTable;
+	}
+
+	//Centros escolares
+	@RequestMapping(path="/get-centros", method=RequestMethod.GET)
+	public TableDTO obtenerCentros(@RequestParam Integer draw,
+								  	@RequestParam Integer start, @RequestParam Integer length,
+								  	@RequestParam(value="search[value]", required = false) String search)
+	{
+		Page<CentroEscolar> centros = centroEscolarService.findAll(PageRequest.of(start/length, length, Sort.by(Sort.Direction.ASC, "idcen")));
+
+		List<String[]> data = new ArrayList<>();
+
+		for(CentroEscolar c : centros)
+		{
+			data.add(new String[] {
+				c.getIdcen().toString(),
+				c.getIdcen().toString(),
+				c.getNombrecen(),
+				c.getDescripcioncen(),
+				c.getEstadocen() == true ? "Activo" : "Inactivo",
+				c.getMunicipiocen().getNombremun()
 			});
 		}
 

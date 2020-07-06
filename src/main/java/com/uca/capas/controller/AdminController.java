@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.uca.capas.dao.CentroEscolarDAO;
 import com.uca.capas.domain.CentroEscolar;
 import com.uca.capas.domain.EstudianteMateria;
 import com.uca.capas.domain.Materia;
@@ -26,6 +27,9 @@ public class AdminController
 
 	@Autowired
 	private MateriaService materiaService;
+	@Autowired
+	private CentroEscolarDAO centroDao;
+
 
 	//Centro Escolar
 
@@ -41,9 +45,9 @@ public class AdminController
 	public ModelAndView CEForm()
 	{
 		ModelAndView mav = new ModelAndView();
-		List<CentroEscolar> municipios = null;
+		List<Municipio> municipios = null;
 		try {
-			municipios = centroEscolarService.findAll();
+			municipios = centroDao.findAllMunicipios();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -53,12 +57,34 @@ public class AdminController
         mav.setViewName("nuevo-centro-escolar");
 		return mav;
 	}
+	@RequestMapping(value="/editar-centro", method = RequestMethod.GET)
+	public ModelAndView CentroEditForm(@RequestParam Integer id)
+	{
+		ModelAndView mav = new ModelAndView();
+		CentroEscolar centro = centroEscolarService.findOne(id);
+		List<Municipio> municipios = null;
+		try {
+			municipios = centroDao.findAllMunicipios();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		mav.addObject("municipios",municipios);
+		mav.addObject("CentroEscolar", centro);
+		mav.setViewName("nuevo-centro-escolar");
+		return mav;
+	}
 	
 	@RequestMapping(value="/guardar-centro-escolar", method = RequestMethod.POST)
 	public ModelAndView saveCentroEscolar(@Valid @ModelAttribute("CentroEscolar") CentroEscolar c, BindingResult r)
 	{
 		ModelAndView mav = new ModelAndView();
 		List<CentroEscolar> municipios2 = null;
+		Boolean estadocen = null;
+		if(c.getEstadocen()==null){
+			estadocen=false;
+			c.setEstadocen(estadocen);
+		}
 		try {
 			municipios2 = centroEscolarService.findAll();
 		}
