@@ -15,18 +15,18 @@ public class MainController {
 		return mav;
 	}
 
-	@RequestMapping("/login")
-	public ModelAndView login() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("login");
-		return mav;
-	}
-	
-	@RequestMapping("/register")
-	public ModelAndView register() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("register");
-		return mav;
-	}
+//	@RequestMapping("/login")
+//	public ModelAndView login() {
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("login");
+//		return mav;
+//	}
+//
+//	@RequestMapping("/register")
+//	public ModelAndView register() {
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("register");
+//		return mav;
+//	}
 
 }
