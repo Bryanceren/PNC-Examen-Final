@@ -14,11 +14,13 @@ import com.uca.capas.service.CentroEscolarService;
 
 import com.uca.capas.service.Materia.MateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+@Secured("ROLE_ADMIN")
 @Controller
 public class AdminController
 {
@@ -32,7 +34,6 @@ public class AdminController
 
 
 	//Centro Escolar
-
     @RequestMapping("/centros-escolares")
     public ModelAndView CETable()
 	{
@@ -57,6 +58,7 @@ public class AdminController
         mav.setViewName("nuevo-centro-escolar");
 		return mav;
 	}
+
 	@RequestMapping(value="/editar-centro", method = RequestMethod.GET)
 	public ModelAndView CentroEditForm(@RequestParam Integer id)
 	{
@@ -74,7 +76,7 @@ public class AdminController
 		mav.setViewName("nuevo-centro-escolar");
 		return mav;
 	}
-	
+
 	@RequestMapping(value="/guardar-centro-escolar", method = RequestMethod.POST)
 	public ModelAndView saveCentroEscolar(@Valid @ModelAttribute("CentroEscolar") CentroEscolar c, BindingResult r)
 	{
@@ -116,7 +118,6 @@ public class AdminController
 
 
 	// Materias
-
 	@RequestMapping("/materias")
 	public ModelAndView MateriaTable(@RequestParam(defaultValue = "false") Boolean exito)
 	{

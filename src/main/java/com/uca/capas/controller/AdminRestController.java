@@ -1,6 +1,7 @@
 package com.uca.capas.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.uca.capas.domain.CentroEscolar;
@@ -14,8 +15,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+@Secured("ROLE_ADMIN")
 @RestController
 public class AdminRestController {
 	@Autowired
@@ -24,7 +32,25 @@ public class AdminRestController {
 	@Autowired
 	private MateriaService materiaService;
 
+	// Este metodo es por seguridad, mas pensado para las peticiones post que devuelven datos
+	// Verifica si tengo o no tengo permiso de acceder a esos datos
+	private boolean hasRole(String role)
+	{
+		SecurityContext context = SecurityContextHolder.getContext();
+		if(context == null) {
+			return false;
+		}
 
+		Authentication auth = context.getAuthentication();
+		if(auth == null) {
+			return false;
+		}
+
+		Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
+
+		return authorities.contains(new SimpleGrantedAuthority(role));
+
+	}
 
 	// Materias
 	@RequestMapping(path="/get-materias", method=RequestMethod.GET)

@@ -7,72 +7,59 @@
     </a>
 
     <!-- Divider -->
-    <hr class="sidebar-divider my-0">
-
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
-        <a class="nav-link" th:href="@{/login}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Login</span></a>
-    </li>
-
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
-        <a class="nav-link" th:href="@{/register}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Registro</span></a>
-    </li>
-
-    <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Panel de administración
+    <div  sec:authorize="hasRole('ADMIN')">
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Panel de administración
+        </div>
+
+        <!-- Nav Item - Charts -->
+        <li class="nav-item" id="li-centros-escolares">
+            <a class="nav-link" th:href="@{/centros-escolares}">
+                <i class="fas fa-school"></i>
+                <span>Centros Escolares</span></a>
+        </li>
+
+        <!-- Nav Item - Charts -->
+        <li class="nav-item" id="li-materias">
+            <a class="nav-link" th:href="@{/materias}">
+                <i class="fas fa-book"></i>
+                <span>Materias</span></a>
+        </li>
+
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/}">
+                <i class="fas fa-users"></i>
+                <span>Usuarios</span></a>
+        </li>
+
     </div>
 
-    <!-- Nav Item - Charts -->
-    <li class="nav-item" id="li-centros-escolares">
-        <a class="nav-link" th:href="@{/centros-escolares}">
-            <i class="fas fa-school"></i>
-            <span>Centros Escolares</span></a>
-    </li>
+    <div sec:authorize="hasRole('USER')">
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Panel Coordinacion
+        </div>
 
-    <!-- Nav Item - Charts -->
-    <li class="nav-item" id="li-materias">
-        <a class="nav-link" th:href="@{/materias}">
-            <i class="fas fa-book"></i>
-            <span>Materias</span></a>
-    </li>
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/}">
+                <i class="fas fa-user-graduate"></i>
+                <span>Expediente alumno</span></a>
+        </li>
 
-    <!-- Nav Item - Charts -->
-    <li class="nav-item">
-        <a class="nav-link" th:href="@{/}">
-            <i class="fas fa-users"></i>
-            <span>Usuarios</span></a>
-    </li>
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/materias-cursadas}">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Materias cursadas</span></a>
+        </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Negocio
     </div>
 
-    <!-- Nav Item - Charts -->
-    <li class="nav-item">
-        <a class="nav-link" th:href="@{/}">
-            <i class="fas fa-user-graduate"></i>
-            <span>Expediente alumno</span></a>
-    </li>
-
-    <!-- Nav Item - Tables -->
-    <li class="nav-item">
-        <a class="nav-link" th:href="@{/materias-cursadas}">
-            <i class="fas fa-chalkboard-teacher"></i>
-            <span>Materias cursadas</span></a>
-    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
