@@ -1,7 +1,6 @@
 package com.uca.capas.controller;
 
 import com.uca.capas.domain.Expediente;
-import com.uca.capas.dto.ExpedienteDTO;
 import com.uca.capas.dto.ExpedienteJson;
 import com.uca.capas.service.expediente.ExpedienteService;
 import org.springframework.beans.factory.annotation.Autowired;
