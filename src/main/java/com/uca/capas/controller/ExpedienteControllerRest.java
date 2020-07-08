@@ -1,0 +1,30 @@
+package com.uca.capas.controller;
+
+import com.uca.capas.domain.Expediente;
+import com.uca.capas.service.EstudianteService;
+import com.uca.capas.service.expediente.ExpedienteService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@Secured("ROLE_USER")
+public class
+ExpedienteControllerRest {
+
+    @Autowired
+    private ExpedienteService expedienteService;
+
+    @PostMapping("/expedientes")
+    public List<Expediente> getExpedientes(@RequestParam(name = "filter") String filter,
+                                           @RequestParam(name = "param") String param) {
+        List<Expediente> expedientes = expedienteService.findAllByName(param);
+        if ("nombre".equals(filter)) {
+            return expedientes;
+        }
+        return null;
+    }
+
+}

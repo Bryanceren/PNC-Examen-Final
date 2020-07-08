@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Secured("ROLE_USER")
 @Controller
 public class ExpedienteController {
+
     @GetMapping("/expediente")
     public ModelAndView expedientForm()
     {

@@ -173,6 +173,27 @@
 <!-- Page level custom scripts -->
 <script src="js/demo/datatables-demo.js"></script>
 
+<script>
+    $.ajax({
+        method: "post",
+        url: "http://localhost:8000/expedientes",
+        // contentType: "application/json; charset=utf-8",
+        data: {filter:"nombre",param:"Carlos"},
+        success: function (response) {
+            $.each(response, function (ind) {
+                console.log(ind);
+            });
+        },
+        failure: function (response) {
+            alert(response.responseText);
+        },
+        error: function (response) {
+            alert(response.responseText);
+        }
+    });
+
+</script>
+
 <style>
     td {
         vertical-align: center !important;
