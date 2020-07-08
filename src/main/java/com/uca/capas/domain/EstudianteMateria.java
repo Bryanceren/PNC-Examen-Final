@@ -89,5 +89,13 @@ public class EstudianteMateria {
     public void setNota(Float nota) {
         this.nota = nota;
     }
+
+    public String getNotaDelegate() {
+        if (this.nota < 6) {
+            return "Reprobado";
+        } else {
+            return "Aprobado";
+        }
+    }
     
 }
