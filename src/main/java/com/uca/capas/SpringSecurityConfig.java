@@ -1,5 +1,6 @@
 package com.uca.capas;
 
+import com.uca.capas.service.Authentication.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
 {
+    @Autowired
+    AuthenticationService authenticationService;
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder()
     {
@@ -28,7 +32,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
         http.authorizeRequests()
             .antMatchers( "/css/**", "/js/**", "/img/**", "/vendor/**").permitAll()
             .antMatchers("/").hasAnyRole("ADMIN", "USER")
-            .antMatchers("/materias-cursadas/**").hasAnyRole("USER")
             .anyRequest().authenticated()
             .and()
             .formLogin()
@@ -40,14 +43,17 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
     }
 
     @Autowired
-    public void configurerGlobar(AuthenticationManagerBuilder builder) throws Exception
+    public void configurerGlobal(AuthenticationManagerBuilder builder) throws Exception
     {
         PasswordEncoder encoder = passwordEncoder();
+
         User.UserBuilder users = User.builder().passwordEncoder(password -> encoder.encode(password));
 
         builder.inMemoryAuthentication()
-            .withUser(users.username("admin").password("root").roles("ADMIN"))
-            .withUser(users.username("mongoose").password("root").roles("USER"));
+            .withUser(users.username("admin").password("secret").roles("ADMIN"))
+            .withUser(users.username("coordinador").password("secret").roles("USER"));
+
+        //builder.userDetailsService(authenticationService).passwordEncoder(encoder);
     }
 
 
