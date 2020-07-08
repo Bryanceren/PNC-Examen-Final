@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface ExpedienteService {
     List<Expediente> findAllByName(String name);
+    List<Expediente> findAllByApellido(String apellido);
     List<ExpedienteDTO> findExpedienteByName(String name);
 }

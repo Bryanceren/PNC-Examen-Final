@@ -23,10 +23,15 @@ ExpedienteControllerRest {
     @PostMapping("/expedientes")
     public ResponseEntity<ExpedienteJson> getExpedientes(@RequestParam(name = "filter") String filter,
                                                          @RequestParam(name = "param") String param) {
-        List<ExpedienteDTO> expedientes = expedienteService.findExpedienteByName(param);
         if ("nombre".equals(filter)) {
+            List<Expediente> expedientes = expedienteService.findAllByName(param);
             ExpedienteJson expedienteJson = new ExpedienteJson(expedientes);
             return new ResponseEntity<>(expedienteJson, HttpStatus.OK);
+        }else if("apellido".equals(filter)){
+            List<Expediente> expedientes = expedienteService.findAllByApellido(param);
+            ExpedienteJson expedienteJson = new ExpedienteJson(expedientes);
+            return new ResponseEntity<>(expedienteJson, HttpStatus.OK);
+
         }
         return null;
     }

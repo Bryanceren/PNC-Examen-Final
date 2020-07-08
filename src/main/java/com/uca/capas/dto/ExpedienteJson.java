@@ -5,19 +5,19 @@ import com.uca.capas.domain.Expediente;
 import java.util.List;
 
 public class ExpedienteJson {
-    private List<ExpedienteDTO> data;
+    private List<Expediente> data;
 
     public ExpedienteJson() { }
 
-    public ExpedienteJson(List<ExpedienteDTO> data) {
+    public ExpedienteJson(List<Expediente> data) {
         this.data = data;
     }
 
-    public List<ExpedienteDTO> getData() {
+    public List<Expediente> getData() {
         return data;
     }
 
-    public void setData(List<ExpedienteDTO> data) {
+    public void setData(List<Expediente> data) {
         this.data = data;
     }
 }

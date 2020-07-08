@@ -121,6 +121,7 @@
                             <table class="table table-bordered display" id="expediente-table">
                                 <thead>
                                 <tr>
+                                    <th>Accion</th>
                                     <th>nombre</th>
                                     <th>apellido</th>
                                     <th>materiasAprobadas</th>
@@ -179,63 +180,30 @@
 <script>
 
 
-    $(document).ready(function () {
-        $("#btnBuscarExpediente").on('click', function (e) {
-            e.preventDefault();
-            let criterio = $("#select-criterio").val();
-            let valorBusqueda = $("#valor").val().trim();
+    $("#btnBuscarExpediente").on('click', function (e) {
+        e.preventDefault();
+        let criterio = $("#select-criterio").val();
+        let valorBusqueda = $("#valor").val().trim();
 
-            if (valorBusqueda === "") {
-                alert("Favor poner un parametro de busqueda")
-            } else {
-                $("#expediente-table").DataTable({
-                    'ajax': {
-                        'url': "http://localhost:8000/expedientes",
-                        'type': "POST",
-                        'data': {filter: criterio, param: valorBusqueda},
-                    },
-                    "columns": [
-                        { "data": "nombre" },
-                        { "data": "apellido" },
-                        { "data": "materiasAprobadas" },
-                        { "data": "materiasReprobadas" },
-                        { "data": "promedio" }
-                    ]
+        if (valorBusqueda === "") {
+            alert("Favor poner un parametro de busqueda")
+        } else {
+            $("#expediente-table").DataTable({
+                'ajax': {
+                    'url': "http://localhost:8000/expedientes",
+                    'type': "POST",
+                    'data': {filter: criterio, param: valorBusqueda},
+                },
+                "columns": [
+                    {"data": "nombre"},
+                    {"data": "apellido"},
+                    {"data": "materiasAprobadas"},
+                    {"data": "materiasReprobadas"},
+                    {"data": "promedio"}
+                ]
 
-                });
-                $.ajax({
-                    method: "post",
-                    url: "http://localhost:8000/expedientes",
-                    data: {filter: criterio, param: valorBusqueda},
-                    success: function (response) {
-                        console.log(response);
-                        /*$.each(response, function (ind) {
-                            console.log(ind);
-                        });*/
-
-                        /*  $('#expediente-table tbody').on('click', '#btnModificar', function () {
-
-                              alert("si")
-                          });
-                          $('#expediente-table tbody').on('click', '#btnEliminar', function () {
-
-                              alert("si")
-
-                          });*/
-
-
-                    }
-                    ,
-                    failure: function (response) {
-                        alert(response.responseText);
-                    }
-                    ,
-                    error: function (response) {
-                        alert(response.responseText);
-                    }
-                });
-            }
-        })
+            });
+        }
     })
 
 

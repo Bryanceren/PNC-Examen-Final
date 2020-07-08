@@ -21,6 +21,11 @@ public class ExpedienteServiceImpl implements ExpedienteService{
     }
 
     @Override
+    public List<Expediente> findAllByApellido(String apellido) {
+        return expedienteRepository.findAllByApellido(apellido);
+    }
+
+    @Override
     public List<ExpedienteDTO> findExpedienteByName(String name) {
         return expedienteRepository.expedienteDTO(name).stream().map(objs->{
            ExpedienteDTO expedienteDTO = new ExpedienteDTO();
