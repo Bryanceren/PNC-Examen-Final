@@ -177,9 +177,9 @@
     $.ajax({
         method: "post",
         url: "http://localhost:8000/expedientes",
-        // contentType: "application/json; charset=utf-8",
         data: {filter:"nombre",param:"Carlos"},
         success: function (response) {
+            console.log(response);
             $.each(response, function (ind) {
                 console.log(ind);
             });
