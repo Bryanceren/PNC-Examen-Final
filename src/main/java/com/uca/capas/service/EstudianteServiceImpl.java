@@ -1,11 +1,9 @@
 package com.uca.capas.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
-import com.uca.capas.dao.EstudianteDao;
 import com.uca.capas.domain.Estudiante;
-import com.uca.capas.dto.EstudianteDTO;
+import com.uca.capas.domain.EstudianteMateria;
+import com.uca.capas.repositories.EstudianteMateriaRepository;
 import com.uca.capas.repositories.EstudianteRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,30 +14,33 @@ import org.springframework.stereotype.Service;
 public class EstudianteServiceImpl implements EstudianteService {
 
     @Autowired
-    EstudianteDao estudianteDao;
+    EstudianteMateriaRepository estudianteRepository;
 
     @Autowired
-    EstudianteRepository estudianteRepository;
+    EstudianteRepository estu;
 
     @Override
     public Estudiante findOne(Integer codigo) throws DataAccessException {
-        return estudianteRepository.getOne(codigo);
+        return estu.getOne(codigo);
     }
 
     @Override
-    public List<EstudianteDTO> getEstudianteMateriaCodigo(Integer codigo) {
-        List<EstudianteDTO> estudiantes = estudianteDao.getEstudianteMateriaCodigo(codigo).stream().map(c -> {
-            EstudianteDTO dto = new EstudianteDTO();
-			dto.setNombres(c.getEstudiante().getNombre());
-            dto.setApellidos(c.getEstudiante().getApellido());
-            dto.setNota(c.getNota());
-            dto.setAnio(c.getAnio());
-            dto.setCiclo(c.getCiclo());
-            dto.setMateriaNom(c.getMateria().getNombre());
-			return dto;
-		}).collect(Collectors.toList());
+    public EstudianteMateria findOnes(Integer codigo) throws DataAccessException {
+        return estudianteRepository.findEstuMatId(codigo);
+    }
 
-		return estudiantes;
+    @Override
+    public List<EstudianteMateria> getEstuList(Integer codigo) {
+        return estudianteRepository.findEstuMatList(codigo);
+    }
+
+    @Override
+    public void saveEstu(EstudianteMateria estumate) throws DataAccessException {
+        try {
+			estudianteRepository.save(estumate);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
     
 }
