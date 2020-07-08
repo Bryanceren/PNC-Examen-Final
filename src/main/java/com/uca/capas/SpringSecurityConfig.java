@@ -30,7 +30,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity http) throws Exception
     {
         http.authorizeRequests()
-            .antMatchers( "/css/**", "/js/**", "/img/**", "/vendor/**").permitAll()
+            .antMatchers( "/register", "/css/**", "/js/**", "/img/**", "/vendor/**").permitAll()
             .antMatchers("/").hasAnyRole("ADMIN", "USER")
             .anyRequest().authenticated()
             .and()
@@ -47,13 +47,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
     {
         PasswordEncoder encoder = passwordEncoder();
 
-        User.UserBuilder users = User.builder().passwordEncoder(password -> encoder.encode(password));
+//        User.UserBuilder users = User.builder().passwordEncoder(password -> encoder.encode(password));
+//
+//        builder.inMemoryAuthentication()
+//            .withUser(users.username("admin").password("secret").roles("ADMIN"))
+//            .withUser(users.username("coordinador").password("secret").roles("USER"));
 
-        builder.inMemoryAuthentication()
-            .withUser(users.username("admin").password("secret").roles("ADMIN"))
-            .withUser(users.username("coordinador").password("secret").roles("USER"));
-
-        //builder.userDetailsService(authenticationService).passwordEncoder(encoder);
+        builder.userDetailsService(authenticationService).passwordEncoder(encoder);
     }
 
 
