@@ -1,23 +1,53 @@
 package com.uca.capas.dto;
 
-import com.uca.capas.domain.Expediente;
-
-import java.util.List;
 
 public class ExpedienteDTO {
-    private List<Expediente> data;
+    private String nombre;
+    private String apellido;
+    private String materiasAprobadas;
+    private String materiasReprobadas;
+    private String promedio;
 
-    public ExpedienteDTO() { }
-
-    public ExpedienteDTO(List<Expediente> data) {
-        this.data = data;
+    public ExpedienteDTO() {
     }
 
-    public List<Expediente> getData() {
-        return data;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setData(List<Expediente> data) {
-        this.data = data;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getMateriasAprobadas() {
+        return materiasAprobadas;
+    }
+
+    public void setMateriasAprobadas(String materiasAprobadas) {
+        this.materiasAprobadas = materiasAprobadas;
+    }
+
+    public String getMateriasReprobadas() {
+        return materiasReprobadas;
+    }
+
+    public void setMateriasReprobadas(String materiasReprobadas) {
+        this.materiasReprobadas = materiasReprobadas;
+    }
+
+    public String getPromedio() {
+        return promedio;
+    }
+
+    public void setPromedio(String promedio) {
+        this.promedio = promedio;
     }
 }

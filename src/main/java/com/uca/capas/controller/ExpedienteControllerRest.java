@@ -2,7 +2,7 @@ package com.uca.capas.controller;
 
 import com.uca.capas.domain.Expediente;
 import com.uca.capas.dto.ExpedienteDTO;
-import com.uca.capas.service.EstudianteService;
+import com.uca.capas.dto.ExpedienteJson;
 import com.uca.capas.service.expediente.ExpedienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,12 +21,12 @@ ExpedienteControllerRest {
     private ExpedienteService expedienteService;
 
     @PostMapping("/expedientes")
-    public ResponseEntity<ExpedienteDTO> getExpedientes(@RequestParam(name = "filter") String filter,
-                                                        @RequestParam(name = "param") String param) {
-        List<Expediente> expedientes = expedienteService.findAllByName(param);
+    public ResponseEntity<ExpedienteJson> getExpedientes(@RequestParam(name = "filter") String filter,
+                                                         @RequestParam(name = "param") String param) {
+        List<ExpedienteDTO> expedientes = expedienteService.findExpedienteByName(param);
         if ("nombre".equals(filter)) {
-            ExpedienteDTO expedienteDTO = new ExpedienteDTO(expedientes);
-            return new ResponseEntity<>(expedienteDTO, HttpStatus.OK) ;
+            ExpedienteJson expedienteJson = new ExpedienteJson(expedientes);
+            return new ResponseEntity<>(expedienteJson, HttpStatus.OK);
         }
         return null;
     }

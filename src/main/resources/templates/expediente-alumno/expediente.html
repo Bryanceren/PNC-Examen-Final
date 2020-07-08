@@ -94,7 +94,7 @@
                                 <label for="select-criterio">Seleccione criterio [Nombres,Apellidos]</label>
                                 <select class="form-control" id="select-criterio" style="width: 400px">
                                     <option value="nombre">Nombre</option>
-                                    <option value="apellido" >Apellido</option>
+                                    <option value="apellido">Apellido</option>
                                 </select>
                             </div>
                             <p class="mb-0">Valor de busqueda</p><br/>
@@ -103,7 +103,8 @@
                                        style="width: 400px" name="valor"/>
                             </div>
 
-                            <div class="form-group"><input type="submit" class="btn btn-primary" id="btnBuscarExpediente"
+                            <div class="form-group"><input type="submit" class="btn btn-primary"
+                                                           id="btnBuscarExpediente"
                                                            value="Buscar Estudiante">
                             </div>
                         </div>
@@ -117,17 +118,19 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="expediente-table" width="100%" cellspacing="0">
+                            <table class="table table-bordered display" id="expediente-table">
                                 <thead>
                                 <tr>
-                                    <th style="width: 50px" class="text-center">Accion</th>
-                                    <th style="width: 50px" class="text-center">Nombre</th>
-                                    <th style="width: 300px" class="text-center">Apellido</th>
-                                    <th style="width: 50px" class="text-center">Materias Aprobadas</th>
-                                    <th style="width: 70px" class="text-center">Materias Reprobadas</th>
-                                    <th style="width: 70px" class="text-center">Promedio</th>
+                                    <th>nombre</th>
+                                    <th>apellido</th>
+                                    <th>materiasAprobadas</th>
+                                    <th>materiasReprobadas</th>
+                                    <th>promedio</th>
                                 </tr>
                                 </thead>
+                                <tbody>
+
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -174,23 +177,67 @@
 <script src="js/demo/datatables-demo.js"></script>
 
 <script>
-    $.ajax({
-        method: "post",
-        url: "http://localhost:8000/expedientes",
-        data: {filter:"nombre",param:"Carlos"},
-        success: function (response) {
-            console.log(response);
-            $.each(response, function (ind) {
-                console.log(ind);
-            });
-        },
-        failure: function (response) {
-            alert(response.responseText);
-        },
-        error: function (response) {
-            alert(response.responseText);
-        }
-    });
+
+
+    $(document).ready(function () {
+        $("#btnBuscarExpediente").on('click', function (e) {
+            e.preventDefault();
+            let criterio = $("#select-criterio").val();
+            let valorBusqueda = $("#valor").val().trim();
+
+            if (valorBusqueda === "") {
+                alert("Favor poner un parametro de busqueda")
+            } else {
+                $("#expediente-table").DataTable({
+                    'ajax': {
+                        'url': "http://localhost:8000/expedientes",
+                        'type': "POST",
+                        'data': {filter: criterio, param: valorBusqueda},
+                    },
+                    "columns": [
+                        { "data": "nombre" },
+                        { "data": "apellido" },
+                        { "data": "materiasAprobadas" },
+                        { "data": "materiasReprobadas" },
+                        { "data": "promedio" }
+                    ]
+
+                });
+                $.ajax({
+                    method: "post",
+                    url: "http://localhost:8000/expedientes",
+                    data: {filter: criterio, param: valorBusqueda},
+                    success: function (response) {
+                        console.log(response);
+                        /*$.each(response, function (ind) {
+                            console.log(ind);
+                        });*/
+
+                        /*  $('#expediente-table tbody').on('click', '#btnModificar', function () {
+
+                              alert("si")
+                          });
+                          $('#expediente-table tbody').on('click', '#btnEliminar', function () {
+
+                              alert("si")
+
+                          });*/
+
+
+                    }
+                    ,
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
+                    ,
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            }
+        })
+    })
+
 
 </script>
 
