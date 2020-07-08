@@ -1,4 +1,5 @@
 package com.uca.capas.controller;
+import com.uca.capas.domain.Usuario;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +39,7 @@ public class LoginController
     @RequestMapping("/register")
     public ModelAndView index() {
         ModelAndView mav = new ModelAndView();
+        mav.addObject("usuario", new Usuario());
         mav.setViewName("register");
         return mav;
     }
