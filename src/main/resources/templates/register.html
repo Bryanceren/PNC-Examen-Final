@@ -94,6 +94,7 @@
                       <option th:value="ROLE_USER">Coordinador</option>
                     </select>
                     <small th:errors="*{role}" style="color: #FF0000" class="pl-2"></small>
+                    <small th:text="${role_error}" style="color: #FF0000" class="pl-2"></small>
                   </div>
                 </div>
                 <button type="submit" class="btn btn-primary btn-user btn-block">

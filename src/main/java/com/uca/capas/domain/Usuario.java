@@ -55,7 +55,7 @@ public class Usuario
     private Integer municipio;
 
     @Column(name = "estado")
-    private Boolean estado;
+    private Boolean estado = false;
 
     public Usuario() {}
 

@@ -68,17 +68,25 @@ public class LoginController
             return mav;
         }
 
-        if(usuario.getPassword() != usuario.getConfirmation_password())
+        if(!usuario.getPassword().equals(usuario.getConfirmation_password()))
         {
             mav.addObject("password_error", "Las contraseña no coincide, por favor vuelva a colocar su contraseña");
             mav.setViewName("register");
             return mav;
         }
 
+        if(usuario.getRole().equals("EMPTY_ROLE"))
+        {
+            mav.addObject("role_error", "Seleccione un rol");
+            mav.setViewName("register");
+            return mav;
+        }
+
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 
-//        usuarioService.save(usuario);
+        usuarioService.save(usuario);
         mav.addObject("success", true);
+        mav.addObject("usuario", new Usuario());
         mav.setViewName("register");
 
         return mav;
