@@ -230,7 +230,7 @@
         return isValid;
     }
     function fillMunicipioCombo() {
-        $.get("/municipios", function(data, status){
+        $.get("/municipios/"+3, function(data, status){
             console.log(data);
         });
     }

@@ -6,5 +6,5 @@ import org.springframework.dao.DataAccessException;
 import java.util.List;
 
 public interface MunicipioService {
-    List<MunicipioDTO> municipioDTO() throws DataAccessException;
+    List<MunicipioDTO> municipioDTO(Integer dptoId) throws DataAccessException;
 }

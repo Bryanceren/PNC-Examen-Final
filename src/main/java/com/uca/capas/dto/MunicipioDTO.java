@@ -3,6 +3,7 @@ package com.uca.capas.dto;
 public class MunicipioDTO {
     private Integer id;
     private String nombre;
+    private Integer dptoId;
 
     public MunicipioDTO() {
     }
@@ -21,5 +22,13 @@ public class MunicipioDTO {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Integer getDptoId() {
+        return dptoId;
+    }
+
+    public void setDptoId(Integer dptoId) {
+        this.dptoId = dptoId;
     }
 }

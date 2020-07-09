@@ -14,13 +14,13 @@ public class MunicipioServiceImpl implements MunicipioService{
     @Autowired
     MunicipioRepository municipioRepository;
     @Override
-    public List<MunicipioDTO> municipioDTO() throws DataAccessException {
-        List<MunicipioDTO>municipioDTOS = municipioRepository.muncicipioDTO().stream().map(objs->{
+    public List<MunicipioDTO> municipioDTO(Integer dptoId) throws DataAccessException {
+        return municipioRepository.muncicipioDTO(dptoId).stream().map(objs->{
             MunicipioDTO municipioDTO = new MunicipioDTO();
             municipioDTO.setId(Integer.parseInt(objs[0].toString()));
             municipioDTO.setNombre(objs[1].toString());
+            municipioDTO.setDptoId(dptoId);
             return municipioDTO;
         }).collect(Collectors.toList());
-        return municipioDTOS;
     }
 }
