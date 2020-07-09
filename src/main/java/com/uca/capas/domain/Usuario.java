@@ -56,6 +56,7 @@ public class Usuario
 
     @JoinColumn(name = "municipio_fk")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @NotNull(message = "Campo Obligatorio")
     private Municipio municipio;
 
     @Column(name = "estado")

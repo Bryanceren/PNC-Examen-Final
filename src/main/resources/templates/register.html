@@ -60,6 +60,7 @@
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
                     <select th:field="*{departamento.id_depto}" id="departamento" class="form-control custom-select-1">
+                      <option th:value="EMPTY" selected>Seleccione departamento</option>
                       <option
                         th:each="depto : ${departamentos}"
                         th:value="${depto.id_depto}"
@@ -142,6 +143,8 @@
     {
       let departamentos = [[${departamentos}]];
       console.log(departamentos)
+
+      console.log($('#departamento').val())
 
       $('#departamento').change(function()
       {

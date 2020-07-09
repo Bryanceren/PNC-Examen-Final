@@ -2,7 +2,7 @@ package com.uca.capas.controller;
 
 import com.uca.capas.domain.Departamento;
 import com.uca.capas.dto.DepartamentoJson;
-import com.uca.capas.service.DepartamentoService;
+import com.uca.capas.service.Departamento.DepartamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

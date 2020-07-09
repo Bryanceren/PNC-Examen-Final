@@ -67,8 +67,6 @@ public class LoginController
             e.printStackTrace();
         }
 
-        System.out.println(departamentos);
-
         mav.addObject("departamentos",departamentos);
         mav.addObject("usuario", new Usuario());
         mav.setViewName("register");
@@ -84,6 +82,16 @@ public class LoginController
 
         if(result.hasErrors())
         {
+            List<Departamento> departamentos = null;
+
+            try {
+                departamentos = departamentoService.findAll();
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+
+            mav.addObject("departamentos",departamentos);
             mav.setViewName("register");
             return mav;
         }
