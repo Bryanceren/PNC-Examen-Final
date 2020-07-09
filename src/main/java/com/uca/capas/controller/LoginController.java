@@ -41,10 +41,13 @@ public class LoginController
             return "redirect:/";
         }
 
+        System.out.println(principal);
+
         if(error != null)
         {
-            model.addAttribute("error", "Nombre de usuario o contraseña incorrecta");
+            model.addAttribute("error", "Usuario o contraseña incorrecta / Cuenta Inactiva");
         }
+
 
         if(logout != null)
         {

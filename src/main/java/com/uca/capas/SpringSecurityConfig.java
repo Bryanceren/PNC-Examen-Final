@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -55,7 +57,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
             .and()
             .logout().permitAll();
-             http.cors();
+
+        http.sessionManagement()
+            .maximumSessions(1)
+            .maxSessionsPreventsLogin(true)
+            .sessionRegistry(sessionRegistry());
+
+        http.cors();
 
     }
 
@@ -63,7 +71,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configurerGlobal(AuthenticationManagerBuilder builder) throws Exception {
         PasswordEncoder encoder = passwordEncoder();
 
-        User.UserBuilder users = User.builder().passwordEncoder(password -> encoder.encode(password));
+//        User.UserBuilder users = User.builder().passwordEncoder(password -> encoder.encode(password));
 //
 //        builder.inMemoryAuthentication()
 //                .withUser(users.username("admin").password("secret").roles("ADMIN"))
@@ -71,6 +79,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         builder.userDetailsService(authenticationService).passwordEncoder(encoder);
 
+    }
+
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        SessionRegistry sessionRegistry = new SessionRegistryImpl();
+        return sessionRegistry;
     }
 
 
