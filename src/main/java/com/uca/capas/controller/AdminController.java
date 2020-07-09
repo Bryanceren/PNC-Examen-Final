@@ -10,9 +10,12 @@ import com.uca.capas.domain.CentroEscolar;
 import com.uca.capas.domain.EstudianteMateria;
 import com.uca.capas.domain.Materia;
 import com.uca.capas.domain.Municipio;
+import com.uca.capas.domain.Usuario;
 import com.uca.capas.service.CentroEscolarService;
 
 import com.uca.capas.service.Materia.MateriaService;
+import com.uca.capas.service.Usuario.UsuarioService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -25,7 +28,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class AdminController
 {
     @Autowired
-    private CentroEscolarService centroEscolarService;
+	private CentroEscolarService centroEscolarService;
+	@Autowired
+    private UsuarioService usuarioService;
 
 	@Autowired
 	private MateriaService materiaService;
@@ -76,6 +81,7 @@ public class AdminController
 		mav.setViewName("nuevo-centro-escolar");
 		return mav;
 	}
+	
 
 	@RequestMapping(value="/guardar-centro-escolar", method = RequestMethod.POST)
 	public ModelAndView saveCentroEscolar(@Valid @ModelAttribute("CentroEscolar") CentroEscolar c, BindingResult r)
@@ -116,6 +122,39 @@ public class AdminController
 		return mav;
 	}
 
+
+	//Usuarios
+	@RequestMapping("/usuarios")
+    public ModelAndView UTable()
+	{
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("usuarios");
+        return mav;
+	}
+	
+	@RequestMapping(value="/editar-usuario", method = RequestMethod.GET)
+	public ModelAndView userEditForm(@RequestParam Integer id)
+	{
+		ModelAndView mav = new ModelAndView();
+		Usuario usuario = usuarioService.findOne(id);
+		mav.addObject("Usuario", usuario);
+		mav.setViewName("usuarios-edit");
+		return mav;
+	}
+
+	@RequestMapping(value="/guardar-usuario", method = RequestMethod.POST)
+	public ModelAndView saveUser(@Valid @ModelAttribute("Usuario") Usuario u, BindingResult r)
+	{
+		ModelAndView mav = new ModelAndView();
+		Integer key = null;
+		mav.addObject("resultado", 1);
+		usuarioService.updateUser(u);
+		mav.addObject("resultado", key);
+		mav.setViewName("redirect:/usuarios");
+	
+		
+		return mav;
+	}
 
 	// Materias
 	@RequestMapping("/materias")

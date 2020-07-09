@@ -6,10 +6,12 @@ import java.util.List;
 
 import com.uca.capas.domain.CentroEscolar;
 import com.uca.capas.domain.Materia;
+import com.uca.capas.domain.Usuario;
 import com.uca.capas.dto.TableDTO;
 
 import com.uca.capas.service.CentroEscolarService;
 import com.uca.capas.service.Materia.MateriaService;
+import com.uca.capas.service.Usuario.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,6 +33,9 @@ public class AdminRestController {
 
 	@Autowired
 	private MateriaService materiaService;
+
+	@Autowired
+	private UsuarioService usuarioService;
 
 	// Este metodo es por seguridad, mas pensado para las peticiones post que devuelven datos
 	// Verifica si tengo o no tengo permiso de acceder a esos datos
@@ -102,6 +107,37 @@ public class AdminRestController {
 				c.getDescripcioncen(),
 				c.getEstadocen() == true ? "Activo" : "Inactivo",
 				c.getMunicipiocen().getNombremun()
+			});
+		}
+
+		TableDTO dataTable = new TableDTO();
+		dataTable.setData(data);
+		dataTable.setDraw(draw);
+		dataTable.setRecordsFiltered((int) materiaService.count());
+		dataTable.setRecordsTotal((int) materiaService.count());
+
+		return dataTable;
+	}
+
+	//Usuarios
+	@RequestMapping(path="/get-usuarios", method=RequestMethod.GET)
+	public TableDTO obtenerUsuarios(@RequestParam Integer draw,
+								  	@RequestParam Integer start, @RequestParam Integer length,
+								  	@RequestParam(value="search[value]", required = false) String search)
+	{
+		Page<Usuario> usuarios = usuarioService.findAll(PageRequest.of(start/length, length, Sort.by(Sort.Direction.ASC, "id")));
+
+		List<String[]> data = new ArrayList<>();
+
+		for(Usuario u : usuarios)
+		{
+			data.add(new String[] {
+				u.getId().toString(),
+				u.getId().toString(),
+				u.getNombre(),
+				u.getApellido(),
+				u.getRole(),
+				u.getEstado() == true ? "Activo" : "Inactivo",
 			});
 		}
 
