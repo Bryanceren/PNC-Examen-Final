@@ -45,19 +45,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-<<<<<<< HEAD
+
                 .antMatchers("/css/**", "/js/**", "/img/**", "/vendor/**").permitAll()
                 .antMatchers("/").hasAnyRole("ADMIN", "USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-=======
-            .antMatchers( "/register", "/css/**", "/js/**", "/img/**", "/vendor/**").permitAll()
-            .antMatchers("/").hasAnyRole("ADMIN", "USER")
-            .anyRequest().authenticated()
-            .and()
-            .formLogin()
->>>>>>> refs/remotes/origin/master
                 .loginPage("/login")
                 .defaultSuccessUrl("/", true)
                 .permitAll()
@@ -71,21 +64,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configurerGlobal(AuthenticationManagerBuilder builder) throws Exception {
         PasswordEncoder encoder = passwordEncoder();
 
-//        User.UserBuilder users = User.builder().passwordEncoder(password -> encoder.encode(password));
-//
-//        builder.inMemoryAuthentication()
-//            .withUser(users.username("admin").password("secret").roles("ADMIN"))
-//            .withUser(users.username("coordinador").password("secret").roles("USER"));
+        User.UserBuilder users = User.builder().passwordEncoder(password -> encoder.encode(password));
 
-<<<<<<< HEAD
+        builder.inMemoryAuthentication()
+            .withUser(users.username("admin").password("secret").roles("ADMIN"))
+            .withUser(users.username("coordinador").password("secret").roles("USER"));
+
         builder.inMemoryAuthentication()
                 .withUser(users.username("admin").password("secret").roles("ADMIN"))
-                .withUser(users.username("coordinador").password("secret").roles("USER"));
+                .withUser(users.username("coordinador").password("1234").roles("USER"));
 
         //builder.userDetailsService(authenticationService).passwordEncoder(encoder);
-=======
-        builder.userDetailsService(authenticationService).passwordEncoder(encoder);
->>>>>>> refs/remotes/origin/master
+
     }
 
 
