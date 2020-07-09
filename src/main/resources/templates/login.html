@@ -45,7 +45,15 @@
                   </th:block>
                   <th:block th:if="${error}">
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                      Usuario o contraseña incorrecto
+                      <span th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"/>
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                  </th:block>
+                  <th:block th:if="${invalid}">
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      <span th:text="${invalid}"/>
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
