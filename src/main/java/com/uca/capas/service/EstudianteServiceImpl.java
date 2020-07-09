@@ -44,5 +44,10 @@ public class EstudianteServiceImpl implements EstudianteService {
             e.printStackTrace();
         }
     }
-    
+
+    @Override
+    public Estudiante saveAndFlush(Estudiante e) throws DataAccessException {
+        return estu.saveAndFlush(e);
+    }
+
 }

@@ -141,6 +141,12 @@
                                 <select class="form-control" id="select-centro"></select>
                             </div>
                             <div class="form-group">
+                                <label for="carnet-minoridad">Direcion</label>
+                                <input type="text"  class="form-control"
+                                       id="direccion" placeholder="Direccion del estudiante">
+                                <small id="direccion-error" class="form-text text-danger"></small>
+                            </div>
+                            <div class="form-group">
                                 <label for="nombre-padre">Nombre del padre</label>
                                 <input type="text" class="form-control" id="nombre-padre"
                                        placeholder="Nombre del padre del estudiante">
@@ -207,6 +213,7 @@
 <script>
 
     $("#select-centro").attr('disabled', true);
+    $("#btnGuardarExpediente").attr('disabled', true);
 
     fillMunicipioCombo();
 
@@ -214,10 +221,28 @@
         e.preventDefault();
         if (areAllInputsFilled()) {
             let data = {
-                nombres: $("#nombres").val(),
-                apellidos: $("#apellidos").val(),
+                nombre: $("#nombres").val(),
+                apellido: $("#apellidos").val(),
                 carnetMinoridad: $("#carnet-minoridad").val(),
+                fechaNacimiento: $("#fecha-nacimiento").val(),
+                direccion: $("#direccion").val(),
+                telefonoFijo: $("#telefono-fijo").val(),
+                telefonoMovil: $("#telefono-movil").val(),
+                nombrePadre: $("#nombre-padre").val(),
+                nombreMadre: $("#nombre-madre").val(),
+                centroFk: $("#select-centro").val()
             }
+
+
+            $.ajax({
+                url:"/expediente",
+                type:"POST",
+                data:JSON.stringify(data),
+                contentType:"application/json",
+                success: function(e){
+                    console.log(e)
+                }
+            })
         }
     });
 
@@ -251,6 +276,7 @@
             $.get("/centros/" + selectedItem, function (data, status) {
                 $("#select-centro").empty();
                 $("#select-centro").attr('disabled', false);
+                $("#btnGuardarExpediente").attr('disabled', false);
                 $.each(data, function () {
                     $("#select-centro").append($("<option></option>").val(this['idcen']).html(this['nombrecen']))
                 });
@@ -258,6 +284,7 @@
         } else {
             $("#select-centro").empty();
             $("#select-centro").attr('disabled', true);
+            $("#btnGuardarExpediente").attr('disabled', true);
         }
 
 

@@ -55,7 +55,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
             .and()
             .logout().permitAll();
-             http.cors();
+             http.cors().and().csrf().disable();
 
     }
 
@@ -65,11 +65,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         User.UserBuilder users = User.builder().passwordEncoder(password -> encoder.encode(password));
 //
-//        builder.inMemoryAuthentication()
-//                .withUser(users.username("admin").password("secret").roles("ADMIN"))
-//                .withUser(users.username("coordinador").password("1234").roles("USER"));
+        builder.inMemoryAuthentication()
+                .withUser(users.username("admin").password("secret").roles("ADMIN"))
+                .withUser(users.username("coordinador").password("1234").roles("USER"));
 
-        builder.userDetailsService(authenticationService).passwordEncoder(encoder);
+//        builder.userDetailsService(authenticationService).passwordEncoder(encoder);
 
     }
 

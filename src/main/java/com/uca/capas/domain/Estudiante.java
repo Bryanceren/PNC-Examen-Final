@@ -32,6 +32,8 @@ public class Estudiante {
     private String carnetMinoridad;
 
     @Temporal(TemporalType.DATE)
+    @NotNull(message = "Campo obligatorio")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fecha_nacimiento")
     Date fechaNacimiento;
 
@@ -47,13 +49,17 @@ public class Estudiante {
     @Column(name = "telefono_movil")
     private String telefonoMovil;
 
-    @NotNull(message = "El telefono del padre no puede quedar vacio")
-    @Column(name = "telefono_padre")
-    private String telefonoPadre;
+    @NotNull(message = "El nombre del padre no puede quedar vacio")
+    @Column(name = "nombre_padre")
+    private String nombrePadre;
 
-    @NotNull(message = "El telefono de la madre no puede quedar vacio")
-    @Column(name = "telefono_madre")
-    private String telefonoMadre;
+    @NotNull(message = "El nombre de la madre no puede quedar vacio")
+    @Column(name = "nombre_madre")
+    private String nombreMadre;
+
+    @NotNull(message = "El centro  no puede quedar vacio")
+    @Column(name = "centro_fk")
+    private Integer centroFk;
 
 
     public Estudiante() {
@@ -123,20 +129,20 @@ public class Estudiante {
         this.telefonoMovil = telefonoMovil;
     }
 
-    public String getTelefonoPadre() {
-        return telefonoPadre;
+    public String getNombrePadre() {
+        return nombrePadre;
     }
 
-    public void setTelefonoPadre(String telefonoPadre) {
-        this.telefonoPadre = telefonoPadre;
+    public void setNombrePadre(String nombrePadre) {
+        this.nombrePadre = nombrePadre;
     }
 
-    public String getTelefonoMadre() {
-        return telefonoMadre;
+    public String getNombreMadre() {
+        return nombreMadre;
     }
 
-    public void setTelefonoMadre(String telefonoMadre) {
-        this.telefonoMadre = telefonoMadre;
+    public void setNombreMadre(String nombreMadre) {
+        this.nombreMadre = nombreMadre;
     }
 
     public List<EstudianteMateria> getEstumate() {
@@ -147,5 +153,11 @@ public class Estudiante {
         this.estumate = estumate;
     }
 
-    
+    public Integer getCentroFk() {
+        return centroFk;
+    }
+
+    public void setCentroFk(Integer centroFk) {
+        this.centroFk = centroFk;
+    }
 }
