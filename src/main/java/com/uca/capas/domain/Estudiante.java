@@ -3,7 +3,9 @@ package com.uca.capas.domain;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -19,45 +21,48 @@ public class Estudiante {
     @OneToMany(mappedBy = "estudiante")
     private List<EstudianteMateria> estumate;
 
-    @NotNull(message = "El campo nombre de materia no puede quedar vacio")
+    @NotBlank(message = "nombres no puede quedar vacio")
     @Column(name = "nombre")
     private String nombre;
 
-    @NotNull(message = "El campo apellido no puede quedar vacio")
+    @NotBlank(message = "apellidos no puede quedar vacio")
     @Column(name = "apellido")
     private String apellido;
 
-    @NotNull(message = "El campo carnet de minoridad no puede quedar vacio")
+    @Size(min = 9,max = 9,message = "carnet-minoridad debe ser de 9 caracteres")
+    @NotBlank(message = "carnet-minoridad no puede quedar vacio")
     @Column(name = "carnet_minoridad")
     private String carnetMinoridad;
 
     @Temporal(TemporalType.DATE)
-    @NotNull(message = "Campo obligatorio")
+    @NotNull(message = "fecha-nacimiento no puede quedar vacio")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fecha_nacimiento")
     Date fechaNacimiento;
 
-    @NotNull(message = "El campo direccion no puede quedar vacio")
+    @NotBlank(message = "direccion no puede quedar vacio")
     @Column(name = "direccion")
     private String direccion;
 
-    @NotNull(message = "El telefono fijo no puede quedar vacio")
+    @Size(min = 9,max = 9, message = "telefono-fijo debe ser de 9 caracteres")
+    @NotBlank(message = "telefono-fijo no puede quedar vacio")
     @Column(name = "telefono_fijo")
     private String telefonoFijo;
 
-    @NotNull(message = "El telefono movil no puede quedar vacio")
+    @Size(min = 9,max = 9,message = "telefono-movil debe ser de 9 caracteres")
+    @NotBlank(message = "telefono-movil no puede quedar vacio")
     @Column(name = "telefono_movil")
     private String telefonoMovil;
 
-    @NotNull(message = "El nombre del padre no puede quedar vacio")
+    @NotBlank(message = "nombre-padre no puede quedar vacio")
     @Column(name = "nombre_padre")
     private String nombrePadre;
 
-    @NotNull(message = "El nombre de la madre no puede quedar vacio")
+    @NotBlank(message = "nombre-madre no puede quedar vacio")
     @Column(name = "nombre_madre")
     private String nombreMadre;
 
-    @NotNull(message = "El centro  no puede quedar vacio")
+    @NotNull(message = "centro no puede quedar vacio")
     @Column(name = "centro_fk")
     private Integer centroFk;
 

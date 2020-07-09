@@ -44,14 +44,13 @@ ExpedienteControllerRest {
     }
     @PostMapping("/expediente")
     public Estudiante saveExpediente(@RequestBody @Valid Estudiante estudiante){
-        try{
-            System.out.println("Si");
+//        try{
             return estudianteService.saveAndFlush(estudiante);
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            return null;
 
-        }
+//        }
     }
 
 
