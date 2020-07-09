@@ -15,12 +15,12 @@ public class ExpedienteServiceImpl implements ExpedienteService{
 
     @Override
     public List<Expediente> findAllByName(String name) {
-        return expedienteRepository.findAllByNombre(name);
+        return expedienteRepository.findAllByNombreStartingWith(name);
     }
 
     @Override
     public List<Expediente> findAllByApellido(String apellido) {
-        return expedienteRepository.findAllByApellido(apellido);
+        return expedienteRepository.findAllByApellidoStartingWith(apellido);
     }
 
 

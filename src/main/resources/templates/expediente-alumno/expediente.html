@@ -179,16 +179,31 @@
 
 <script>
 
+    let tabla = null;
+    let firstTimeLoadingTable = true;
 
     $("#btnBuscarExpediente").on('click', function (e) {
         e.preventDefault();
+
+
+        if (firstTimeLoadingTable) {
+            tabla = returnExpedienteDataTable();
+            firstTimeLoadingTable = false;
+        } else {
+            tabla.destroy();
+            tabla = returnExpedienteDataTable();
+        }
+
+    })
+
+    function returnExpedienteDataTable() {
         let criterio = $("#select-criterio").val();
         let valorBusqueda = $("#valor").val().trim();
 
         if (valorBusqueda === "") {
             alert("Favor poner un parametro de busqueda")
         } else {
-            $("#expediente-table").DataTable({
+            return $("#expediente-table").DataTable({
                 'ajax': {
                     'url': "http://localhost:8000/expedientes",
                     'type': "POST",
@@ -204,7 +219,7 @@
 
             });
         }
-    })
+    }
 
 
 </script>
