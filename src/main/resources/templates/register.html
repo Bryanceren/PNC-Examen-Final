@@ -59,11 +59,17 @@
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" th:field="*{municipio}" id="departamento" class="form-control form-control-user" placeholder="Departamento">
-                    <small th:errors="*{municipio}" style="color: #FF0000" class="pl-2"></small>
+                    <select th:field="*{departamento.id_depto}" id="departamento" class="form-control custom-select-1">
+                      <option
+                        th:each="depto : ${departamentos}"
+                        th:value="${depto.id_depto}"
+                        th:text="${depto.nombre_depto}"
+                      />
+                    </select>
+                    <small th:errors="*{departamento}" style="color: #FF0000" class="pl-2"></small>
                   </div>
                   <div class="col-sm-6">
-                    <input type="text" th:field="*{municipio}" id="municipio" class="form-control form-control-user" placeholder="Municipio">
+                    <select th:field="*{municipio.idmun}" id="municipio" class="form-control custom-select-1"></select>
                     <small th:errors="*{municipio}" style="color: #FF0000" class="pl-2"></small>
                   </div>
                 </div>
@@ -130,6 +136,32 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
+
+  <script th:inline="javascript">
+    $(document).ready(function()
+    {
+      let departamentos = [[${departamentos}]];
+      console.log(departamentos)
+
+      $('#departamento').change(function()
+      {
+        let deptoId = $(this).val();
+        let depto = departamentos.find( depto => depto.id_depto == deptoId);
+
+        $('#municipio').empty();
+
+        $.each(depto.municipios, function(key, value)
+        {
+          $('#municipio').append($('<option></option>')
+                  .attr('value', value.idmun)
+                  .text(value.nombremun));
+        });
+      });
+
+
+    });
+  </script>
+
 
 </body>
 

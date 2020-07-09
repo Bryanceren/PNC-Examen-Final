@@ -1,5 +1,8 @@
 package com.uca.capas.controller;
+import com.uca.capas.domain.Departamento;
+import com.uca.capas.domain.Municipio;
 import com.uca.capas.domain.Usuario;
+import com.uca.capas.service.Departamento.DepartamentoService;
 import com.uca.capas.service.Usuario.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,12 +17,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class LoginController
 {
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private DepartamentoService departamentoService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -50,6 +57,19 @@ public class LoginController
     @RequestMapping("/register")
     public ModelAndView index() {
         ModelAndView mav = new ModelAndView();
+
+        List<Departamento> departamentos = null;
+
+        try {
+            departamentos = departamentoService.findAll();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(departamentos);
+
+        mav.addObject("departamentos",departamentos);
         mav.addObject("usuario", new Usuario());
         mav.setViewName("register");
         return mav;

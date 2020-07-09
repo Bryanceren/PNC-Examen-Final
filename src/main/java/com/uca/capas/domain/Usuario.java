@@ -51,8 +51,12 @@ public class Usuario
     @Column(name = "role")
     private String role;
 
-    @Column(name = "municipio_fk")
-    private Integer municipio;
+    @Transient
+    private Departamento departamento;
+
+    @JoinColumn(name = "municipio_fk")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Municipio municipio;
 
     @Column(name = "estado")
     private Boolean estado = false;
@@ -107,14 +111,6 @@ public class Usuario
         this.confirmation_password = confirmation_password;
     }
 
-    public Integer getMunicipio() {
-        return municipio;
-    }
-
-    public void setMunicipio(Integer municipio) {
-        this.municipio = municipio;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -137,6 +133,22 @@ public class Usuario
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
+
+    public Municipio getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
     }
 
     public Boolean getEstado() {

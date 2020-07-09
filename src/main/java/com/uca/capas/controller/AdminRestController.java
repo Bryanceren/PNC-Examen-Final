@@ -58,6 +58,7 @@ public class AdminRestController {
 								  	@RequestParam Integer start, @RequestParam Integer length,
 								  	@RequestParam(value="search[value]", required = false) String search)
 	{
+
 		Page<Materia> materias = materiaService.findAll(PageRequest.of(start/length, length, Sort.by(Sort.Direction.ASC, "idMateria")));
 
 		List<String[]> data = new ArrayList<>();

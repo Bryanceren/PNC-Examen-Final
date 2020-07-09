@@ -1,13 +1,8 @@
 package com.uca.capas.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
+import java.util.List;
 
 
 @Entity
@@ -26,7 +21,9 @@ public class Departamento {
 
 	@Column(name = "estado")
 	private Boolean estado_depto;
-	
+
+	@OneToMany(mappedBy = "deptomun", fetch = FetchType.LAZY)
+	private List<Municipio> municipios;
 
 	public Integer getId_depto() {
 		return id_depto;
@@ -50,6 +47,14 @@ public class Departamento {
 
 	public void setEstado_depto(Boolean estado_depto) {
 		this.estado_depto = estado_depto;
+	}
+
+	public List<Municipio> getMunicipios() {
+		return municipios;
+	}
+
+	public void setMunicipios(List<Municipio> municipios) {
+		this.municipios = municipios;
 	}
 
 	public Departamento() {
