@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(schema = "public", name = "departamento")
 public class Departamento {
-	
+
 
 	@Id
 	@Column(name = "id")

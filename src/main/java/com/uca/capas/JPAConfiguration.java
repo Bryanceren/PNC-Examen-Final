@@ -37,7 +37,7 @@ public class JPAConfiguration {
 		dataSource.setDriverClassName("org.postgresql.Driver");
 		dataSource.setUrl("jdbc:postgresql://127.0.0.1:5432/proyecto");
 		dataSource.setUsername("postgres");
-		dataSource.setPassword("root");
+		dataSource.setPassword("1234");
 		return dataSource;
 	}
 	
@@ -45,6 +45,7 @@ public class JPAConfiguration {
 		Properties properties = new Properties();
 		properties.setProperty("hibernate.show_sql", "true");
 		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+		properties.setProperty("hibernate.default_schema", "public");
 		return properties;
 	}
 	

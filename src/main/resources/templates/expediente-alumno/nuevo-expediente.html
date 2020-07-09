@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Expediente</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Custom fonts for this template -->
+    <link
+            href="vendor/fontawesome-free/css/all.min.css"
+            rel="stylesheet"
+            type="text/css"
+    />
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet"
+    />
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet"/>
+
+    <!-- Custom styles for this page -->
+    <link
+            href="vendor/datatables/dataTables.bootstrap4.min.css"
+            rel="stylesheet"
+    />
+</head>
+<body id="page-top">
+<div id="wrapper">
+    <!-- Sidebar -->
+    <ul th:replace="Commons/sidebar :: sidebar"/>
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                <!-- Sidebar Toggle (Topbar) -->
+                <form class="form-inline">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </form>
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+
+                    <div class="topbar-divider d-none d-sm-block"></div>
+
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span sec:authentication="name" class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
+                            <span sec:authentication="principal.authorities"
+                                  class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
+                            <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="userDropdown">
+                            <form th:action="@{/logout}" method="post">
+                                <button type="submit" class="dropdown-item">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Cerrar Sesión
+                                </button>
+                            </form>
+                        </div>
+                    </li>
+
+                </ul>
+
+            </nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Expedientes</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="nombres">Nombres</label>
+                                <input type="text" class="form-control" id="nombres"
+                                       placeholder="Nombre del estudiante">
+                                <small id="nombres-error" class="form-text text-danger"></small>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="apellidos">Apellidos</label>
+                                <input type="text" class="form-control" id="apellidos"
+                                       placeholder="Apellidos del estudiante">
+                                <small id="apellidos-error" class="form-text text-danger"></small>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="carnet-minoridad">Carnet de minoridad</label>
+                                <input type="text" aria-describedby="carnetHelp" class="form-control"
+                                       id="carnet-minoridad" placeholder="Carnet de minoridad del estudiante">
+                                <small id="carnet-minoridad-error" class="form-text text-danger"></small>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha-nacimiento">Fecha de nacimiento</label>
+                                <input type="date" class="form-control" id="fecha-nacimiento"
+                                       placeholder="Fecha de nacimiento del estudiante">
+                                <small id="fecha-nacimiento-error" class="form-text text-danger"></small>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="telefono-fijo">Telefono fijo</label>
+                                <input type="text" class="form-control" id="telefono-fijo"
+                                       placeholder="Telefono fijo del estudiante">
+                                <small id="telefono-fijo-error" class="form-text text-danger"></small>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="telefono-movil">Telefono movil</label>
+                                <input type="text" class="form-control" id="telefono-movil"
+                                       placeholder="Telefono movil del estudiante">
+                                <small id="telefono-movil-error" class="form-text text-danger"></small>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="select-municipio">Municipio</label>
+                                <select class="form-control" id="select-municipio"></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="select-centro">Centro Escolar</label>
+                                <select class="form-control" id="select-centro"></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre-padre">Nombre del padre</label>
+                                <input type="text" class="form-control" id="nombre-padre"
+                                       placeholder="Nombre del padre del estudiante">
+                                <small id="nombre-padre-error" class="form-text text-danger"></small>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre-madre">Nombre de la madre</label>
+                                <input type="text" class="form-control" id="nombre-madre"
+                                       placeholder="Nombre de la madre del estudiante">
+                                <small id="nombre-madre-error" class="form-text text-danger"></small>
+
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-success"
+                                       id="btnGuardarExpediente"
+                                       value="Guardar Expediente">
+                                <input class="btn btn-info"
+                                       id="btnLimpiar"
+                                       value="Limpiar">
+                                <input class="btn btn-warning"
+                                       id="btnRegresar"
+                                       value="Regresar">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Your Website 2020</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+</body>
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin-2.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<script>
+
+    $("#select-centro").attr('disabled',true);
+
+    fillMunicipioCombo();
+
+    $("#btnGuardarExpediente").on('click',function(e){
+        e.preventDefault();
+        if(areAllInputsFilled()){
+            let data = {
+                nombres: $("#nombres").val(),
+                apellidos: $("#apellidos").val(),
+                carnetMinoridad: $("#carnet-minoridad").val(),
+            }
+        }
+    });
+    function areAllInputsFilled() {
+        let isValid = true;
+        $("input[type=text]").each(function(){
+            if($(this).val().trim() === ""){
+                isValid = false;
+                let inputId = $(this).attr('id').concat("-error")
+                $("#"+inputId).text($(this).attr('id').concat(" no puede ir vacio"))
+            }
+        })
+        return isValid;
+    }
+    function fillMunicipioCombo() {
+        $.get("/municipios/"+3, function(data, status){
+            console.log(data);
+        });
+    }
+</script>
+
+
+</html>
