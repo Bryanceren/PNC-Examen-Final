@@ -42,6 +42,7 @@ public class MateriaServiceImpl implements MateriaService
 	}
 
 	@Override
+	@Transactional
 	public void saveMateria(Materia materia) throws DataAccessException
 	{
 		try {

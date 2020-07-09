@@ -45,18 +45,17 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-
-                .antMatchers("/css/**", "/js/**", "/img/**", "/vendor/**").permitAll()
-                .antMatchers("/").hasAnyRole("ADMIN", "USER")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
+            .antMatchers( "/register", "/crear-usuario", "/css/**", "/js/**", "/img/**", "/vendor/**").permitAll()
+            .antMatchers("/").hasAnyRole("ADMIN", "USER")
+            .anyRequest().authenticated()
+            .and()
+            .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/", true)
                 .permitAll()
-                .and()
-                .logout().permitAll();
-        http.cors().and().csrf().disable();
+            .and()
+            .logout().permitAll();
+             http.cors();
 
     }
 
@@ -65,16 +64,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         PasswordEncoder encoder = passwordEncoder();
 
         User.UserBuilder users = User.builder().passwordEncoder(password -> encoder.encode(password));
+//
+//        builder.inMemoryAuthentication()
+//                .withUser(users.username("admin").password("secret").roles("ADMIN"))
+//                .withUser(users.username("coordinador").password("1234").roles("USER"));
 
-        builder.inMemoryAuthentication()
-            .withUser(users.username("admin").password("secret").roles("ADMIN"))
-            .withUser(users.username("coordinador").password("secret").roles("USER"));
-
-        builder.inMemoryAuthentication()
-                .withUser(users.username("admin").password("secret").roles("ADMIN"))
-                .withUser(users.username("coordinador").password("1234").roles("USER"));
-
-        //builder.userDetailsService(authenticationService).passwordEncoder(encoder);
+        builder.userDetailsService(authenticationService).passwordEncoder(encoder);
 
     }
 

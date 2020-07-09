@@ -72,7 +72,7 @@
                     <div class="card mb-4">
                       <div class="card-body">
                         <p class="mb-0">Ingrese el c&oacute;digo del Estudiante:</p><br/>
-                        <form method="post" th:action="@{/buscarEstudianteModal}">
+                        <form method="post" th:action="@{/buscarEstudianteModal}" th:object="${estudiantes}">
                           <div class="form-group">
                             <input class="form-control py-4" id="codigo" type="text" placeholder="Codigo estudiante" style="width: 400px" name="codigo" />
                           </div>

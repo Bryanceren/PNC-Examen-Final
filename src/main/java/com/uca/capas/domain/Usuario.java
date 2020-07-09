@@ -1,9 +1,12 @@
 package com.uca.capas.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+
 
 @Entity
 @Table(schema = "public", name = "usuario")
@@ -27,30 +30,32 @@ public class Usuario
     private String username;
 
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @NotNull(message = "Campo Obligatorio")
     @Column(name = "fecha_nacimiento")
-    Date fechaNacimiento;
+    private Date fechaNacimiento;
 
-    @NotEmpty(message = "El campo direccion no puede quedar vacio")
+    @NotEmpty(message = "Campo Obligatorio")
     @Column(name = "direccion")
     private String direccion;
 
-    @NotEmpty(message = "El campo apellido no puede quedar vacio")
+    @NotEmpty(message = "Campo Obligatorio")
     @Column(name = "password")
     private String password;
 
     @Transient
+    @NotEmpty(message = "Campo Obligatorio")
     private String confirmation_password;
 
-    @NotEmpty(message = "El campo apellido no puede quedar vacio")
+    @NotEmpty(message = "Campo Obligatorio")
     @Column(name = "role")
     private String role;
 
     @Column(name = "municipio_fk")
     private Integer municipio;
 
-    @NotNull(message = "Campo obligatorio")
     @Column(name = "estado")
-    private Boolean estado;
+    private Boolean estado = false;
 
     public Usuario() {}
 
