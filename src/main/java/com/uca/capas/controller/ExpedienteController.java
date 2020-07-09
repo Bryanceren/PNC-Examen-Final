@@ -16,4 +16,11 @@ public class ExpedienteController {
         mav.setViewName("expediente-alumno/expediente");
         return mav;
     }
+    @GetMapping("/nuevo-expediente")
+    public ModelAndView nuevoExpediente()
+    {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("expediente-alumno/nuevo-expediente");
+        return mav;
+    }
 }

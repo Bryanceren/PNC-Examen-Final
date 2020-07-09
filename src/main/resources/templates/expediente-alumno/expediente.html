@@ -103,9 +103,16 @@
                                        style="width: 400px" name="valor"/>
                             </div>
 
-                            <div class="form-group"><input type="submit" class="btn btn-primary"
-                                                           id="btnBuscarExpediente"
-                                                           value="Buscar Estudiante">
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary"
+                                       id="btnBuscarExpediente"
+                                       value="Buscar Expediente">
+                                <a th:href="@{/nuevo-expediente}">
+                                    <input class="btn btn-success"
+                                           id="btnNuevoExpediente"
+                                           value="Nuevo Expediente">
+                                </a>
+
                             </div>
                         </div>
                     </div>
@@ -122,11 +129,12 @@
                                 <thead>
                                 <tr>
                                     <th>Accion</th>
-                                    <th>nombre</th>
-                                    <th>apellido</th>
-                                    <th>materiasAprobadas</th>
-                                    <th>materiasReprobadas</th>
-                                    <th>promedio</th>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Materias Aprobadas</th>
+                                    <th>Materias Reprobadas</th>
+                                    <th>Promedio</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -203,13 +211,18 @@
         if (valorBusqueda === "") {
             alert("Favor poner un parametro de busqueda")
         } else {
-            return $("#expediente-table").DataTable({
+            let something = $("#expediente-table").DataTable({
                 'ajax': {
                     'url': "http://localhost:8000/expedientes",
                     'type': "POST",
                     'data': {filter: criterio, param: valorBusqueda},
                 },
                 "columns": [
+                    {
+                        "data": null,
+                        "defaultContent": "<button class='btn btn-info' id='btnLupa'>Lupa</button> <button class='btn btn btn-info' id='btnLapiz'>Lapiz</button>"
+                    },
+                    {"data": "id"},
                     {"data": "nombre"},
                     {"data": "apellido"},
                     {"data": "materiasAprobadas"},
@@ -218,6 +231,19 @@
                 ]
 
             });
+            $('#expediente-table tbody').on('click', '#btnLupa', function (e) {
+                let data = tabla.row($(this).parent().parent()).data();
+                console.log(data["id"]);
+
+
+            });
+            $('#expediente-table tbody').on('click', '#btnLapiz', function (e) {
+                e.preventDefault();
+
+                alert("si")
+            });
+
+            return something;
         }
     }
 

@@ -10,6 +10,7 @@ import javax.persistence.Table;
 @Table(name = "estudiante_materia_resultado_final")
 public class Expediente {
     @Id
+    private Integer id;
     private String nombre;
     private String apellido;
     @Column(name = "materias_aprobadas")
@@ -19,6 +20,14 @@ public class Expediente {
     private Double promedio;
 
     public Expediente() { }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getNombre() {
         return nombre;
