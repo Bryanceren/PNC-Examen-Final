@@ -8,6 +8,8 @@ import com.uca.capas.repositories.EstudianteRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -37,10 +39,10 @@ public class EstudianteServiceImpl implements EstudianteService {
     @Override
     public void saveEstu(EstudianteMateria estumate) throws DataAccessException {
         try {
-			estudianteRepository.save(estumate);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+            estudianteRepository.save(estumate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
 }

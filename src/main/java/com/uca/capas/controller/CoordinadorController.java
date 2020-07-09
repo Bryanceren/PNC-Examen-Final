@@ -69,7 +69,17 @@ public class CoordinadorController {
     public ModelAndView guardarNota(@Valid @ModelAttribute EstudianteMateria estudianteMateria, BindingResult result) {
         ModelAndView mav = new ModelAndView();  
         if (result.hasErrors()) {
+            List<Materia> materias = null;
+            Estudiante e = estudianteService.findOne(estudianteMateria.getEstudiante().getIdEstudiante());
+        try {
+            materias = materiaService.findAllMaterias();
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+            mav.addObject("materias", materias);
+            mav.addObject("estudiantes", e);
             mav.setViewName("agregar-materia-cursada");
+            return mav;
         } else {
             estudianteService.saveEstu(estudianteMateria);
             mav.addObject("exito", true);

@@ -9,7 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Table(schema = "public", name = "estudiante_materia")
@@ -29,15 +33,18 @@ public class EstudianteMateria {
     private Materia materia;
 
     @NotNull(message = "El campo año no puede quedar vacio")
+    @Min(value = 2005, message = "El año debe ser mayor o igual a 2005")
     @Column(name = "year")
     private Integer anio;
 
-    @NotNull(message = "El campo ciclo no puede quedar vacio")
+    @NotEmpty(message = "El campo ciclo no puede quedar vacio")
     @Column(name = "ciclo")
+    @Range(min = 01, max = 03, message = "El ciclo puede ser 01, 02 o 03")
     private String ciclo;
 
     @NotNull(message = "El campo nota no puede quedar vacio")
     @Column(name = "nota")
+    @Range(min = 0, max = 10, message = "La nota debe de estar entre 0.0 y 10.0")
     private Float nota;
 
     public EstudianteMateria(){}
