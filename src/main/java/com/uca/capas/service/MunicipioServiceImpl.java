@@ -1,5 +1,6 @@
 package com.uca.capas.service;
 
+import com.uca.capas.domain.Municipio;
 import com.uca.capas.dto.MunicipioDTO;
 import com.uca.capas.repositories.MunicipioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,10 @@ public class MunicipioServiceImpl implements MunicipioService{
             municipioDTO.setDptoId(dptoId);
             return municipioDTO;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Municipio> findAll() throws DataAccessException {
+        return municipioRepository.findAll();
     }
 }

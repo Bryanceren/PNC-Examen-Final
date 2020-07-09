@@ -52,67 +52,78 @@
             >
               <h1 class="h3 mb-0 text-gray-800">Agregar Materias Cursadas</h1>
             </div>
-            <div class="nombreEstudiante">
-              <h6>Nombre del alumno: </h6>
-              <span th:text="${estudiantes.nombre}"></span>
-              <span th:text="${estudiantes.apellido}"></span>
-            </div>
             <form
-            class="mt-5"
-            method="POST"
-            th:action="@{/guardarNota}"
-            ,
-            th:object="${estudianteMateria}"
-          >
-            <div class="form-group">
-              <input
-                type="hidden"
-                class="form-control"
-                th:field="*{id}"
-                id="id"
-              />
-            </div>
-            <div class="form-group">
-              <input
-                type="hidden"
-                class="form-control"
-                th:name="estudiante.idEstudiante"
-                th:value="${estudiantes.idEstudiante}"
-              />
-            </div>
-            <div class="form-group">
-                <label for="materia" style="display: block;">Materias</label>
-                <select th:field="*{materia.idMateria}">
-                  <option
-                    th:each="ca : ${materias}"
-                    th:value="${ca.idMateria}"
-                    th:text="${ca.nombre}"
-                  />
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="anio">Anio</label>
-                <input
-                  type="text"
+              class="mt-5"
+              method="POST"
+              th:action="@{/guardarNota}"
+              ,
+              th:object="${estudianteMateria}"
+            >   
+    
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <span class="font-weight-bold text-primary" th:text="${estudiantes.nombre + ' ' + estudiantes.apellido}"></span>
+                </div>
+                <div class="card-body">
+                  
+                  <input
+                  type="hidden"
                   class="form-control"
-                  th:field="*{anio}"
-                  id="anio"
+                  th:field="*{id}"
+                  id="id"
                 />
-                <span th:errors="*{anio}" style="color: #ff0000;"></span>
+                <input
+                  type="hidden"
+                  class="form-control"
+                  th:name="estudiante.idEstudiante"
+                  th:value="${estudiantes.idEstudiante}"
+                />
+                <table cellpadding="10">
+                  <tr>
+                    <td><label for="materia">Materias:</label></td>
+                    <td><select th:field="*{materia.idMateria}">
+                      <option
+                        th:each="ca : ${materias}"
+                        th:value="${ca.idMateria}"
+                        th:text="${ca.nombre}"
+                      />
+                     </select></td>
+                  </tr>
+                  <tr>
+                    <td><label for="anio">Año( > 2005):</label></td>
+                    <td><input
+                      type="text"
+                      class="form-control"
+                      th:field="*{anio}"
+                      id="anio"
+                    /></td>
+                    <td><small th:errors="*{anio}" style="color: #ff0000;"></small></td>
+                    </tr>
+
+                    <tr>
+                      <td><label for="ciclo">Ciclo:</label></td>
+                      <td><select th:field="*{ciclo}">
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                      </select></td>
+                      <td><small th:errors="*{ciclo}" style="color: #ff0000;"></small></td>
+                    </tr>
+                    
+                    <tr>
+                      <td><label for="nota">Nota:</label></td>
+                      <td><input type="text" class="form-control" th:field="*{nota}" id="nota" /></td>
+                      <td><small th:errors="*{nota}" style="color: #ff0000;"></small></td>
+                    </tr>
+    
+                    <tr>
+                      <td><a th:href="@{/materias-cursadas}" class="d-sm-inline-block btn btn-secondary shadow-sm"><i class="fas fa-undo-alt"></i> Regresar</a></td>
+                      <td><button type="submit" class="d-sm-inline-block btn btn-primary shadow-sm"><i class="far fa-save"></i> Guardar</button></td>      
+                    </tr>               
+                </table>
+                </div>
               </div>
-              <div class="form-group">
-                <label for="ciclo">Ciclo</label>
-                <input type="text" class="form-control" th:field="*{ciclo}" id="ciclo" />
-                <span th:errors="*{ciclo}" style="color: #ff0000;"></span>
-              </div>
-              <div class="form-group">
-                <label for="nota">Nota</label>
-                <input type="text" class="form-control" th:field="*{nota}" id="nota" />
-                <span th:errors="*{nota}" style="color: #ff0000;"></span>
-              </div>
-              <a th:href="@{/materias-cursadas}" class="d-sm-inline-block btn btn-secondary shadow-sm"><i class="fas fa-undo-alt"></i> Regresar</a>
-              <button type="submit" class="d-sm-inline-block btn btn-primary shadow-sm"><i class="far fa-save"></i> Guardar</button>
-          </form> 
+            </form>
 
           <!-- /.container-fluid -->
         </div>

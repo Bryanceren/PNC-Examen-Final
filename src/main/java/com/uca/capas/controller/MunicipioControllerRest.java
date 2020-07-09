@@ -1,5 +1,6 @@
 package com.uca.capas.controller;
 
+import com.uca.capas.domain.Municipio;
 import com.uca.capas.dto.MunicipioDTO;
 import com.uca.capas.dto.MunicipioJson;
 import com.uca.capas.service.MunicipioService;
@@ -20,9 +21,14 @@ public class MunicipioControllerRest {
     private MunicipioService municipioService;
 
     @GetMapping("/municipios/{dptoId}")
-    ResponseEntity<MunicipioJson> getMunicipios(@PathVariable Integer dptoId){
+    ResponseEntity<MunicipioJson> getMunicipios(@PathVariable Integer dptoId) {
         List<MunicipioDTO> municipioDTOS = municipioService.municipioDTO(dptoId);
         MunicipioJson municipioJson = new MunicipioJson(municipioDTOS);
         return new ResponseEntity<>(municipioJson, HttpStatus.OK);
+    }
+
+    @GetMapping("/municipios/")
+    List<Municipio> getMunicipios() {
+        return municipioService.findAll();
     }
 }

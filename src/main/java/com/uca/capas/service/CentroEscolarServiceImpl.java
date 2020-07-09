@@ -50,6 +50,11 @@ public class CentroEscolarServiceImpl implements CentroEscolarService {
         return CentroEscolarRepository.findAllMunicipios();
     }
 
+	@Override
+	public List<CentroEscolar> findfindCentroPorMuni(Integer fk) {
+		return CentroEscolarRepository.findCentroPorMuni(fk);
+	}
+
 	public Page<CentroEscolar> findAll(Pageable page) throws DataAccessException {
 		return CentroEscolarRepository.findAll(page);
 	}
