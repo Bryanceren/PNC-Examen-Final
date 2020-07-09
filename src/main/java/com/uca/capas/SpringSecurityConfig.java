@@ -58,7 +58,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .logout().permitAll();
 //<<<<<<< HEAD
-//             http.cors().and().csrf().disable();
+             http.cors().and().csrf().disable();
 //=======
 
         http.sessionManagement()
@@ -66,7 +66,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .maxSessionsPreventsLogin(true)
             .sessionRegistry(sessionRegistry());
 
-        http.cors();
+//        http.cors();
 //>>>>>>> origin/master
 
     }
