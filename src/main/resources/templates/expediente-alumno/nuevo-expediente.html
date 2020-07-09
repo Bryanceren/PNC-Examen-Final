@@ -132,7 +132,9 @@
                             </div>
                             <div class="form-group">
                                 <label for="select-municipio">Municipio</label>
-                                <select class="form-control" id="select-municipio"></select>
+                                <select class="form-control" id="select-municipio">
+                                    <option value="none">Seleccionar opcion</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="select-centro">Centro Escolar</label>
@@ -204,13 +206,13 @@
 
 <script>
 
-    $("#select-centro").attr('disabled',true);
+    $("#select-centro").attr('disabled', true);
 
     fillMunicipioCombo();
 
-    $("#btnGuardarExpediente").on('click',function(e){
+    $("#btnGuardarExpediente").on('click', function (e) {
         e.preventDefault();
-        if(areAllInputsFilled()){
+        if (areAllInputsFilled()) {
             let data = {
                 nombres: $("#nombres").val(),
                 apellidos: $("#apellidos").val(),
@@ -218,22 +220,48 @@
             }
         }
     });
+
     function areAllInputsFilled() {
         let isValid = true;
-        $("input[type=text]").each(function(){
-            if($(this).val().trim() === ""){
+        $("input[type=text]").each(function () {
+            if ($(this).val().trim() === "") {
                 isValid = false;
                 let inputId = $(this).attr('id').concat("-error")
-                $("#"+inputId).text($(this).attr('id').concat(" no puede ir vacio"))
+                $("#" + inputId).text($(this).attr('id').concat(" no puede ir vacio"))
             }
         })
         return isValid;
     }
+
     function fillMunicipioCombo() {
-        $.get("/municipios/"+3, function(data, status){
-            console.log(data);
+
+        $.get("/municipios/", function (data, status) {
+            // console.log(data);
+            $("#select-municipio").empty()
+            $("#select-municipio").append($("<option></option>").val("none").html("Seleccione una opcion"));
+            $.each(data, function () {
+                $("#select-municipio").append($("<option></option>").val(this['idmun']).html(this['nombremun']))
+            })
         });
     }
+
+    $("#select-municipio").on('change', function () {
+        let selectedItem = $(this).children("option:selected").val();
+        if (selectedItem != "none") {
+            $.get("/centros/" + selectedItem, function (data, status) {
+                $("#select-centro").empty();
+                $("#select-centro").attr('disabled', false);
+                $.each(data, function () {
+                    $("#select-centro").append($("<option></option>").val(this['idcen']).html(this['nombrecen']))
+                });
+            });
+        } else {
+            $("#select-centro").empty();
+            $("#select-centro").attr('disabled', true);
+        }
+
+
+    })
 </script>
 
 
