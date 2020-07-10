@@ -81,17 +81,17 @@ public class LoginController
     {
         ModelAndView mav = new ModelAndView();
 
+        List<Departamento> departamentos = null;
+
+        try {
+            departamentos = departamentoService.findAll();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+
         if(result.hasErrors())
         {
-            List<Departamento> departamentos = null;
-
-            try {
-                departamentos = departamentoService.findAll();
-            }
-            catch(Exception e) {
-                e.printStackTrace();
-            }
-
             mav.addObject("departamentos",departamentos);
             mav.setViewName("register");
             return mav;
@@ -99,6 +99,7 @@ public class LoginController
 
         if(!usuario.getPassword().equals(usuario.getConfirmation_password()))
         {
+            mav.addObject("departamentos",departamentos);
             mav.addObject("password_error", "Las contraseña no coincide, por favor vuelva a colocar su contraseña");
             mav.setViewName("register");
             return mav;
@@ -113,8 +114,17 @@ public class LoginController
 
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 
-        usuarioService.save(usuario);
-        mav.addObject("success", true);
+        try{
+            usuarioService.save(usuario);
+            mav.addObject("success", true);
+
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            mav.addObject("error", "El nombre de usuario ya existe, por favor ingrese otro nombre de usuario");
+        }
+
+        mav.addObject("departamentos",departamentos);
         mav.addObject("usuario", new Usuario());
         mav.setViewName("register");
 

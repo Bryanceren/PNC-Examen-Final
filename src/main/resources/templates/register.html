@@ -39,6 +39,14 @@
                   </button>
                 </div>
               </th:block>
+              <th:block th:if="${error}">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <span th:text="${error}"/>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              </th:block>
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">¡Crea una cuenta!</h1>
               </div>
@@ -60,7 +68,7 @@
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
                     <select th:field="*{departamento.id_depto}" id="departamento" class="form-control custom-select-1">
-                      <option th:value="EMPTY" selected>Seleccione departamento</option>
+                      <option th:value="-1" selected>Seleccione departamento</option>
                       <option
                         th:each="depto : ${departamentos}"
                         th:value="${depto.id_depto}"
