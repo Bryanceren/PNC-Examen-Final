@@ -18,5 +18,5 @@ public interface EstudianteService {
 
     public void saveEstu(EstudianteMateria estumate) throws DataAccessException;
     Estudiante saveAndFlush(Estudiante e) throws DataAccessException;
-
+    void updateEstudiente(Integer codigo,Estudiante e) throws DataAccessException;
 }

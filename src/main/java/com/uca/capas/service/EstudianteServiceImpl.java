@@ -55,4 +55,20 @@ public class EstudianteServiceImpl implements EstudianteService {
         return estu.saveAndFlush(e);
     }
 
+    @Override
+    public void updateEstudiente(Integer codigo, Estudiante e) throws DataAccessException {
+        Estudiante newEstudiante = estu.findEstudianteById(codigo);
+        newEstudiante.setNombre(e.getNombre());
+        newEstudiante.setApellido(e.getApellido());
+        newEstudiante.setCarnetMinoridad(e.getCarnetMinoridad());
+        newEstudiante.setFechaNacimiento(e.getFechaNacimiento());
+        newEstudiante.setDireccion(e.getDireccion());
+        newEstudiante.setTelefonoFijo(e.getTelefonoFijo());
+        newEstudiante.setTelefonoMovil(e.getTelefonoMovil());
+        newEstudiante.setNombrePadre(e.getNombrePadre());
+        newEstudiante.setNombreMadre(e.getNombreMadre());
+        newEstudiante.setCentroFk(e.getCentroFk());
+        estu.saveAndFlush(newEstudiante);
+    }
+
 }

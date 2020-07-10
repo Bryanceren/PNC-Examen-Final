@@ -213,6 +213,7 @@
 <script>
     fillMunicipioCombo();
     obtenerDatosEstudiante();
+    var lel = 1;
 
     $("#btnRegresar").on('click', (e) => {
         e.preventDefault()
@@ -241,12 +242,12 @@
 
 
         $.ajax({
-            url: "/expediente",
+            url: "/actualizar/"+$("#idEstudiante").text(),
             type: "POST",
             data: JSON.stringify(data),
             contentType: "application/json",
             success: function (e) {
-                alert("Expediente agregado exitosamente");
+                alert("Expediente modificado exitosamente");
                 $(".text-danger").text("");
                 limpiarCampos();
                 window.location.replace("http://localhost:8000/expediente");
@@ -302,25 +303,27 @@
             url: "/expediente/" + $("#idEstudiante").text(),
             type: "GET",
             contentType: "application/json",
-            success: function (e) {
-                console.log(e)
-                $("#nombres").val(e["nombre"])
-                $("#apellidos").val(e["apellido"])
-                $("#carnet-minoridad").val(e["carnetMinoridad"])
-                $("#fecha-nacimiento").val(e["fechaNacimiento"])
-                $("#nombre-padre").val(e["nombrePadre"])
-                $("#nombre-madre").val(e["nombreMadre"])
-                $("#telefono-fijo").val(e["telefonoFijo"])
-                $("#telefono-movil").val(e["telefonoMovil"])
-                $("#direccion").val(e["direccion"])
-                $("#idEstudianteCentro").text(e["centroFk"])
+            success: function (es) {
+                console.log(es)
+                $("#nombres").val(es["nombre"])
+                $("#apellidos").val(es["apellido"])
+                $("#carnet-minoridad").val(es["carnetMinoridad"])
+                $("#fecha-nacimiento").val(es["fechaNacimiento"])
+                $("#nombre-padre").val(es["nombrePadre"])
+                $("#nombre-madre").val(es["nombreMadre"])
+                $("#telefono-fijo").val(es["telefonoFijo"])
+                $("#telefono-movil").val(es["telefonoMovil"])
+                $("#direccion").val(es["direccion"])
+                $("#idEstudianteCentro").text(es["centroFk"])
                 $.ajax({
-                    url: "/centro/" + e["centroFk"],
+                    url: "/centro/" + es["centroFk"],
                     type: "GET",
                     contentType: "application/json",
                     success: function (e) {
+                        console.log(e['municipiocen']['idmun'])
                         $("#select-municipio").val(e['municipiocen']['idmun'])
                         $("#select-municipio").change()
+                        lel = es["centroFk"]
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.log(jqXHR);
@@ -343,6 +346,9 @@
                 $.each(data, function () {
                     $("#centro").append($("<option></option>").val(this['idcen']).html(this['nombrecen']))
                 });
+
+                $("#centro").val(lel)
+
             });
         } else {
             $("#centro").empty();
