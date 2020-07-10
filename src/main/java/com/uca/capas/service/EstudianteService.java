@@ -16,5 +16,6 @@ public interface EstudianteService {
     public EstudianteMateria findOnes(Integer codigo) throws DataAccessException;
 
     public void saveEstu(EstudianteMateria estumate) throws DataAccessException;
+    Estudiante saveAndFlush(Estudiante e) throws DataAccessException;
 
 }

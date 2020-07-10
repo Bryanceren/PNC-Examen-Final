@@ -41,6 +41,12 @@ public class CentroEscolarServiceImpl implements CentroEscolarService {
 		return CentroEscolarRepository.getOne(codigo);
 	}
 
+	@Override
+	public long count()
+	{
+		return CentroEscolarRepository.count();
+	}
+
 	@Transactional
 	public void save(CentroEscolar c) throws DataAccessException {
 		CentroEscolarDao.save(c);

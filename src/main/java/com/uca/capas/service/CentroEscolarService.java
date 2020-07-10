@@ -18,7 +18,7 @@ public interface CentroEscolarService {
 
 	public Page<CentroEscolar> findAll(Pageable page) throws DataAccessException;
 
-	public Long countAll();
+	public long count();
 
 	public CentroEscolar findOne(Integer codigo) throws DataAccessException;
 

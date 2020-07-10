@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Usuarios</title>
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this page -->
+  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul th:replace="Commons/sidebar :: sidebar" />
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav th:replace="Commons/navbar :: navbar"/>
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+
+          <!-- Page Heading -->
+          <form method="post" th:action="@{/guardar-usuario}" th:object="${Usuario}">
+
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Usuarios</h1>
+            <div>
+              <button type="submit" class="d-sm-inline-block btn btn-primary shadow-sm"><i class="far fa-save"></i> Guardar</button>
+              <a th:href="@{/usuarios}" class="d-none d-sm-inline-block btn btn-secondary shadow-sm"><i class="fas fa-undo-alt"></i> Regresar</a>
+            </div>
+          </div>
+
+
+          <!-- DataTales Example -->
+            
+            
+              <input type="hidden" name="id" class="form-control" th:field="*{id}" />
+              <input type="hidden" name="nombre" class="form-control" th:field="*{nombre}" />
+              <input type="hidden" name="apellido" class="form-control" th:field="*{apellido}" />
+              <input type="hidden" name="username" class="form-control" th:field="*{username}" />
+              <input type="hidden" name="fechaNacimiento" class="form-control" th:field="*{fechaNacimiento}" />
+              <input type="hidden" name="direccion" class="form-control" th:field="*{direccion}" />
+              <input type="hidden" name="password" class="form-control" th:field="*{password}" />
+              <input type="hidden" name="confirmation_password" class="form-control" th:field="*{confirmation_password}" />
+              <input type="hidden" name="role" class="form-control" th:field="*{role}" />
+              <input type="hidden" name="departamento" class="form-control" th:field="*{departamento}" />
+              <input type="hidden" name="municipio" class="form-control" th:field="*{municipio}" />
+              <input type="hidden" name="estado" class="form-control" th:field="*{estado}" />
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Grid</h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="usuarios-table" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                          <th style="width: 50px" class="text-center">Accion</th>
+                          <th style="width: 50px" class="text-center">Id</th>
+                          <th>Nombre</th>
+                          <th>Apellido</th>
+                          <th style="width: 70px">Rol</th>
+                          <th>Estado</th>
+                        </tr>
+                        </thead>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+               
+            </form>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2020</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  
+  <style>
+    td{
+      vertical-align: center!important;
+    }
+  </style>
+
+  <script type="text/javascript">
+    $(document).ready(function()
+    {
+      $('#li-usuarios').addClass("active");
+
+      let table = $('#usuarios-table').DataTable( {
+        "processing": true,
+        "serverSide": true,
+        "ajax": "./get-usuarios",
+        "language": {
+          "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+        },
+        "pageLength": 5,
+        "columnDefs": [
+          {
+          "targets": 0,
+          "className": "text-center",
+          },
+          {
+            "targets": 1,
+            "className": "text-center"
+          },
+          {
+            "targets":5,
+            "className": "text-center",
+            "data": null,
+            "defaultContent": "<input type='checkbox' class='checkbox' name='estadox'>"
+          }
+        ]
+      });
+      $('#usuarios-table tbody').on( 'click', '.checkbox', function () {
+        if($('#estado').is(":checked")){
+          $("#estado").prop("checked", false);
+        }else{
+          $("#estado").prop("checked", true);
+        }
+        
+      } );
+      
+     
+    });
+  </script>
+
+</body>
+
+</html>

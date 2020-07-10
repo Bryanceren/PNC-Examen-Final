@@ -1,21 +1,11 @@
 package com.uca.capas.domain;
 
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
 
 @Entity
 @Table(schema = "public", name = "centro_escolar")
@@ -26,22 +16,25 @@ public class CentroEscolar {
 	@Column(name = "id")
 	private Integer idcen;
 
-	@NotNull(message = "El campo nombre de centro no puede quedar vacio")
+	@NotEmpty(message = "El campo nombre de centro no puede quedar vacio")
 	@Column(name = "nombre")
 	private String nombrecen;
 	
-	@NotNull(message = "El campo descripcion de centro no puede quedar vacio")
+	@NotEmpty(message = "El campo descripcion de centro no puede quedar vacio")
 	@Column(name = "descripcion")
 	private String descripcioncen;
 
 	@Column(name = "estado")
 	private Boolean estadocen;
+
+	@Transient
+	private Departamento departamento;
 	
 	@JsonIgnore 
 	@JoinColumn(name = "municipio_fk")
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Municipio municipiocen;	
-
+	@NotNull(message = "Campo Obligatorio")
+	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Municipio municipiocen;
 	
 	public CentroEscolar() {
 	}
@@ -86,11 +79,11 @@ public class CentroEscolar {
 		this.municipiocen = municipiocen;
 	}
 
-	
-	
+	public Departamento getDepartamento() {
+		return departamento;
+	}
 
-	
-	
-	
-	
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
 }

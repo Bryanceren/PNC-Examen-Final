@@ -1,17 +1,26 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Materias</title>
 
+  <title>Usuarios</title>
+
+  <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -28,47 +37,44 @@
       <!-- Main Content -->
       <div id="content">
 
+        <!-- Topbar -->
         <nav th:replace="Commons/navbar :: navbar"/>
+
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Materias</h1>
-            <a th:href="@{/nueva-materia}" class="d-none d-sm-inline-block btn btn-primary shadow-sm"><i class="fas fa-plus"></i> Nueva Materia</a>
+            <h1 class="h3 mb-0 text-gray-800">Usuarios</h1>
           </div>
 
 
           <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Registros</h6>
-            </div>
-            <div class="card-body">
-              <th:block th:if="${exito}">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                  Materia guardada con exito
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+            
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Grid</h6>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="usuarios-table" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                      <th style="width: 50px" class="text-center">Accion</th>
+                      <th style="width: 50px" class="text-center">Id</th>
+                      <th>Nombre</th>
+                      <th>Apellido</th>
+                      <th style="width: 70px">Rol</th>
+                      <th>Estado</th>
+                    </tr>
+                    </thead>
+                  </table>
                 </div>
-              </th:block>
-              <div class="table-responsive">
-                <table class="table table-bordered" id="materias-table" width="100%" cellspacing="0">
-                  <thead>
-                  <tr>
-                    <th style="width: 50px" class="text-center">Acci&oacute;n</th>
-                    <th style="width: 50px" class="text-center">C&oacute;digo</th>
-                    <th style="width: 300px">Nombre</th>
-                    <th>Descripcion</th>
-                    <th style="width: 60px" class="text-center">Estado</th>
-                  </tr>
-                  </thead>
-                </table>
               </div>
             </div>
-          </div>
+            
+      
 
         </div>
         <!-- /.container-fluid -->
@@ -77,7 +83,13 @@
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <footer th:replace="Commons/footer :: footer" />
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2020</span>
+          </div>
+        </div>
+      </footer>
       <!-- End of Footer -->
 
     </div>
@@ -91,15 +103,22 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
+  <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-  <script src="js/sb-admin-2.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- Page level plugins -->
   <script src="vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
+  
   <style>
     td{
       vertical-align: center!important;
@@ -109,12 +128,12 @@
   <script type="text/javascript">
     $(document).ready(function()
     {
-      $('#li-materias').addClass("active");
+      $('#li-usuarios').addClass("active");
 
-      let table = $('#materias-table').DataTable( {
+      let table = $('#usuarios-table').DataTable( {
         "processing": true,
         "serverSide": true,
-        "ajax": "./get-materias",
+        "ajax": "./get-usuarios",
         "language": {
           "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
         },
@@ -124,25 +143,24 @@
           "targets": 0,
           "className": "text-center",
           "data": null,
-          "defaultContent": "<button class='btn btn-info btn-circle btn-sm' title='Editar'><i class='fa fa-pencil-alt'></i></button>"
+          "defaultContent": "<button class='btn btn-info btn-circle btn-sm' title='Editar' id='editarusuario'><i class='fa fa-pencil-alt'></i></button>"
+
           },
           {
             "targets": 1,
-            "className": "text-center"
-          },
-          {
-            "targets": 4,
             "className": "text-center"
           }
         ]
       });
 
-      $('#materias-table tbody').on( 'click', 'button', function () {
+      
+      $('#usuarios-table tbody').on( 'click', 'button', function () {
         var data = table.row( $(this).parents('tr') ).data();
-        location.href = './editar-materia?id=' + data[0];
+        location.href = '/editar-usuario?id=' + data[0];
       } );
     });
   </script>
+
 </body>
 
 </html>

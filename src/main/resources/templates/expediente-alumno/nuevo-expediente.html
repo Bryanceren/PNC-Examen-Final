@@ -133,12 +133,19 @@
                             <div class="form-group">
                                 <label for="select-municipio">Municipio</label>
                                 <select class="form-control" id="select-municipio">
-                                    <option value="none">Seleccionar opcion</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="select-centro">Centro Escolar</label>
-                                <select class="form-control" id="select-centro"></select>
+                                <label for="centro">Centro Escolar</label>
+                                <select class="form-control" id="centro"></select>
+                                <small id="centro-error" class="form-text text-danger"></small>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="carnet-minoridad">Direcion</label>
+                                <input type="text"  class="form-control"
+                                       id="direccion" placeholder="Direccion del estudiante">
+                                <small id="direccion-error" class="form-text text-danger"></small>
                             </div>
                             <div class="form-group">
                                 <label for="nombre-padre">Nombre del padre</label>
@@ -205,29 +212,75 @@
 <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
 <script>
+    $("#btnLimpiar").on("click",function(e){
+        e.preventDefault();
+        limpiarCampos();
+    })
+    $("#btnRegresar").on('click',(e)=>{
+        e.preventDefault()
+        window.location.replace("http://localhost:8000/expediente");
 
-    $("#select-centro").attr('disabled', true);
+    })
+    $("#centro").attr('disabled', true);
+    $("#btnGuardarExpediente").attr('disabled', true);
 
     fillMunicipioCombo();
 
     $("#btnGuardarExpediente").on('click', function (e) {
         e.preventDefault();
-        if (areAllInputsFilled()) {
+        // if (areAllInputsFilled()) {
             let data = {
-                nombres: $("#nombres").val(),
-                apellidos: $("#apellidos").val(),
+                nombre: $("#nombres").val(),
+                apellido: $("#apellidos").val(),
                 carnetMinoridad: $("#carnet-minoridad").val(),
+                fechaNacimiento: $("#fecha-nacimiento").val(),
+                direccion: $("#direccion").val(),
+                telefonoFijo: $("#telefono-fijo").val(),
+                telefonoMovil: $("#telefono-movil").val(),
+                nombrePadre: $("#nombre-padre").val(),
+                nombreMadre: $("#nombre-madre").val(),
+                centroFk: $("#centro").val()
             }
-        }
-    });
 
+
+            $.ajax({
+                url:"/expediente",
+                type:"POST",
+                data:JSON.stringify(data),
+                contentType:"application/json",
+                success: function(e){
+                    alert("Expediente agregado exitosamente");
+                    $(".text-danger").text("");
+                    limpiarCampos();
+                    window.location.replace("http://localhost:8000/expediente");
+                },
+                error:function( jqXHR,  textStatus, errorThrown ){
+                    if(jqXHR.responseJSON.status === 400){
+                        $(".text-danger").text("");
+
+                        jqXHR.responseJSON.errors.forEach(el=>{
+                            $("#"+el.replace(/ .*/,'')+"-error").text($("#"+el.replace(/ .*/,'')).attr('id').concat(" no puede quedar vacio y en caso de ser telefono o carnet de minoridad ser de longitud de 9 caracteres"))
+                        })
+                    }
+                    else if (jqXHR.responseJSON.status === 500){
+                        alert("Ha ocurrido un error, verificar si hay datos repetidos, mensaje: \n"+jqXHR.responseJSON.message)
+                    }
+                }
+            })
+        // }
+    });
+    function limpiarCampos(){
+        $("input[type=text]").each(function () {
+            $(this).val("")
+        })
+    }
     function areAllInputsFilled() {
         let isValid = true;
         $("input[type=text]").each(function () {
             if ($(this).val().trim() === "") {
                 isValid = false;
                 let inputId = $(this).attr('id').concat("-error")
-                $("#" + inputId).text($(this).attr('id').concat(" no puede ir vacio"))
+                $("#" + inputId).text($(this).attr('id').concat(" no puede quedar vacio"))
             }
         })
         return isValid;
@@ -249,15 +302,17 @@
         let selectedItem = $(this).children("option:selected").val();
         if (selectedItem != "none") {
             $.get("/centros/" + selectedItem, function (data, status) {
-                $("#select-centro").empty();
-                $("#select-centro").attr('disabled', false);
+                $("#centro").empty();
+                $("#centro").attr('disabled', false);
+                $("#btnGuardarExpediente").attr('disabled', false);
                 $.each(data, function () {
-                    $("#select-centro").append($("<option></option>").val(this['idcen']).html(this['nombrecen']))
+                    $("#centro").append($("<option></option>").val(this['idcen']).html(this['nombrecen']))
                 });
             });
         } else {
-            $("#select-centro").empty();
-            $("#select-centro").attr('disabled', true);
+            $("#centro").empty();
+            $("#centro").attr('disabled', true);
+            $("#btnGuardarExpediente").attr('disabled', true);
         }
 
 
