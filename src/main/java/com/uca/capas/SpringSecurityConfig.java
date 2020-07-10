@@ -19,6 +19,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import javax.servlet.http.Cookie;
 import java.util.Arrays;
 
 @Configuration
@@ -32,6 +33,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    private SessionRegistry sessionRegistry = null;
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
@@ -61,6 +64,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
+                .addLogoutHandler((request, response, auth) -> {
+                    sessionRegistry().removeSessionInformation(request.getSession().getId());
+                })
                 .permitAll();
 
         http.sessionManagement()
@@ -80,8 +86,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public SessionRegistry sessionRegistry() {
-        SessionRegistry sessionRegistry = new SessionRegistryImpl();
-        return sessionRegistry;
+        if(this.sessionRegistry == null)
+        {
+            this.sessionRegistry = new SessionRegistryImpl();
+        }
+
+        return  this.sessionRegistry;
     }
 
 }
