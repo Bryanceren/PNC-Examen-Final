@@ -113,8 +113,8 @@ public class AdminRestController {
 		TableDTO dataTable = new TableDTO();
 		dataTable.setData(data);
 		dataTable.setDraw(draw);
-		dataTable.setRecordsFiltered((int) materiaService.count());
-		dataTable.setRecordsTotal((int) materiaService.count());
+		dataTable.setRecordsFiltered((int) centroEscolarService.count());
+		dataTable.setRecordsTotal((int) centroEscolarService.count());
 
 		return dataTable;
 	}

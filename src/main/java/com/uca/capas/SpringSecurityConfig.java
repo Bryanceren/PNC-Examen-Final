@@ -57,32 +57,20 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
             .and()
             .logout().permitAll();
-//<<<<<<< HEAD
-             http.cors().and().csrf().disable();
-//=======
+
+        http.cors().and().csrf().disable();
 
         http.sessionManagement()
             .maximumSessions(1)
             .maxSessionsPreventsLogin(true)
             .sessionRegistry(sessionRegistry());
 
-//        http.cors();
-//>>>>>>> origin/master
-
     }
 
     @Autowired
     public void configurerGlobal(AuthenticationManagerBuilder builder) throws Exception {
         PasswordEncoder encoder = passwordEncoder();
-
-//        User.UserBuilder users = User.builder().passwordEncoder(password -> encoder.encode(password));
-//
-//        builder.inMemoryAuthentication()
-//                .withUser(users.username("admin").password("secret").roles("ADMIN"))
-//                .withUser(users.username("coordinador").password("1234").roles("USER"));
-
-//        builder.userDetailsService(authenticationService).passwordEncoder(encoder);
-
+        builder.userDetailsService(authenticationService).passwordEncoder(encoder);
     }
 
     @Bean
@@ -90,6 +78,5 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         SessionRegistry sessionRegistry = new SessionRegistryImpl();
         return sessionRegistry;
     }
-
 
 }

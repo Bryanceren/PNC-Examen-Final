@@ -81,8 +81,6 @@ public class LoginController
     {
         ModelAndView mav = new ModelAndView();
 
-        System.out.println(result);
-
         if(result.hasErrors())
         {
             List<Departamento> departamentos = null;

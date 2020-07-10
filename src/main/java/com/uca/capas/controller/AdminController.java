@@ -6,13 +6,10 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.uca.capas.dao.CentroEscolarDAO;
-import com.uca.capas.domain.CentroEscolar;
-import com.uca.capas.domain.EstudianteMateria;
-import com.uca.capas.domain.Materia;
-import com.uca.capas.domain.Municipio;
-import com.uca.capas.domain.Usuario;
+import com.uca.capas.domain.*;
 import com.uca.capas.service.CentroEscolarService;
 
+import com.uca.capas.service.Departamento.DepartamentoService;
 import com.uca.capas.service.Materia.MateriaService;
 import com.uca.capas.service.Usuario.UsuarioService;
 
@@ -31,18 +28,22 @@ public class AdminController
 	private CentroEscolarService centroEscolarService;
 	@Autowired
     private UsuarioService usuarioService;
-
 	@Autowired
 	private MateriaService materiaService;
+	@Autowired
+	private DepartamentoService departamentoService;
 	@Autowired
 	private CentroEscolarDAO centroDao;
 
 
 	//Centro Escolar
     @RequestMapping("/centros-escolares")
-    public ModelAndView CETable()
+    public ModelAndView CETable(@RequestParam(defaultValue = "false") Boolean exito)
 	{
         ModelAndView mav = new ModelAndView();
+		if(exito){
+			mav.addObject("exito", exito);
+		}
         mav.setViewName("centros-escolares");
         return mav;
     }
@@ -51,15 +52,18 @@ public class AdminController
 	public ModelAndView CEForm()
 	{
 		ModelAndView mav = new ModelAndView();
-		List<Municipio> municipios = null;
+
+		List<Departamento> departamentos = null;
+
 		try {
-			municipios = centroDao.findAllMunicipios();
+			departamentos = departamentoService.findAll();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		mav.addObject("municipios",municipios);
-		mav.addObject("CentroEscolar", new CentroEscolar());
+
+		mav.addObject("departamentos",departamentos);
+		mav.addObject("centroEscolar", new CentroEscolar());
         mav.setViewName("nuevo-centro-escolar");
 		return mav;
 	}
@@ -77,48 +81,52 @@ public class AdminController
 			e.printStackTrace();
 		}
 		mav.addObject("municipios",municipios);
-		mav.addObject("CentroEscolar", centro);
+		mav.addObject("centroEscolar", centro);
 		mav.setViewName("nuevo-centro-escolar");
 		return mav;
 	}
 	
 
 	@RequestMapping(value="/guardar-centro-escolar", method = RequestMethod.POST)
-	public ModelAndView saveCentroEscolar(@Valid @ModelAttribute("CentroEscolar") CentroEscolar c, BindingResult r)
+	public ModelAndView saveCentroEscolar(@Valid @ModelAttribute("centroEscolar") CentroEscolar c, BindingResult r)
 	{
 		ModelAndView mav = new ModelAndView();
-		List<CentroEscolar> municipios2 = null;
-		Boolean estadocen = null;
-		if(c.getEstadocen()==null){
-			estadocen=false;
-			c.setEstadocen(estadocen);
-		}
-		try {
-			municipios2 = centroEscolarService.findAll();
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		mav.addObject("municipios",municipios2);
-		mav.addObject("CentroEscolar", new CentroEscolar());
-		if(r.hasErrors()) {
-			mav.addObject("resultado", 0);
+
+		if(r.hasErrors())
+		{
+			List<Departamento> departamentos = null;
+
+			try {
+				departamentos = departamentoService.findAll();
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+
+			mav.addObject("departamentos",departamentos);
 			mav.setViewName("nuevo-centro-escolar");
+			return mav;
 		}
-		else {
-			Integer key = null;
-			if(c.getIdcen() == null) {
-				mav.addObject("resultado", 1);
-				key = centroEscolarService.insertCentroEscolarAutoId(c);
-			}
-			else {
-				mav.addObject("resultado", 1);
-				centroEscolarService.updateCentroEscolar(c);
-			}
-			mav.addObject("resultado", key);
-			mav.setViewName("centros-escolares");
+
+		if(c.getEstadocen()==null)
+		{
+			c.setEstadocen(false);
 		}
-		
+
+		Integer key = null;
+
+		if(c.getIdcen() == null)
+		{
+			key = centroEscolarService.insertCentroEscolarAutoId(c);
+		}
+		else
+		{
+			centroEscolarService.updateCentroEscolar(c);
+		}
+
+		mav.addObject("exito", true);
+		mav.setViewName("redirect:/centros-escolares");
+
 		return mav;
 	}
 
@@ -151,8 +159,7 @@ public class AdminController
 		usuarioService.updateUser(u);
 		mav.addObject("resultado", key);
 		mav.setViewName("redirect:/usuarios");
-	
-		
+
 		return mav;
 	}
 
@@ -191,8 +198,6 @@ public class AdminController
 	public ModelAndView saveMateria(@Valid @ModelAttribute Materia materia, BindingResult result)
 	{
 		ModelAndView mav = new ModelAndView();
-
-		System.out.println(result);
 
 		if(result.hasErrors())
 		{

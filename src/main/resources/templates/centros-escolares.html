@@ -50,13 +50,22 @@
             <a th:href="@{/nuevo-centro-escolar}" class="d-none d-sm-inline-block btn btn-primary shadow-sm"><i class="fas fa-plus"></i> Nuevo Centro Escolar</a>
           </div>
 
-
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">Grid</h6>
             </div>
             <div class="card-body">
+
+              <th:block th:if="${exito}">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  Centro escolar guardado con exito
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              </th:block>
+
               <div class="table-responsive">
                 <table class="table table-bordered" id="centros-table" width="100%" cellspacing="0">
                   <thead>
@@ -81,13 +90,7 @@
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2020</span>
-          </div>
-        </div>
-      </footer>
+      <footer th:replace="Commons/footer :: footer" />
       <!-- End of Footer -->
 
     </div>

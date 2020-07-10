@@ -20,6 +20,7 @@ public interface CentroEscolarRepository extends JpaRepository<CentroEscolar, In
     @Query(value = "SELECT * from public.municipio", nativeQuery = true)
     public List<Municipio> findAllMunicipios();
 
+    public long count();
 
     @Query(value = "SELECT * from public.centro_escolar where municipio_fk=:fk", nativeQuery = true)
     public List<CentroEscolar> findCentroPorMuni(Integer fk);
