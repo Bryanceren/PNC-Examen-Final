@@ -73,14 +73,18 @@ public class AdminController
 	{
 		ModelAndView mav = new ModelAndView();
 		CentroEscolar centro = centroEscolarService.findOne(id);
-		List<Municipio> municipios = null;
+
+		List<Departamento> departamentos = null;
+
 		try {
-			municipios = centroDao.findAllMunicipios();
+			departamentos = departamentoService.findAll();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		mav.addObject("municipios",municipios);
+
+		mav.addObject("departamentos",departamentos);
+
 		mav.addObject("centroEscolar", centro);
 		mav.setViewName("nuevo-centro-escolar");
 		return mav;
