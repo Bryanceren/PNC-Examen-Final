@@ -11,6 +11,7 @@ import com.uca.capas.service.CentroEscolarService;
 
 import com.uca.capas.service.Departamento.DepartamentoService;
 import com.uca.capas.service.Materia.MateriaService;
+import com.uca.capas.service.MunicipioService;
 import com.uca.capas.service.Usuario.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ public class AdminController
 	private MateriaService materiaService;
 	@Autowired
 	private DepartamentoService departamentoService;
+	@Autowired
+	private MunicipioService municipioService;
 	@Autowired
 	private CentroEscolarDAO centroDao;
 
@@ -73,6 +76,7 @@ public class AdminController
 	{
 		ModelAndView mav = new ModelAndView();
 		CentroEscolar centro = centroEscolarService.findOne(id);
+		Integer deptoId = municipioService.getDeptoByMunicipio(centro.getMunicipiocen().getIdmun());
 
 		List<Departamento> departamentos = null;
 
@@ -85,6 +89,7 @@ public class AdminController
 
 		mav.addObject("departamentos",departamentos);
 
+		mav.addObject("deptoId", deptoId);
 		mav.addObject("centroEscolar", centro);
 		mav.setViewName("nuevo-centro-escolar");
 		return mav;
@@ -99,6 +104,7 @@ public class AdminController
 		if(r.hasErrors())
 		{
 			List<Departamento> departamentos = null;
+			Integer deptoId = null;
 
 			try {
 				departamentos = departamentoService.findAll();
@@ -107,6 +113,11 @@ public class AdminController
 				e.printStackTrace();
 			}
 
+			if(c.getIdcen() != null){
+				deptoId = municipioService.getDeptoByMunicipio(c.getMunicipiocen().getIdmun());
+			}
+
+			mav.addObject("deptoId",deptoId);
 			mav.addObject("departamentos",departamentos);
 			mav.setViewName("nuevo-centro-escolar");
 			return mav;

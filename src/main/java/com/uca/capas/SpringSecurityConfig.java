@@ -48,30 +48,27 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-            .antMatchers( "/register", "/crear-usuario", "/css/**", "/js/**", "/img/**", "/vendor/**").permitAll()
-            .antMatchers("/").hasAnyRole("ADMIN", "USER")
-            .anyRequest().authenticated()
-
-            .and()
+                .antMatchers("/register", "/crear-usuario", "/css/**", "/js/**", "/img/**", "/vendor/**").permitAll()
+                .antMatchers("/").hasAnyRole("ADMIN", "USER")
+                .anyRequest().authenticated()
+                .and()
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/", true)
                 .permitAll()
-            .and()
-            .logout().permitAll();
-
-        http.cors().and().csrf().disable();
+                .and()
+                .logout()
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .permitAll();
 
         http.sessionManagement()
             .maximumSessions(1)
             .maxSessionsPreventsLogin(true)
             .sessionRegistry(sessionRegistry());
 
-
-//        http.cors();
         http.cors().and().csrf().disable();
-//>>>>>>> origin/maste
-// r
 
     }
 
@@ -79,7 +76,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configurerGlobal(AuthenticationManagerBuilder builder) throws Exception {
         PasswordEncoder encoder = passwordEncoder();
         builder.userDetailsService(authenticationService).passwordEncoder(encoder);
-
     }
 
     @Bean

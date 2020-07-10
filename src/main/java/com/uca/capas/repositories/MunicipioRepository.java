@@ -12,4 +12,7 @@ public interface MunicipioRepository  extends JpaRepository<Municipio,Integer> {
     List<Object[]> muncicipioDTO(Integer dptoId) throws DataAccessException;
 
     List<Municipio> findAll();
+
+    @Query(nativeQuery = true, value="select m.departamento_fk from municipio m where m.id = :municipioId")
+    Integer getDeptoByMunicipio(Integer municipioId);
 }

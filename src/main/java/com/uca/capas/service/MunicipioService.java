@@ -9,4 +9,5 @@ import java.util.List;
 public interface MunicipioService {
     List<MunicipioDTO> municipioDTO(Integer dptoId) throws DataAccessException;
     List<Municipio> findAll() throws DataAccessException;
+    Integer getDeptoByMunicipio(Integer municipioId) throws DataAccessException;
 }

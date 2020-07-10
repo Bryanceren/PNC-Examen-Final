@@ -29,4 +29,9 @@ public class MunicipioServiceImpl implements MunicipioService{
     public List<Municipio> findAll() throws DataAccessException {
         return municipioRepository.findAll();
     }
+
+    @Override
+    public Integer getDeptoByMunicipio(Integer municipioId) throws DataAccessException {
+        return municipioRepository.getDeptoByMunicipio(municipioId);
+    }
 }

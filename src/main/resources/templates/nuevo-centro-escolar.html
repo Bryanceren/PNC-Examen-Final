@@ -162,7 +162,33 @@
     $(document).ready(function()
     {
       let departamentos = [[${departamentos}]];
+
       $('#li-centros-escolares').addClass("active");
+
+      let idCent = [[${centroEscolar.idcen}]];
+
+      if(idCent != null){
+
+        let municipioCen = [[${centroEscolar.municipiocen}]];
+        let deptoId = [[${deptoId}]];
+
+        $("#departamento").val(deptoId).trigger('change');
+
+        let depto = departamentos.find( depto => depto.id_depto == deptoId);
+
+        $('#municipio').empty();
+
+        $.each(depto.municipios, function(key, value)
+        {
+          $('#municipio').append($('<option></option>')
+                  .attr('value', value.idmun)
+                  .text(value.nombremun));
+        });
+
+        $("#municipio").val(municipioCen.idmun).trigger('change');
+
+      }
+
 
       $('#departamento').change(function()
       {
