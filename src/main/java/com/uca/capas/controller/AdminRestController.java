@@ -144,10 +144,11 @@ public class AdminRestController {
 				u.getId().toString(),
 				u.getNombre(),
 				u.getApellido(),
+				u.getUsername(),
 				age.toString(),
 				formatter2.format(u.getFechaNacimiento()),
 				u.getDireccion(),
-				u.getRole(),
+				u.getRole().equals("ROLE_ADMIN")? "Administrador" : "Coordinador",
 				u.getEstado() == true ? "Activo" : "Inactivo",
 			});
 		}
