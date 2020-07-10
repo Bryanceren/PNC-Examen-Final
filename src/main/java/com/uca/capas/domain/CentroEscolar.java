@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -30,12 +31,18 @@ public class CentroEscolar {
 	@Transient
 	private Departamento departamento;
 	
-	@JsonIgnore 
 	@JoinColumn(name = "municipio_fk")
+<<<<<<< HEAD
 	@NotNull(message = "Campo Obligatorio")
 	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Municipio municipiocen;
 	
+=======
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Municipio municipiocen;
+
+
+>>>>>>> rama-dona
 	public CentroEscolar() {
 	}
 
@@ -83,7 +90,14 @@ public class CentroEscolar {
 		return departamento;
 	}
 
+<<<<<<< HEAD
 	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
 	}
+=======
+	
+	
+
+
+>>>>>>> rama-dona
 }

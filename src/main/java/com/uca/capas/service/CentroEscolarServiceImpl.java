@@ -1,12 +1,9 @@
 package com.uca.capas.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
-import javax.persistence.StoredProcedureQuery;
 
 import com.uca.capas.dao.CentroEscolarDAO;
 import com.uca.capas.domain.CentroEscolar;
@@ -59,6 +56,11 @@ public class CentroEscolarServiceImpl implements CentroEscolarService {
 	@Override
 	public List<CentroEscolar> findfindCentroPorMuni(Integer fk) {
 		return CentroEscolarRepository.findCentroPorMuni(fk);
+	}
+
+	@Override
+	public CentroEscolar findByIdcen(Integer code) {
+		return CentroEscolarRepository.findByIdcen(code);
 	}
 
 	public Page<CentroEscolar> findAll(Pageable page) throws DataAccessException {

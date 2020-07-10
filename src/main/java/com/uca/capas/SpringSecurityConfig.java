@@ -2,6 +2,7 @@ package com.uca.capas;
 
 import com.uca.capas.service.Authentication.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -50,8 +51,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers( "/register", "/crear-usuario", "/css/**", "/js/**", "/img/**", "/vendor/**").permitAll()
             .antMatchers("/").hasAnyRole("ADMIN", "USER")
             .anyRequest().authenticated()
+
             .and()
-            .formLogin()
+                .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/", true)
                 .permitAll()
@@ -65,12 +67,19 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .maxSessionsPreventsLogin(true)
             .sessionRegistry(sessionRegistry());
 
+
+//        http.cors();
+        http.cors().and().csrf().disable();
+//>>>>>>> origin/maste
+// r
+
     }
 
     @Autowired
     public void configurerGlobal(AuthenticationManagerBuilder builder) throws Exception {
         PasswordEncoder encoder = passwordEncoder();
         builder.userDetailsService(authenticationService).passwordEncoder(encoder);
+
     }
 
     @Bean

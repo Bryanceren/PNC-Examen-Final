@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 public interface EstudianteService {
 
     public Estudiante findOne(Integer codigo) throws DataAccessException;
+    Estudiante findOneQuery(Integer code) throws DataAccessException;
 
     public List<EstudianteMateria> getEstuList(Integer codigo);
 
@@ -17,5 +18,5 @@ public interface EstudianteService {
 
     public void saveEstu(EstudianteMateria estumate) throws DataAccessException;
     Estudiante saveAndFlush(Estudiante e) throws DataAccessException;
-
+    void updateEstudiente(Integer codigo,Estudiante e) throws DataAccessException;
 }

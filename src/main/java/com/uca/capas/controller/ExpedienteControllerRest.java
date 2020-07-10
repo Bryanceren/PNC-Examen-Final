@@ -12,7 +12,9 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Secured("ROLE_USER")
@@ -48,11 +50,23 @@ ExpedienteControllerRest {
             return estudianteService.saveAndFlush(estudiante);
 //        }catch (Exception e){
 //            e.printStackTrace();
-//            return null;
 
 //        }
     }
-
+    @GetMapping("/expediente/{id}")
+    public Estudiante getExpediente(@PathVariable(name = "id") Integer id){
+        return estudianteService.findOneQuery(id);
+    }
+    @PostMapping("actualizar/{id}")
+    public ResponseEntity<Object> actualizarExpediente(
+            @PathVariable(name = "id") Integer id,
+            @RequestBody @Valid Estudiante estudiante
+    ){
+        Map<String, Object> body = new LinkedHashMap<>();
+        estudianteService.updateEstudiente(id,estudiante);
+        body.put("result","ok!");
+        return new ResponseEntity<>(body,HttpStatus.OK);
+    }
 
 
 }

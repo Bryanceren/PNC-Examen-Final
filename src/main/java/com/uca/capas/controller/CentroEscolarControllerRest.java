@@ -20,4 +20,9 @@ public class CentroEscolarControllerRest {
     List<CentroEscolar> findCentrosPorMuni(@PathVariable(name = "id") Integer fk){
         return centroEscolarService.findfindCentroPorMuni(fk);
     }
+
+    @GetMapping("/centro/{id}")
+    CentroEscolar findOneCentro(@PathVariable(name = "id") Integer fk){
+        return centroEscolarService.findByIdcen(fk);
+    }
 }
