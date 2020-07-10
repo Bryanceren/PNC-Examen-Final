@@ -1,19 +1,11 @@
 package com.uca.capas.domain;
 
-<<<<<<< HEAD
-=======
 import org.springframework.format.annotation.DateTimeFormat;
->>>>>>> rama-dona
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-<<<<<<< HEAD
-
 import org.springframework.format.annotation.DateTimeFormat;
-
-=======
->>>>>>> rama-dona
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;

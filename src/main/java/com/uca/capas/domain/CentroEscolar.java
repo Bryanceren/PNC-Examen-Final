@@ -32,17 +32,11 @@ public class CentroEscolar {
 	private Departamento departamento;
 	
 	@JoinColumn(name = "municipio_fk")
-<<<<<<< HEAD
 	@NotNull(message = "Campo Obligatorio")
 	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Municipio municipiocen;
 	
-=======
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Municipio municipiocen;
 
-
->>>>>>> rama-dona
 	public CentroEscolar() {
 	}
 
@@ -90,14 +84,11 @@ public class CentroEscolar {
 		return departamento;
 	}
 
-<<<<<<< HEAD
 	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
 	}
-=======
-	
+
 	
 
 
->>>>>>> rama-dona
 }
