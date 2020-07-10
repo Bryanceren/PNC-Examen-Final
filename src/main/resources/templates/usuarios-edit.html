@@ -70,7 +70,6 @@
               <input type="hidden" name="role" class="form-control" th:field="*{role}" />
               <input type="hidden" name="departamento" class="form-control" th:field="*{departamento}" />
               <input type="hidden" name="municipio" class="form-control" th:field="*{municipio}" />
-              <input type="hidden" name="estado" class="form-control" th:field="*{estado}" />
                 <div class="card shadow mb-4">
                   <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Grid</h6>
@@ -88,6 +87,21 @@
                           <th>Estado</th>
                         </tr>
                         </thead>
+                        <tr>
+                          <td th:text="${Usuario.id}" style="width: 50px" class="text-center">Accion</td>
+                          <td th:text="${Usuario.id}" style="width: 50px" class="text-center">Id</td>
+                          <td th:text="${Usuario.nombre}">Nombre</td>
+                          <td th:text="${Usuario.apellido}">Apellido</td>
+                          <td th:text="${Usuario.role}" style="width: 70px">Rol</td>
+                          <td style="width: 70px">
+                            <div class="form-check pt-4">
+                              <input class="form-check-input" type="checkbox" value="${Usuario.estado}" th:field="*{estado}" th:checked="${Usuario.estado}" id="estado">
+                              <label class="form-check-label" for="estado" required>
+                                Estado (Activo/Iactivo)
+                              </label>
+                            </div>
+                          </td>
+                        </tr>
                       </table>
                     </div>
                   </div>
@@ -143,49 +157,6 @@
       vertical-align: center!important;
     }
   </style>
-
-  <script type="text/javascript">
-    $(document).ready(function()
-    {
-      $('#li-usuarios').addClass("active");
-
-      let table = $('#usuarios-table').DataTable( {
-        "processing": true,
-        "serverSide": true,
-        "ajax": "./get-usuarios",
-        "language": {
-          "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-        },
-        "pageLength": 5,
-        "columnDefs": [
-          {
-          "targets": 0,
-          "className": "text-center",
-          },
-          {
-            "targets": 1,
-            "className": "text-center"
-          },
-          {
-            "targets":5,
-            "className": "text-center",
-            "data": null,
-            "defaultContent": "<input type='checkbox' class='checkbox' name='estadox'>"
-          }
-        ]
-      });
-      $('#usuarios-table tbody').on( 'click', '.checkbox', function () {
-        if($('#estado').is(":checked")){
-          $("#estado").prop("checked", false);
-        }else{
-          $("#estado").prop("checked", true);
-        }
-        
-      } );
-      
-     
-    });
-  </script>
 
 </body>
 
