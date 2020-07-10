@@ -1,7 +1,10 @@
 package com.uca.capas.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import com.uca.capas.domain.CentroEscolar;
@@ -128,14 +131,22 @@ public class AdminRestController {
 		Page<Usuario> usuarios = usuarioService.findAll(PageRequest.of(start/length, length, Sort.by(Sort.Direction.ASC, "id")));
 
 		List<String[]> data = new ArrayList<>();
-
+		                                                    
 		for(Usuario u : usuarios)
 		{
+			DateFormat formatter = new SimpleDateFormat("yyyyMMdd");                           
+			DateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");                           
+			int d1 = Integer.parseInt(formatter.format(u.getFechaNacimiento()));                            
+			int d2 = Integer.parseInt(formatter.format(new Date()));                          
+			Integer age = (d2 - d1) / 10000;   
 			data.add(new String[] {
 				u.getId().toString(),
 				u.getId().toString(),
 				u.getNombre(),
 				u.getApellido(),
+				age.toString(),
+				formatter2.format(u.getFechaNacimiento()),
+				u.getDireccion(),
 				u.getRole(),
 				u.getEstado() == true ? "Activo" : "Inactivo",
 			});

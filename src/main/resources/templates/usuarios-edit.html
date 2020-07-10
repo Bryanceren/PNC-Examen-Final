@@ -83,6 +83,8 @@
                           <th style="width: 50px" class="text-center">Id</th>
                           <th>Nombre</th>
                           <th>Apellido</th>
+                          <th>Fecha de Nacimiento</th>
+                          <th>Direccion</th>
                           <th style="width: 70px">Rol</th>
                           <th>Estado</th>
                         </tr>
@@ -92,6 +94,8 @@
                           <td th:text="${Usuario.id}" style="width: 50px" class="text-center">Id</td>
                           <td th:text="${Usuario.nombre}">Nombre</td>
                           <td th:text="${Usuario.apellido}">Apellido</td>
+                          <td th:text="${Usuario.fechaNacimiento}">fechaNacimiento</td>
+                          <td th:text="${Usuario.direccion}">Direccion</td>
                           <td th:text="${Usuario.role}" style="width: 70px">Rol</td>
                           <td style="width: 70px">
                             <div class="form-check pt-4">
