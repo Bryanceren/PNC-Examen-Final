@@ -1,10 +1,10 @@
 package com.uca.capas.domain;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
@@ -19,6 +19,7 @@ public class Estudiante {
     private Integer idEstudiante;
 
     @OneToMany(mappedBy = "estudiante")
+    @JsonBackReference
     private List<EstudianteMateria> estumate;
 
     @NotBlank(message = "nombres no puede quedar vacio")

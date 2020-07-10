@@ -88,6 +88,8 @@
                 <div class="modal-body">
                     <div class="card mb-4">
                         <div class="card-body">
+                            <p th:text="${idEstudiante}" id="idEstudiante" class="d-none"></p>
+                            <p id="idEstudianteCentro" class="d-none"></p>
                             <div class="form-group">
                                 <label for="nombres">Nombres</label>
                                 <input type="text" class="form-control" id="nombres"
@@ -143,7 +145,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="carnet-minoridad">Direcion</label>
-                                <input type="text"  class="form-control"
+                                <input type="text" class="form-control"
                                        id="direccion" placeholder="Direccion del estudiante">
                                 <small id="direccion-error" class="form-text text-danger"></small>
                             </div>
@@ -165,9 +167,6 @@
                                 <input type="submit" class="btn btn-success"
                                        id="btnGuardarExpediente"
                                        value="Guardar Expediente">
-                                <input class="btn btn-info"
-                                       id="btnLimpiar"
-                                       value="Limpiar">
                                 <input class="btn btn-warning"
                                        id="btnRegresar"
                                        value="Regresar">
@@ -212,11 +211,10 @@
 <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
 <script>
-    $("#btnLimpiar").on("click",function(e){
-        e.preventDefault();
-        limpiarCampos();
-    })
-    $("#btnRegresar").on('click',(e)=>{
+    fillMunicipioCombo();
+    obtenerDatosEstudiante();
+
+    $("#btnRegresar").on('click', (e) => {
         e.preventDefault()
         window.location.replace("http://localhost:8000/expediente");
 
@@ -224,56 +222,56 @@
     $("#centro").attr('disabled', true);
     $("#btnGuardarExpediente").attr('disabled', true);
 
-    fillMunicipioCombo();
 
     $("#btnGuardarExpediente").on('click', function (e) {
         e.preventDefault();
         // if (areAllInputsFilled()) {
-            let data = {
-                nombre: $("#nombres").val(),
-                apellido: $("#apellidos").val(),
-                carnetMinoridad: $("#carnet-minoridad").val(),
-                fechaNacimiento: $("#fecha-nacimiento").val(),
-                direccion: $("#direccion").val(),
-                telefonoFijo: $("#telefono-fijo").val(),
-                telefonoMovil: $("#telefono-movil").val(),
-                nombrePadre: $("#nombre-padre").val(),
-                nombreMadre: $("#nombre-madre").val(),
-                centroFk: $("#centro").val()
-            }
+        let data = {
+            nombre: $("#nombres").val(),
+            apellido: $("#apellidos").val(),
+            carnetMinoridad: $("#carnet-minoridad").val(),
+            fechaNacimiento: $("#fecha-nacimiento").val(),
+            direccion: $("#direccion").val(),
+            telefonoFijo: $("#telefono-fijo").val(),
+            telefonoMovil: $("#telefono-movil").val(),
+            nombrePadre: $("#nombre-padre").val(),
+            nombreMadre: $("#nombre-madre").val(),
+            centroFk: $("#centro").val()
+        }
 
 
-            $.ajax({
-                url:"/expediente",
-                type:"POST",
-                data:JSON.stringify(data),
-                contentType:"application/json",
-                success: function(e){
-                    alert("Expediente agregado exitosamente");
+        $.ajax({
+            url: "/expediente",
+            type: "POST",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            success: function (e) {
+                alert("Expediente agregado exitosamente");
+                $(".text-danger").text("");
+                limpiarCampos();
+                window.location.replace("http://localhost:8000/expediente");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                if (jqXHR.responseJSON.status === 400) {
                     $(".text-danger").text("");
-                    limpiarCampos();
-                    window.location.replace("http://localhost:8000/expediente");
-                },
-                error:function( jqXHR,  textStatus, errorThrown ){
-                    if(jqXHR.responseJSON.status === 400){
-                        $(".text-danger").text("");
 
-                        jqXHR.responseJSON.errors.forEach(el=>{
-                            $("#"+el.replace(/ .*/,'')+"-error").text($("#"+el.replace(/ .*/,'')).attr('id').concat(" no puede quedar vacio y en caso de ser telefono o carnet de minoridad ser de longitud de 9 caracteres"))
-                        })
-                    }
-                    else if (jqXHR.responseJSON.status === 500){
-                        alert("Ha ocurrido un error, verificar si hay datos repetidos, mensaje: \n"+jqXHR.responseJSON.message)
-                    }
+                    jqXHR.responseJSON.errors.forEach(el => {
+                        $("#" + el.replace(/ .*/, '') + "-error").text($("#" + el.replace(/ .*/, '')).attr('id').concat(" no puede quedar vacio y en caso de ser telefono o carnet de minoridad ser de longitud de 9 caracteres"))
+                    })
+                } else if (jqXHR.responseJSON.status === 500) {
+                    alert("Ha ocurrido un error, verificar si hay datos repetidos, mensaje: \n" + jqXHR.responseJSON.message)
                 }
-            })
+            }
+        })
         // }
     });
-    function limpiarCampos(){
+
+    function limpiarCampos() {
         $("input[type=text]").each(function () {
             $(this).val("")
         })
     }
+
     function areAllInputsFilled() {
         let isValid = true;
         $("input[type=text]").each(function () {
@@ -296,6 +294,43 @@
                 $("#select-municipio").append($("<option></option>").val(this['idmun']).html(this['nombremun']))
             })
         });
+    }
+
+    function obtenerDatosEstudiante() {
+
+        $.ajax({
+            url: "/expediente/" + $("#idEstudiante").text(),
+            type: "GET",
+            contentType: "application/json",
+            success: function (e) {
+                console.log(e)
+                $("#nombres").val(e["nombre"])
+                $("#apellidos").val(e["apellido"])
+                $("#carnet-minoridad").val(e["carnetMinoridad"])
+                $("#fecha-nacimiento").val(e["fechaNacimiento"])
+                $("#nombre-padre").val(e["nombrePadre"])
+                $("#nombre-madre").val(e["nombreMadre"])
+                $("#telefono-fijo").val(e["telefonoFijo"])
+                $("#telefono-movil").val(e["telefonoMovil"])
+                $("#direccion").val(e["direccion"])
+                $("#idEstudianteCentro").text(e["centroFk"])
+                $.ajax({
+                    url: "/centro/" + e["centroFk"],
+                    type: "GET",
+                    contentType: "application/json",
+                    success: function (e) {
+                        $("#select-municipio").val(e['municipiocen']['idmun'])
+                        $("#select-municipio").change()
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(jqXHR);
+                    }
+                })
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+            }
+        })
     }
 
     $("#select-municipio").on('change', function () {

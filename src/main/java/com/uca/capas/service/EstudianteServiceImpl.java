@@ -27,6 +27,11 @@ public class EstudianteServiceImpl implements EstudianteService {
     }
 
     @Override
+    public Estudiante findOneQuery(Integer code) throws DataAccessException {
+        return estu.findEstudianteById(code);
+    }
+
+    @Override
     public EstudianteMateria findOnes(Integer codigo) throws DataAccessException {
         return estudianteRepository.findEstuMatId(codigo);
     }

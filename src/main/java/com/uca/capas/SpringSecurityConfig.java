@@ -2,6 +2,7 @@ package com.uca.capas;
 
 import com.uca.capas.service.Authentication.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -50,8 +51,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers( "/register", "/crear-usuario", "/css/**", "/js/**", "/img/**", "/vendor/**").permitAll()
             .antMatchers("/").hasAnyRole("ADMIN", "USER")
             .anyRequest().authenticated()
+
             .and()
-            .formLogin()
+                .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/", true)
                 .permitAll()
@@ -66,8 +68,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .maxSessionsPreventsLogin(true)
             .sessionRegistry(sessionRegistry());
 
-        http.cors();
-//>>>>>>> origin/master
+//        http.cors();
+        http.cors().and().csrf().disable();
+//>>>>>>> origin/maste
+// r
 
     }
 
@@ -75,11 +79,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configurerGlobal(AuthenticationManagerBuilder builder) throws Exception {
         PasswordEncoder encoder = passwordEncoder();
 
-//        User.UserBuilder users = User.builder().passwordEncoder(password -> encoder.encode(password));
-//
-//        builder.inMemoryAuthentication()
-//                .withUser(users.username("admin").password("secret").roles("ADMIN"))
-//                .withUser(users.username("coordinador").password("1234").roles("USER"));
+        User.UserBuilder users = User.builder().passwordEncoder(password -> encoder.encode(password));
+
+        builder.inMemoryAuthentication()
+                .withUser(users.username("admin").password("secret").roles("ADMIN"))
+                .withUser(users.username("coordinador").password("1234").roles("USER"));
 
 //        builder.userDetailsService(authenticationService).passwordEncoder(encoder);
 

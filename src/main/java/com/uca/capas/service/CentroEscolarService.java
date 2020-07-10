@@ -31,6 +31,8 @@ public interface CentroEscolarService {
 	public List<Municipio> findAllMunicipios();
 
 	List<CentroEscolar> findfindCentroPorMuni(Integer fk);
+	CentroEscolar findByIdcen(Integer code);
+
 
 
 

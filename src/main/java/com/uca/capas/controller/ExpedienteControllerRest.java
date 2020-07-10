@@ -48,9 +48,12 @@ ExpedienteControllerRest {
             return estudianteService.saveAndFlush(estudiante);
 //        }catch (Exception e){
 //            e.printStackTrace();
-//            return null;
 
 //        }
+    }
+    @GetMapping("/expediente/{id}")
+    public Estudiante getExpediente(@PathVariable(name = "id") Integer id){
+        return estudianteService.findOneQuery(id);
     }
 
 

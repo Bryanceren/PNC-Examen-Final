@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -37,12 +38,11 @@ public class CentroEscolar {
 	@Column(name = "estado")
 	private Boolean estadocen;
 	
-	@JsonIgnore 
 	@JoinColumn(name = "municipio_fk")
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Municipio municipiocen;	
+	private Municipio municipiocen;
 
-	
+
 	public CentroEscolar() {
 	}
 
@@ -91,6 +91,6 @@ public class CentroEscolar {
 
 	
 	
-	
-	
+
+
 }

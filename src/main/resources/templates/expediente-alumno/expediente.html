@@ -233,8 +233,7 @@
             });
             $('#expediente-table tbody').on('click', '#btnLupa', function (e) {
                 let data = tabla.row($(this).parent().parent()).data();
-                console.log(data["id"]);
-
+                window.location.replace("http://localhost:8000/editar-expediente?id="+data["id"]);
 
             });
             $('#expediente-table tbody').on('click', '#btnLapiz', function (e) {

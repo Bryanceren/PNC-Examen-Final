@@ -5,6 +5,7 @@ import java.util.List;
 import com.uca.capas.domain.CentroEscolar;
 import com.uca.capas.domain.Municipio;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,5 +24,9 @@ public interface CentroEscolarRepository extends JpaRepository<CentroEscolar, In
     public List<CentroEscolar> findCentroPorMuni(Integer fk);
 
     public List<CentroEscolar> findAll(Sort sort);
+
+    CentroEscolar findByIdcen(Integer code);
+
+
 
 }
