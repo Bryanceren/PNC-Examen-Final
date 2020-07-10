@@ -54,17 +54,6 @@ public class CoordinadorController {
 		return mav;
     }
 
-    //buscar estudiante materias-cursadas
-    @RequestMapping("/buscarEstudiante")
-    public ModelAndView buscarEstu(@RequestParam Integer codigo) {
-        ModelAndView mav = new ModelAndView();
-        List<EstudianteMateria> estudiantes = estudianteService.getEstuList(codigo);
-        mav.addObject("estudiantes", estudiantes);
-        mav.setViewName("materias-cursadas");
-
-        return mav;
-    }
-
     @RequestMapping("/guardarNota")
     public ModelAndView guardarNota(@Valid @ModelAttribute EstudianteMateria estudianteMateria, BindingResult result) {
         ModelAndView mav = new ModelAndView();  
@@ -93,8 +82,8 @@ public class CoordinadorController {
 	public ModelAndView MateriaEdit(@RequestParam Integer id, @RequestParam Integer id2)
 	{
 		ModelAndView mav = new ModelAndView();
-        EstudianteMateria e = estudianteService.findOnes(id);
-        Estudiante es = estudianteService.findOne(id2);
+        EstudianteMateria e = estudianteService.findOnes(id2);
+        Estudiante es = estudianteService.findOne(id);
         List<Materia> materias = null;
         try {
             materias = materiaService.findAllMaterias();

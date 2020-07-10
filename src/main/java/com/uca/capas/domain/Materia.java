@@ -3,11 +3,17 @@ package com.uca.capas.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.List;
 
 @SuppressWarnings("ALL")
 @Entity
 @Table(schema = "public", name = "materia")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Materia {
 
     @Id
@@ -26,6 +32,10 @@ public class Materia {
     @NotNull(message = "Campo obligatorio")
     @Column(name = "estado")
     private Boolean estado;
+
+    @OneToMany(mappedBy = "materia")
+    @JsonBackReference
+    private List<EstudianteMateria> estumate;
 
     public Materia() { }
 
@@ -61,12 +71,12 @@ public class Materia {
         this.estado = estado;
     }
 
-//    public List<EstudianteMateria> getEstumate() {
-//        return estumate;
-//    }
-//
-//    public void setEstumate(List<EstudianteMateria> estumate) {
-//        this.estumate = estumate;
-//    }
+    public List<EstudianteMateria> getEstumate() {
+        return estumate;
+    }
+
+    public void setEstumate(List<EstudianteMateria> estumate) {
+        this.estumate = estumate;
+    }
 
 }

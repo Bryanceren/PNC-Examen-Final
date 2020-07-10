@@ -89,16 +89,24 @@
             <!--end modal-->
             </div>
 
-            <div class="card-body">
-              <p class="mb-0">B&uacute;squeda codigo estudiante</p>
-              <form method="post" th:action="@{/buscarEstudiante}" th:object="${estudiante}" target="_self">
-                <div class="form-group">
-                  <input class="form-control py-4" id="codigo" type="text" placeholder="Codigo estudiante" style="width: 400px" name="codigo" />
-                </div>
-                <div class="form-group"><input type="submit" class="btn btn-primary" value="Buscar Estudiante"></a></div>
-                </form>
-            </div>
-            <th:block th:if="${exito}">
+          <div class="modal-body">
+              <div class="card mb-4">
+                  <div class="card-body">
+                      <p class="mb-0">C&oacute;digo del estudiante</p><br/>
+                      <div class="form-group">
+                          <input class="form-control py-4" id="valor" type="text" placeholder="Codigo del estudiante"
+                                 style="width: 400px" name="valor"/>
+                      </div>
+
+                      <div class="form-group">
+                          <input type="submit" class="btn btn-primary"
+                                 id="btnBuscarEstudiante"
+                                 value="Buscar Estudiante">
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <th:block th:if="${exito}">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                   Materia guardada con exito
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -106,37 +114,33 @@
                   </button>
                 </div>
               </th:block>
-            <div class="card mb-3">
-              <div class="card-header">
-                Materias cursadas por alumno
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Grid</h6>
               </div>
               <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-bordered text-center" width="100%" cellspacing="0">
-                    <thead>
-                      <tr>
-                        <th>Acción</th>
-                        <th>Nombre</th>
-                        <th>Año</th>
-                        <th>Ciclo</th>
-                        <th>Nota</th>
-                        <th>Resultado</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr th:each="v : ${estudiantes}">
-                        <td><a th:href="@{/editar(id=${v.id},id2=${v.estudiante.idEstudiante})}" class='btn btn-info btn-circle btn-sm' title='Editar'><i class='fa fa-pencil-alt'></i></a></td>
-                        <td th:text="${v.materia.nombre}"></td>
-                        <td th:text="${v.anio}"></td>
-                        <td th:text="${v.ciclo}"></td>
-                        <td th:text="${v.nota}"></td>
-                        <td th:text="${v.notaDelegate}"></td>
-                      </tr>
-                    </tbody>
-                    </table>
-               </div>
-              
+                  <div class="table-responsive">
+                      <table class="table table-bordered display text-center" id="estumate-table">
+                          <thead>
+                          <tr>
+                              <th>Acci&oacute;n</th>
+                              <th>Materia</th>
+                              <th>Año</th>
+                              <th>Ciclo</th>
+                              <th>Nota</th>
+                              <th>Resultado</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+
+                          </tbody>
+                      </table>
+                  </div>
               </div>
+          </div>
+
+              
           <!-- /.container-fluid -->
         </div>
         <!-- End of Main Content -->
@@ -179,5 +183,58 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
+    <script>
+
+      let tabla = null;
+      let firstTimeLoadingTable = true;
+  
+      $("#btnBuscarEstudiante").on('click', function (e) {
+          e.preventDefault();
+  
+          if (firstTimeLoadingTable) {
+              tabla = returnEstumateDataTable();
+              firstTimeLoadingTable = false;
+          } else {
+              tabla.destroy();
+              tabla = returnEstumateDataTable();
+          }
+  
+      })
+  
+      function returnEstumateDataTable() {
+          let valorBusqueda = $("#valor").val().trim();
+  
+          if (valorBusqueda === "") {
+              alert("Favor poner un parametro de busqueda")
+          } else {
+              let dtables = $("#estumate-table").DataTable({
+                  'ajax': {
+                      'url': "http://localhost:8000/materias-cursadas",
+                      'type': "POST",
+                      'data': {param: valorBusqueda},
+                      "pageLength": 5
+                  },
+                  "columns": [
+                      {
+                          "data": null,
+                          "defaultContent": "<button class='btn btn-info btn-circle btn-sm' title='Editar'><i class='fa fa-pencil-alt'></i></button>"
+                      },
+                      {"data": 'materia.nombre' },
+                      {"data": "anio"},
+                      {"data": "ciclo"},
+                      {"data": "nota"},
+                      {"data": "notaDelegate"}
+                  ]
+  
+              });
+              $('#estumate-table tbody').on( 'click', 'button', function () {
+                  var data = tabla.row( $(this).parent() ).data();
+                  location.href = './editar?id=' + data["estudiante"]["idEstudiante"] + '&id2=' + data["id"];
+              });
+  
+              return dtables;
+          }
+      }  
+  </script>
   </body>
 </html>
